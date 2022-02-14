@@ -2,7 +2,7 @@
 import Fondo from '../assets/img.svg';
 import IconUser from '../assets/user.svg';
 
-export default function LoginPage() {
+const LoginPage = () => {
   return (
     <>
     <div className="grid grid-cols-5 bg-indigo-600 ">
@@ -99,3 +99,4 @@ export default function LoginPage() {
     </>
   )}
 
+export default LoginPage;
