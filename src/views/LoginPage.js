@@ -1,19 +1,4 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+
 import Fondo from '../assets/img.svg';
 import IconUser from '../assets/user.svg';
 
@@ -108,12 +93,6 @@ export default function LoginPage() {
       </div>
       <div
         className="col-span-full top-0 w-full h-24 bg-gray-900"
-        // {style={{
-        //   backgroundImage:
-        //     "url(" + require("assets/img/register_bg_2.png").default + ")",
-        //   backgroundSize: "100%",
-        //   backgroundRepeat: "no-repeat"
-        // }}}
       ></div>
     </div>
       
