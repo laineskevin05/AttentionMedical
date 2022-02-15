@@ -10,7 +10,7 @@ const LoginPage = () => {
             <img src={Fondo} alt="Logo" />
           </div>
         </div>
-        <div className="col-span-2 bg-gray-100 content-center break-words place-items-center pt-16">
+        <div className="col-span-2 bg-stone-200 content-center break-words place-items-center pt-16">
           <div className="mb-4">
             <div className="grid w-full place-items-center">
               <img
@@ -33,7 +33,7 @@ const LoginPage = () => {
                 </label>
                 <input
                   type="email"
-                  className="mt-1 border-0 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
+                  className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Correo"
                   style={{ transition: "all .15s ease" }}
                 />
@@ -44,7 +44,7 @@ const LoginPage = () => {
                 </label>
                 <input
                   type="password"
-                  className="mt-1 border-0 py-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
+                  className="mt-1 border-0 py-3 px-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
                   placeholder="Contraseña"
                   style={{ transition: "all .15s ease" }}
                 />
@@ -78,7 +78,7 @@ const LoginPage = () => {
                   Olvidaste tu Contraseña?
                 </a>
               </div>
-              <div className="font-bold text-gray-700">
+              <div className="text-sm font-bold text-gray-700">
                 <a href="#pp" onClick={(e) => e.preventDefault()}>
                   Registrarse
                 </a>
