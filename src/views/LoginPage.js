@@ -1,5 +1,5 @@
-import Fondo from "../assets/img.svg";
-import IconUser from "../assets/user.svg";
+import Fondo from "../assets/images/img.svg";
+import IconUser from "../assets/images/user.svg";
 
 const LoginPage = () => {
   return (
