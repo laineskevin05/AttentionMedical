@@ -21,7 +21,7 @@ const RegisterPage = () => {
             <img src={Fondo} alt="Logo" />
           </div>
         </div>
-        <div className="col-span-2 bg-gray-100 content-center break-words place-items-center pt-16">
+        <div className="col-span-2 bg-stone-200 content-center break-words place-items-center pt-6">
           <div className="mb-4">
             <div className="grid w-full place-items-center">
               <img
@@ -32,8 +32,8 @@ const RegisterPage = () => {
               />
             </div>
 
-            <h6 className="mt-6 mb-3 uppercase text-gray-600 text-lg text-center font-bold">
-              Registarse
+            <h6 className="mt-3 mb-3 uppercase text-gray-600 text-lg text-center font-bold">
+              Registrarse
             </h6>
 
             <form className="grid grid-cols-2 px-10">
@@ -43,7 +43,7 @@ const RegisterPage = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 border-0 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
+                  className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Nombre"
                   style={{ transition: "all .15s ease" }}
                 />
@@ -54,7 +54,7 @@ const RegisterPage = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 border-0 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
+                  className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Apellido"
                   style={{ transition: "all .15s ease" }}
                 />
@@ -65,7 +65,7 @@ const RegisterPage = () => {
                 </label>
                 <input
                   type="email"
-                  className="mt-1 border-0 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
+                  className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Email"
                   style={{ transition: "all .15s ease" }}
                 />
@@ -77,7 +77,7 @@ const RegisterPage = () => {
                 <input
                   list="Paises"
                   placeholder="Seleccione el pais"
-                  className="mt-1 border-0 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full"
+                  className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full"
                 />
                 <datalist id="Paises" onChange={handleChange}>
                   {paises.map((e) => {
@@ -91,7 +91,7 @@ const RegisterPage = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 border-0 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
+                  className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Telefono"
                   style={{ transition: "all .15s ease" }}
                 />
@@ -102,7 +102,7 @@ const RegisterPage = () => {
                 </label>
                 <input
                   type="password"
-                  className="mt-1 border-0 py-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
+                  className="mt-1 border-0 py-3 px-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
                   placeholder="Contraseña"
                   style={{ transition: "all .15s ease" }}
                 />
@@ -113,7 +113,7 @@ const RegisterPage = () => {
                 </label>
                 <input
                   type="password"
-                  className="mt-1 border-0 py-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
+                  className="mt-1 border-0 py-3 px-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
                   placeholder="Confirmar contraseña"
                   style={{ transition: "all .15s ease" }}
                 />
@@ -137,14 +137,24 @@ const RegisterPage = () => {
                   type="button"
                   style={{ transition: "all .15s ease" }}
                 >
-                  Iniciar Sesion
+                  Registrarse
                 </button>
               </div>
             </form>
             <div className="grid grid-cols-2 px-14 mt-4">
               <div className="text-sm font-bold text-blue-400">
-                <a href="#aa" onClick={(e) => e.preventDefault()}>
-                  Iniciar Sesion
+                <a
+                  href="#aa"
+                  onClick={(e) => {
+                    e.preventDefault();
+                  }}
+                >
+                  Olvidaste tu Contraseña?
+                </a>
+              </div>
+              <div className="text-sm font-bold text-gray-700">
+                <a href="#pp" onClick={(e) => e.preventDefault()}>
+                  Iniciar sesion
                 </a>
               </div>
             </div>
