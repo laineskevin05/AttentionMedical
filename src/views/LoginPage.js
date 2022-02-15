@@ -29,12 +29,12 @@ const LoginPage = () => {
                   className="block uppercase text-gray-700 text-xs font-bold"
                   htmlFor="grid-password"
                 >
-                  Email
+                  Correo
                 </label>
                 <input
                   type="email"
                   className="mt-1 border-0 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
-                  placeholder="Email"
+                  placeholder="Correo"
                   style={{ transition: "all .15s ease" }}
                 />
               </div>
