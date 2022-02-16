@@ -1,18 +1,21 @@
 import Fondo from "../assets/images/img.svg";
 import IconUser from "../assets/images/user.svg";
 import { useState } from "react";
+import { useForm } from "../hook/useForm";
 
 const RegisterPage = () => {
-  const [paises, setPais] = useState([
-    "Costa Rica",
-    "El Salvador",
-    "Honduras",
-    "Nicaragua",
-  ]);
+  const [valueInput, handleInputChange, handleSubmit] = useForm({
+    nombre: '',
+    apellido: '',
+    contraseña: '',
+    confContraseña: '',
+    correo: '',
+    telefono: '',
+    hasError: {}
+});
 
-  const handleChange = (e) => {
-    setPais({ ...paises, [e.target.name]: e.target.value });
-  };
+  const {nombre, apellido, contraseña, correo, telefono, hasError, confContraseña} = valueInput;
+
   return (
     <>
       <div className="grid grid-cols-5 bg-indigo-600 ">
@@ -36,17 +39,24 @@ const RegisterPage = () => {
               Registrarse
             </h6>
 
-            <form className="grid grid-cols-2 px-10">
+            <form className="grid grid-cols-2 px-10" onSubmit={handleSubmit}>
               <div className="col-span-1 w-full mb-3 pr-4">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
                   Nombre
                 </label>
                 <input
+                  placeholder="Nombre"
                   type="text"
                   className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
-                  placeholder="Nombre"
+                  name="nombre"
+                  autoComplete="off"
+                  onChange={handleInputChange}
+                  value={nombre}
                   style={{ transition: "all .15s ease" }}
                 />
+                {
+                  hasError.nombre && <p>{hasError.nombre}</p>
+                }
               </div>
               <div className="col-span-1 w-full mb-3 ">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
@@ -56,8 +66,15 @@ const RegisterPage = () => {
                   type="text"
                   className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Apellido"
+                  name="apellido"
+                  autoComplete="off"
+                  onChange={handleInputChange}
+                  value={apellido}
                   style={{ transition: "all .15s ease" }}
                 />
+                {
+                  hasError.apellido && <p>{hasError.apellido}</p>
+                }
               </div>
               <div className="col-span-2 w-2/3 mb-3 ">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
@@ -67,8 +84,15 @@ const RegisterPage = () => {
                   type="email"
                   className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Email"
+                  name="correo"
+                  autoComplete="off"
+                  onChange={handleInputChange}
+                  value={correo}
                   style={{ transition: "all .15s ease" }}
                 />
+                {
+                  hasError.correo && <p>{hasError.correo}</p>
+                }
               </div>
               <div className="pr-4 w-full mb-3 ">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
@@ -79,10 +103,7 @@ const RegisterPage = () => {
                   placeholder="Seleccione el pais"
                   className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full"
                 />
-                <datalist id="Paises" onChange={handleChange}>
-                  {paises.map((e) => {
-                    return <option key={e} value={e} />;
-                  })}
+                <datalist id="Paises">
                 </datalist>
               </div>
               <div className=" w-full mb-3 ">
@@ -90,9 +111,13 @@ const RegisterPage = () => {
                   Telefono
                 </label>
                 <input
-                  type="text"
                   className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Telefono"
+                  type='tel'
+                  name="telefono"
+                  autoComplete="off"
+                  onChange={handleInputChange}
+                  value={telefono}
                   style={{ transition: "all .15s ease" }}
                 />
               </div>
@@ -104,8 +129,15 @@ const RegisterPage = () => {
                   type="password"
                   className="mt-1 border-0 py-3 px-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
                   placeholder="Contraseña"
+                  name="contraseña"
+                  autoComplete="off"
+                  onChange={handleInputChange}
+                  value={contraseña}
                   style={{ transition: "all .15s ease" }}
                 />
+                {
+                  hasError.contraseña && <p>{hasError.contraseña}</p>
+                }
               </div>
               <div className=" w-full mb-3 ">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
@@ -115,8 +147,15 @@ const RegisterPage = () => {
                   type="password"
                   className="mt-1 border-0 py-3 px-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
                   placeholder="Confirmar contraseña"
+                  name="confContraseña"
+                  autoComplete="off"
+                  onChange={handleInputChange}
+                  value={confContraseña}
                   style={{ transition: "all .15s ease" }}
                 />
+                {
+                  hasError.confContraseña && <p>{hasError.confContraseña}</p>
+                }
               </div>
               <div className="w-full mb-3 ">
                 <label className="inline-flex items-center cursor-pointer">
@@ -134,7 +173,7 @@ const RegisterPage = () => {
               <div className="col-span-2 text-center mt-4 ">
                 <button
                   className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                  type="button"
+                  type="Submit"
                   style={{ transition: "all .15s ease" }}
                 >
                   Registrarse
