@@ -1,20 +1,54 @@
+import { useEffect, useReducer } from "react";
 import Fondo from "../assets/images/img.svg";
 import IconUser from "../assets/images/user.svg";
-import { useState } from "react";
 import { useForm } from "../hook/useForm";
+import { todoReducer } from "../reducer/todoReducer";
+
+const init = () => {
+  return JSON.parse(localStorage.getItem('user')) || [];
+}
 
 const RegisterPage = () => {
-  const [valueInput, handleInputChange, handleSubmit] = useForm({
-    nombre: '',
-    apellido: '',
-    contraseña: '',
-    confContraseña: '',
-    correo: '',
-    telefono: '',
-    hasError: {}
-});
+    const [valueInput, handleInputChange, handleBlur, setValue ] = useForm({
+      nombre: '',
+      apellido: '',
+      contraseña: '',
+      confContraseña: '',
+      correo: '',
+      telefono: '',
+      hasError: {}
+  });
 
-  const {nombre, apellido, contraseña, correo, telefono, hasError, confContraseña} = valueInput;
+  const [local, dispatch] = useReducer(todoReducer, [], init )
+
+  const {nombre, apellido, contraseña, confContraseña, correo, telefono, hasError} = valueInput;
+
+  const handleSubmit = (e)=>{
+      e.preventDefault();
+
+      const {hasError, ...initialState} = valueInput;
+      const result = handleBlur(initialState)
+      // const forma = validacionCampos(initialState);
+      setValue({...valueInput, hasError: result});
+      
+      const action = {
+          type: 'add',
+          payload: valueInput
+      }
+      
+      console.log(valueInput)
+      if(!Object.keys(result).length){
+          console.log('formulario completo');
+          dispatch(action);
+      }
+      
+      console.log(Object.keys(result).length);
+  }
+
+
+  useEffect(() => {
+      localStorage.setItem('user', JSON.stringify(local));
+  }, [local]);
 
   return (
     <>
@@ -120,6 +154,9 @@ const RegisterPage = () => {
                   value={telefono}
                   style={{ transition: "all .15s ease" }}
                 />
+                  {
+                    hasError.telefono && <p>{hasError.telefono}</p>
+                  }
               </div>
               <div className="pr-4 w-full mb-3 ">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
