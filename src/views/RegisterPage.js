@@ -34,6 +34,7 @@ const RegisterPage = () => {
 
             <h6 className="mt-3 mb-3 uppercase text-gray-600 text-lg text-center font-bold">
               Registrarse
+              <h6>hdhdh</h6>
             </h6>
 
             <form className="grid grid-cols-2 px-10">
