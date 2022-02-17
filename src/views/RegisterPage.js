@@ -9,7 +9,7 @@ const init = () => {
 }
 
 const RegisterPage = () => {
-    const [valueInput, handleInputChange, handleBlur, setValue ] = useForm({
+    const [valueInput, handleInputChange, handleBlur, setValue, reset] = useForm({
       nombre: '',
       apellido: '',
       contraseña: '',
@@ -27,10 +27,10 @@ const RegisterPage = () => {
       e.preventDefault();
 
       const {hasError, ...initialState} = valueInput;
-      const result = handleBlur(initialState)
+      const result =  handleBlur(initialState);
       // const forma = validacionCampos(initialState);
-      setValue({...valueInput, hasError: result});
       
+      setValue({...valueInput, hasError: result});
       const action = {
           type: 'add',
           payload: valueInput
@@ -40,9 +40,8 @@ const RegisterPage = () => {
       if(!Object.keys(result).length){
           console.log('formulario completo');
           dispatch(action);
+          reset();
       }
-      
-      console.log(Object.keys(result).length);
   }
 
 
@@ -196,14 +195,8 @@ const RegisterPage = () => {
               </div>
               <div className="w-full mb-3 ">
                 <label className="inline-flex items-center cursor-pointer">
-                  <input
-                    id="acuerdos"
-                    type="checkbox"
-                    className="form-checkbox border-0 rounded text-gray-800 ml-1 w-5 h-5"
-                    style={{ transition: "all .15s ease" }}
-                  />
                   <span className="ml-2 text-xs font-semibold text-gray-700">
-                    Acepto los terminos de servicio y condiciones
+                    Al darle Registrarse acepta los terminos de servicio y condiciones.
                   </span>
                 </label>
               </div>

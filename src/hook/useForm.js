@@ -3,7 +3,15 @@ import { useState } from "react";
     const password = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{4,8}$/);
     const telefono = new RegExp(/^([0-9]){8}$/);
 
-export const useForm = (initialState = {})=>{
+export const useForm = (initialState = {
+nombre: '',
+apellido: '',
+contraseña: '',
+confContraseña: '',
+correo: '',
+telefono: '',
+hasError: {}
+})=>{
     const [value, setValue] = useState(initialState);
         
     const reset = ()=>{
@@ -58,6 +66,8 @@ export const useForm = (initialState = {})=>{
 
         return hasError
     }
+
+
     const handleInputChange = ({target})=>{
         setValue({
             ...value,
@@ -66,5 +76,5 @@ export const useForm = (initialState = {})=>{
         console.log(target.value);
     }
 
-    return [value, handleInputChange, handleBlur, setValue]
+    return [value, handleInputChange, handleBlur, setValue, reset]
 }
