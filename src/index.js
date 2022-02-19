@@ -5,4 +5,4 @@ import "./assets/tailwind.css";
 import LoginPage from "./views/LoginPage";
 import RegisterPage from "./views/RegisterPage";
 
-ReactDOM.render(<RegisterPage />, document.getElementById("root"));
+ReactDOM.render(<LoginPage />, document.getElementById("root"));

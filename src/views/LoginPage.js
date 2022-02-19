@@ -1,7 +1,53 @@
+import { useReducer } from "react";
 import Fondo from "../assets/images/img.svg";
 import IconUser from "../assets/images/user.svg";
+import { useLogin } from "../hook/useLogin";
+import { loginReducer } from "../reducer/loginReducer";
+
+
+const init = () => {
+  return JSON.parse(localStorage.getItem('user')) || [];
+}
 
 const LoginPage = () => {
+
+      
+  const [valueInput, handleInputChange, handleBlur, setValue] = useLogin({
+    correo: '',
+    contraseña: '',
+    hasError: {}
+});
+const [local, dispatch] = useReducer(loginReducer, [], init)
+
+const {correo, contraseña, hasError} = valueInput;
+
+// const listaUsuarios = JSON.parse(localStorage.getItem('user'));
+// for(let i = 0; i < listaUsuarios.length; i++){
+//   console.log(listaUsuarios[i]);
+
+// }
+
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  
+  const{hasError, ...initialState} = valueInput;
+  const result = handleBlur(initialState);
+  setValue({...valueInput, hasError: result});
+  
+  console.log(valueInput);
+  
+  const action = {
+    type: 'login',
+    payload: valueInput
+  }
+  
+    if(!Object.keys(result).length){
+        dispatch(action);
+    }
+
+}
+
   return (
     <>
       <div className="grid grid-cols-5 bg-indigo-600 ">
@@ -23,7 +69,7 @@ const LoginPage = () => {
             <h6 className="mt-6 mb-3 uppercase text-gray-600 text-lg text-center font-bold">
               Inicio de Sesion
             </h6>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className=" w-full mb-3 px-14">
                 <label
                   className="block uppercase text-gray-700 text-xs font-bold"
@@ -35,9 +81,17 @@ const LoginPage = () => {
                   type="email"
                   className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Correo"
+                  name="correo"
+                  required
+                  onChange={handleInputChange}
+                  value={correo}
                   style={{ transition: "all .15s ease" }}
                 />
+                {  
+                  hasError.correo && <p>{hasError.correo}</p> 
+                }
               </div>
+              
               <div className="w-full mb-3 px-14">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
                   Contraseña
@@ -46,8 +100,15 @@ const LoginPage = () => {
                   type="password"
                   className="mt-1 border-0 py-3 px-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
                   placeholder="Contraseña"
+                  name="contraseña"
+                  required
+                  onChange={handleInputChange}
+                  value={contraseña}
                   style={{ transition: "all .15s ease" }}
                 />
+                {
+                  hasError.contraseña && <p>{hasError.contraseña}</p>
+                }
               </div>
               <div className="w-full mb-6 px-14">
                 <label className="inline-flex items-center cursor-pointer">
@@ -65,7 +126,7 @@ const LoginPage = () => {
               <div className="text-center mt-6 px-14">
                 <button
                   className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                  type="button"
+                  type="submit"
                   style={{ transition: "all .15s ease" }}
                 >
                   Iniciar Sesion
