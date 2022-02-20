@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Fondo from "../assets/images/img.svg";
 import IconUser from "../assets/images/user.svg";
 import { useForm } from "../hook/useForm";
@@ -42,7 +42,6 @@ const RegisterPage = () => {
           alert('Gracias por registrarse');
           dispatch(action);
           reset();
-          //navigate('/')
       }
   }
 
@@ -224,9 +223,12 @@ const RegisterPage = () => {
                 </a>
               </div>
               <div className="text-sm font-bold text-gray-700">
-                <a href="#pp" onClick={(e) => e.preventDefault()}>
-                  Iniciar sesion
-                </a>
+              <Link
+                        exact = {`true`}
+                        to="/login"
+                    >
+                        Iniciar sesion
+                </Link>
               </div>
             </div>
           </div>
