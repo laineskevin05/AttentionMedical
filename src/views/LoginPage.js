@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { Link } from "react-router-dom";
 import Fondo from "../assets/images/img.svg";
 import IconUser from "../assets/images/user.svg";
 import { useLogin } from "../hook/useLogin";
@@ -140,9 +141,12 @@ const handleSubmit = (e) => {
                 </a>
               </div>
               <div className="text-sm font-bold text-gray-700">
-                <a href="#pp" onClick={(e) => e.preventDefault()}>
-                  Registrarse
-                </a>
+                <Link
+                        exact = {`true`}
+                        to="/register"
+                    >
+                        Registrarse
+                </Link>
               </div>
             </div>
           </div>

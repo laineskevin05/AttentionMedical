@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import Fondo from "../assets/images/img.svg";
 import IconUser from "../assets/images/user.svg";
 import { useForm } from "../hook/useForm";
@@ -18,7 +19,7 @@ const RegisterPage = () => {
       telefono: '',
       hasError: {}
   });
-
+  const navigate = useNavigate();
   const [local, dispatch] = useReducer(todoReducer, [], init )
 
   const {nombre, apellido, contraseña, confContraseña, correo, telefono, hasError} = valueInput;
@@ -38,9 +39,10 @@ const RegisterPage = () => {
       
       console.log(valueInput)
       if(!Object.keys(result).length){
-          console.log('formulario completo');
+          alert('Gracias por registrarse');
           dispatch(action);
           reset();
+          //navigate('/')
       }
   }
 

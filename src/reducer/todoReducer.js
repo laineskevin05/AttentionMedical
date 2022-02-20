@@ -18,12 +18,8 @@ export const todoReducer = (state = [], action) => {
                 }
                 
             })
+            break;
             
-            // for(let i = 0; i == listaUsuarios.length; i++){
-            //     if(listaUsuarios[i].correo === correo && listaUsuarios[i].contraseña === contraseña){
-            //         return listaUsuarios[i];
-            //     }
-            // }
         default:
             return state;
     }
