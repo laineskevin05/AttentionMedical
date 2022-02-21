@@ -10,6 +10,7 @@ import Bienvenido from "../components/user/Bienvenido";
 import { startChecking } from "../actions/auth";
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
+import Navbar from "../components/ui/Navbar";
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export const AppRouter = () => {
           path="/login"
           element={
             <PublicRoute uid={uid}>
+              <Navbar />
               <Loginpage />
             </PublicRoute>
           }
@@ -41,6 +43,7 @@ export const AppRouter = () => {
           path="/register"
           element={
             <PublicRoute uid={uid}>
+              <Navbar />
               <RegisterPage />
             </PublicRoute>
           }
@@ -49,6 +52,7 @@ export const AppRouter = () => {
           path="/*"
           element={
             <PrivateRoute uid={uid}>
+              <Navbar />
               <Bienvenido />
             </PrivateRoute>
           }

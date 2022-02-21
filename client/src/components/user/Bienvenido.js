@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Navbar from "../ui/Navbar";
 
 const Bienvenido = () => {
   //onst dispatch = useDispatch();
@@ -10,7 +9,6 @@ const Bienvenido = () => {
   //const navigate = useNavigate();
   return (
     <>
-      <Navbar />
       <div>
         <Link to="/login">Bienvenido </Link>
       </div>
