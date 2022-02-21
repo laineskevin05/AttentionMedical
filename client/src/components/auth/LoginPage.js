@@ -33,7 +33,6 @@ const LoginPage = () => {
   };
   return (
     <>
-      
       <div className="grid grid-cols-5 bg-indigo-600 ">
         <div className="col-span-3 bg-slate-800	">
           <div className="  w-full h-full">
