@@ -37,60 +37,64 @@ const RegisterPage = () => {
 
   const validacion = (values) => {
     const error = {};
-    if (!letra.test(values.nombre) && values.nombre !== "") {
+    if (!letra.test(values.nombre)) {
       error.nombre = "Este campo solo acepta caracteres";
     }
+    if (values.nombre === "") {
+      error.nombre = "Este campo es obligatorio";
+    }
 
-    if (!letra.test(values.apellido) && values.apellido !== "") {
+    if (!letra.test(values.apellido)) {
       error.apellido = "Este campo solo acepta caracteres";
     }
-
-    if (!email.test(values.correo) && values.correo !== "") {
-      error.correo = "Correo no valido";
+    if (values.apellido === "") {
+      error.apellido = "Este campo es obligatorio";
     }
 
-    if (
-      (!password.test(values.contrasenia) && values.contrasenia !== "") ||
-      values.contrasenia.length < 6
-    ) {
+    if (!email.test(values.correo)) {
+      error.correo = "Correo no valido";
+    }
+    if (values.correo === "") {
+      error.correo = "Este campo es obligatorio";
+    }
+
+    if (!password.test(values.contrasenia) || values.contrasenia.length < 6) {
       error.contrasenia =
         "La contraseña debe tener al entre 6 y 12 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula";
     }
+    if (values.contrasenia === "") {
+      error.contrasenia = "Este campo es obligatorio";
+    }
 
     if (values.confContrasenia !== values.contrasenia) {
-      error.confContrasenia = "Contraseña no son iguales";
+      error.confContrasenia = "Las contraseñas no coinciden";
+    }
+    if (values.confContrasenia === "") {
+      error.confContrasenia = "Las contraseñas no coinciden";
     }
 
     if (!telef.test(values.telefono) && values.telefono !== "") {
       error.telefono = "Este campo solo acepta numeros";
+    }
+    if (values.telefono === "") {
+      error.telefono = "Este campo es obligatorio";
     }
     return error;
   };
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log(1);
     const result = validacion(formRegisterValues);
     setValues({ ...formRegisterValues, hasError: result });
     console.log(Object.keys(result).length);
-    if (
-      Object.keys(result).length > 0 &&
-      nombre &&
-      apellido &&
-      correo &&
-      telefono &&
-      contrasenia &&
-      confContrasenia
-    ) {
+    if (Object.keys(result).length === 0) {
       dispatch(startRegister(nombre, apellido, correo, telefono, contrasenia));
-      console.log(2);
       setTimeout(() => {
-        navigate("/login");
+        navigate("/");
       }, 500);
     } else {
       console.log("Rellene los campos vacios");
     }
-    console.log(3);
   };
 
   return (
@@ -166,7 +170,7 @@ const RegisterPage = () => {
                 {hasError.correo && <p>{hasError.correo}</p>}
               </div>
 
-              <div className=" w-full mb-3">
+              <div className="col-span-2 w-2/3 mb-3">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
                   Telefono
                 </label>
@@ -182,7 +186,7 @@ const RegisterPage = () => {
                 />
                 {hasError.telefono && <p>{hasError.telefono}</p>}
               </div>
-              <div className="pr-4 w-full mb-3 ml-3">
+              <div className="pr-4 w-full mb-3 ">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
                   Contraseña
                 </label>
