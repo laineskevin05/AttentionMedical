@@ -17,13 +17,13 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const [formRegisterValues, handleRegisterInputChange, setValues] = useForm({
-    nombre: '',
-    apellido: '',
-    telefono: '',
-    correo: '',
-    contrasenia: '',
-    confContrasenia: '',
-    hasError: {}
+    nombre: "",
+    apellido: "",
+    telefono: "",
+    correo: "",
+    contrasenia: "",
+    confContrasenia: "",
+    hasError: {},
   });
   const {
     nombre,
@@ -32,45 +32,55 @@ const RegisterPage = () => {
     telefono,
     contrasenia,
     confContrasenia,
-    hasError
+    hasError,
   } = formRegisterValues;
-  
-  const validacion = (values)=>{
+
+  const validacion = (values) => {
     const error = {};
-        if(!letra.test(values.nombre) && values.nombre!==''){
-          error.nombre ='Este campo solo acepta caracteres';
-        }
-        
-        if(!letra.test(values.apellido) && values.apellido!==''){
-          error.apellido ='Este campo solo acepta caracteres';
-        }
+    if (!letra.test(values.nombre) && values.nombre !== "") {
+      error.nombre = "Este campo solo acepta caracteres";
+    }
 
-        if(!email.test(values.correo) && values.correo!==''){
-          error.correo = 'Correo no valido'
-        }
+    if (!letra.test(values.apellido) && values.apellido !== "") {
+      error.apellido = "Este campo solo acepta caracteres";
+    }
 
-        if((!password.test(values.contrasenia) && values.contrasenia!=='') || values.contrasenia.length < 6){
-          error.contrasenia ='La contraseña debe tener al entre 6 y 12 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula';
-        }
+    if (!email.test(values.correo) && values.correo !== "") {
+      error.correo = "Correo no valido";
+    }
 
-        if (values.confContrasenia!==values.contrasenia) {
-          error.confContrasenia = 'Contraseña no son iguales'
-        }
-        
-        if(!telef.test(values.telefono) && values.telefono!==''){
-          error.telefono ='Este campo solo acepta numeros';
-        }
-      return error
-  }
+    if (
+      (!password.test(values.contrasenia) && values.contrasenia !== "") ||
+      values.contrasenia.length < 6
+    ) {
+      error.contrasenia =
+        "La contraseña debe tener al entre 6 y 12 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula";
+    }
+
+    if (values.confContrasenia !== values.contrasenia) {
+      error.confContrasenia = "Contraseña no son iguales";
+    }
+
+    if (!telef.test(values.telefono) && values.telefono !== "") {
+      error.telefono = "Este campo solo acepta numeros";
+    }
+    return error;
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();
     console.log(1);
-      const result = validacion(formRegisterValues);
-      setValues({...formRegisterValues, hasError: result});
-      console.log(Object.keys(result).length);
+    const result = validacion(formRegisterValues);
+    setValues({ ...formRegisterValues, hasError: result });
+    console.log(Object.keys(result).length);
     if (
-      (Object.keys(result).length > 0) && nombre && apellido && correo && telefono && contrasenia && confContrasenia
+      Object.keys(result).length > 0 &&
+      nombre &&
+      apellido &&
+      correo &&
+      telefono &&
+      contrasenia &&
+      confContrasenia
     ) {
       dispatch(startRegister(nombre, apellido, correo, telefono, contrasenia));
       console.log(2);
@@ -155,7 +165,7 @@ const RegisterPage = () => {
                 />
                 {hasError.correo && <p>{hasError.correo}</p>}
               </div>
-              
+
               <div className=" w-full mb-3">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
                   Telefono
