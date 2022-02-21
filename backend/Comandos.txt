@@ -1,0 +1,17 @@
+
+BackEnd
+npm i nodemon -g
+
+npm i express
+
+npm i mongoose
+
+npm i bcryptjs
+
+npm i jsonwebtoken
+
+npm install cors
+
+npm install -g npm-check-updates
+
+mongodb+srv://kevinlaines:APrsuzVK29oanV@clustermongodb.ybuyv.mongodb.net/test
