@@ -6,7 +6,6 @@ import { startLogin, startLogout } from "../../actions/auth";
 
 import Fondo from "../../assets/images/img.svg";
 import IconUser from "../../assets/images/user.svg";
-import Navbar from "../ui/Navbar";
 
 const email = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 const password = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,12}$/);
