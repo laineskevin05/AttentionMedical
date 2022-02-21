@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Fondo from "../assets/images/img.svg";
 import IconUser from "../assets/images/user.svg";
 import { useLogin } from "../hook/useLogin";
@@ -11,7 +11,7 @@ const init = () => {
 }
 
 const LoginPage = () => {
-
+  const navigate = useNavigate();
       
   const [valueInput, handleInputChange, handleBlur, setValue] = useLogin({
     correo: '',
@@ -45,6 +45,7 @@ const handleSubmit = (e) => {
   
     if(!Object.keys(result).length){
         dispatch(action);
+        navigate('/register');
     }
 
 }
