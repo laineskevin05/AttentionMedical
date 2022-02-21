@@ -1,0 +1,61 @@
+// import { useEffect } from "react";
+// import {
+//   BrowserRouter,
+//   Routes,
+//   Navigate,
+//   useLocation,
+//   Outlet,
+//   Route,
+// } from "react-router-dom";
+
+// import { useDispatch, useSelector } from "react-redux";
+
+// import LoginPage from "../components/auth/LoginPage";
+// import RegisterPage from "../components/auth/RegisterPage";
+// import Bienvenido from "../components/user/Bienvenido";
+// import { startChecking } from "../actions/auth";
+// // import { PublicRoute } from "./PublicRoute";
+// // import { PrivateRoute } from "./PrivateRoute";
+
+// export const AppRouter = () => {
+//   const dispatch = useDispatch();
+//   const { checking, uid } = useSelector((state) => state.auth);
+
+//   useEffect(() => {
+//     dispatch(startChecking());
+//   }, [dispatch]);
+
+//   if (checking) {
+//     return <h5>Espere...</h5>;
+//   }
+
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+//         <Route>
+//           <Route path="/login" element={<LoginPage />} />
+//           <Route path="/Register" element={<RegisterPage />} />
+
+//           <Route element={<RequireAuth uid />}>
+//             <Route path="/" element={<Bienvenido />} />
+//           </Route>
+//         </Route>
+//         <Route path="*" element={<LoginPage />} />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// };
+
+// function RequireAuth(uid) {
+//   let location = useLocation();
+
+//   if (uid !== "" || uid === undefined) {
+//     // Redirect them to the /login page, but save the current location they were
+//     // trying to go to when they were redirected. This allows us to send them
+//     // along to that page after they login, which is a nicer user experience
+//     // than dropping them off on the home page.
+//     return <Navigate to="/login" state={{ from: location }} />;
+//   }
+
+//   return <Outlet />;
+// }
