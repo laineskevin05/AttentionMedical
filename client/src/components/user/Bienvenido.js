@@ -10,7 +10,7 @@ const Bienvenido = () => {
   //const navigate = useNavigate();
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <div>
         <Link to="/login">Bienvenido </Link>
       </div>

@@ -7,18 +7,23 @@ import { startRegister } from "../../actions/auth";
 import Fondo from "../../assets/images/img.svg";
 import IconUser from "../../assets/images/user.svg";
 
+const letra = new RegExp(/^[a-zA-ZÀ-ÿ\s]{1,40}$/);
+const password = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,12}$/);
+const telef = new RegExp(/^([0-9]){8}$/);
+const email = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
+
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [formRegisterValues, handleRegisterInputChange] = useForm({
-    nombre: "Jose",
-    apellido: "Murillo",
-    telefono: "97884455",
-    correo: "josemurrillo@gmail.com",
-    contrasenia: "Hola123",
-    confContrasenia: "Hola123",
-    hasError: {},
+  const [formRegisterValues, handleRegisterInputChange, setValues] = useForm({
+    nombre: '',
+    apellido: '',
+    telefono: '',
+    correo: '',
+    contrasenia: '',
+    confContrasenia: '',
+    hasError: {}
   });
   const {
     nombre,
@@ -27,22 +32,45 @@ const RegisterPage = () => {
     telefono,
     contrasenia,
     confContrasenia,
-    hasError,
+    hasError
   } = formRegisterValues;
+  
+  const validacion = (values)=>{
+    const error = {};
+        if(!letra.test(values.nombre) && values.nombre!==''){
+          error.nombre ='Este campo solo acepta caracteres';
+        }
+        
+        if(!letra.test(values.apellido) && values.apellido!==''){
+          error.apellido ='Este campo solo acepta caracteres';
+        }
+
+        if(!email.test(values.correo) && values.correo!==''){
+          error.correo = 'Correo no valido'
+        }
+
+        if((!password.test(values.contrasenia) && values.contrasenia!=='') || values.contrasenia.length < 6){
+          error.contrasenia ='La contraseña debe tener al entre 6 y 12 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula';
+        }
+
+        if (values.confContrasenia!==values.contrasenia) {
+          error.confContrasenia = 'Contraseña no son iguales'
+        }
+        
+        if(!telef.test(values.telefono) && values.telefono!==''){
+          error.telefono ='Este campo solo acepta numeros';
+        }
+      return error
+  }
 
   const handleRegister = (e) => {
     e.preventDefault();
     console.log(1);
-    if (contrasenia !== confContrasenia) {
-      return alert("Las contraseñas deben de ser iguales", "error");
-    }
+      const result = validacion(formRegisterValues);
+      setValues({...formRegisterValues, hasError: result});
+      console.log(Object.keys(result).length);
     if (
-      nombre &&
-      apellido &&
-      correo &&
-      telefono &&
-      contrasenia &&
-      confContrasenia
+      (Object.keys(result).length > 0) && nombre && apellido && correo && telefono && contrasenia && confContrasenia
     ) {
       dispatch(startRegister(nombre, apellido, correo, telefono, contrasenia));
       console.log(2);
@@ -50,7 +78,7 @@ const RegisterPage = () => {
         navigate("/login");
       }, 500);
     } else {
-      alert("Rellene los campos vacios");
+      console.log("Rellene los campos vacios");
     }
     console.log(3);
   };
@@ -116,7 +144,7 @@ const RegisterPage = () => {
                   Correo
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Email"
                   name="correo"
@@ -127,23 +155,13 @@ const RegisterPage = () => {
                 />
                 {hasError.correo && <p>{hasError.correo}</p>}
               </div>
-              <div className="pr-4 w-full mb-3 ">
-                <label className="block uppercase text-gray-700 text-xs font-bold">
-                  Pais
-                </label>
-                <input
-                  list="Paises"
-                  placeholder="Seleccione el pais"
-                  className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full"
-                />
-                <datalist id="Paises"></datalist>
-              </div>
-              <div className=" w-full mb-3 ">
+              
+              <div className=" w-full mb-3">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
                   Telefono
                 </label>
                 <input
-                  className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
+                  className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full"
                   placeholder="Telefono"
                   type="tel"
                   name="telefono"
@@ -154,7 +172,7 @@ const RegisterPage = () => {
                 />
                 {hasError.telefono && <p>{hasError.telefono}</p>}
               </div>
-              <div className="pr-4 w-full mb-3 ">
+              <div className="pr-4 w-full mb-3 ml-3">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
                   Contraseña
                 </label>
@@ -168,7 +186,7 @@ const RegisterPage = () => {
                   value={contrasenia}
                   style={{ transition: "all .15s ease" }}
                 />
-                {hasError.contraseña && <p>{hasError.contraseña}</p>}
+                {hasError.contrasenia && <p>{hasError.contrasenia}</p>}
               </div>
               <div className=" w-full mb-3 ">
                 <label className="block uppercase text-gray-700 text-xs font-bold">
@@ -177,14 +195,14 @@ const RegisterPage = () => {
                 <input
                   type="password"
                   className="mt-1 border-0 py-3 px-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
-                  placeholder="Confirmar contraseña"
-                  name="confContraseña"
+                  placeholder="Contraseña"
+                  name="confContrasenia"
                   autoComplete="off"
                   onChange={handleRegisterInputChange}
                   value={confContrasenia}
                   style={{ transition: "all .15s ease" }}
                 />
-                {hasError.confContraseña && <p>{hasError.confContraseña}</p>}
+                {hasError.confContrasenia && <p>{hasError.confContrasenia}</p>}
               </div>
               <div className="w-full mb-3 ">
                 <label className="inline-flex items-center cursor-pointer">
