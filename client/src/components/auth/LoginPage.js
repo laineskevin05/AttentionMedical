@@ -6,7 +6,6 @@ import { startLogin, startLogout } from "../../actions/auth";
 
 import Fondo from "../../assets/images/img.svg";
 import IconUser from "../../assets/images/user.svg";
-import Navbar from "../ui/Navbar";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
