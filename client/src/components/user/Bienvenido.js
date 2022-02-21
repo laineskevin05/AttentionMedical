@@ -7,17 +7,19 @@ const Bienvenido = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div>
+      <div className="px-5 mt-10">
         <span> Bienvenido {name} </span>
-        <button
-          className="bg-red-600 p-5"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/cambiarcontrasenia");
-          }}
-        >
-          cambiar contrasenia
-        </button>
+        <div className="mt-10  w-full">
+          <button
+            className="bg-red-600 p-5 rounded text-white"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/cambiarcontrasenia");
+            }}
+          >
+            Cambiar contrasenia
+          </button>
+        </div>
       </div>
     </>
   );
