@@ -1,14 +1,25 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Bienvenido = () => {
-  const { uid } = useSelector((state) => state.auth);
-
+  const { name } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   return (
     <>
-      <div>
-        <Link to="/login">Bienvenido </Link>
+      <div className="px-5 mt-10">
+        <span> Bienvenido {name} </span>
+        <div className="mt-10  w-full">
+          <button
+            className="bg-red-600 p-5 rounded text-white"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/cambiarcontrasenia");
+            }}
+          >
+            Cambiar contrasenia
+          </button>
+        </div>
       </div>
     </>
   );

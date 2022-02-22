@@ -1,34 +1,65 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hook/useForm";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLogin, startLogout } from "../../actions/auth";
 
 import Fondo from "../../assets/images/img.svg";
 import IconUser from "../../assets/images/user.svg";
-import Navbar from "../ui/Navbar";
 
-const LoginPage = () => {
+const email = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
+const password = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,12}$/);
+
+const LoginPage = ({ uid }) => {
   const dispatch = useDispatch();
-
+  // const auth =  useSelector((state) => {
+  //   return state.auth;
+  // });
   const navigate = useNavigate();
 
-  const [formLoginValues, handleLoginInputChange] = useForm({
-    correo: "lainezkevin05@gmail.com",
-    contrasenia: "Hola12",
+  const [formLoginValues, handleLoginInputChange, setValues] = useForm({
+    correo: "",
+    contrasenia: "",
     hasError: {},
   });
   const { correo, contrasenia, hasError } = formLoginValues;
+  const validacion = (values) => {
+    const error = {};
+
+    if (values.correo === "") {
+      error.correo = "Este campo es obligatorio";
+    }
+
+    if (!email.test(values.correo)) {
+      error.correo = "Correo no valido";
+    }
+
+    if (!password.test(values.contrasenia) || values.contrasenia.length < 6) {
+      error.contrasenia =
+        "La contraseña debe tener al entre 6 y 12 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula";
+    }
+    if (values.contrasenia === "") {
+      error.contrasenia = "Este campo es obligatorio";
+    }
+    return error;
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
-    if (correo && contrasenia) {
-      dispatch(startLogout());
+    const result = validacion(formLoginValues);
+    setValues({ ...formLoginValues, hasError: result });
+
+    if (Object.keys(result).length === 0) {
+      console.log(uid);
+      if (uid) {
+        dispatch(startLogout());
+      }
       dispatch(startLogin(correo, contrasenia));
-      setTimeout(() => {
-        navigate("/");
-      }, 500);
-    } else {
-      alert("Rellene los campos vacios");
+      if (uid) {
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+      }
     }
   };
   return (
@@ -61,11 +92,10 @@ const LoginPage = () => {
                   Correo
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Correo"
                   name="correo"
-                  required
                   onChange={handleLoginInputChange}
                   value={correo}
                   style={{ transition: "all .15s ease" }}
@@ -82,7 +112,6 @@ const LoginPage = () => {
                   className="mt-1 border-0 py-3 px-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
                   placeholder="Contraseña"
                   name="contrasenia"
-                  required
                   onChange={handleLoginInputChange}
                   value={contrasenia}
                   style={{ transition: "all .15s ease" }}

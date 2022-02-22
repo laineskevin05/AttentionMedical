@@ -10,13 +10,14 @@ export const startLogin = (correo, contrasenia) => {
       localStorage.setItem("token", body.token);
       localStorage.setItem("token-init-date", new Date().getTime());
       console.log(correo, contrasenia);
-      dispatch(
+      await dispatch(
         login({
           uid: body.uid,
           name: body.name,
         })
       );
     } else {
+      alert("error", body.msg);
       // Swal.fire("Error", body.msg, "error");
     }
   };
@@ -83,9 +84,9 @@ const login = (user) => ({
 });
 
 export const startLogout = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     localStorage.clear();
-    dispatch(logout());
+    await dispatch(logout());
   };
 };
 
