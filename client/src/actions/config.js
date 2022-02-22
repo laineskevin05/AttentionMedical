@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { fetchSinToken, fetchConToken } from "../helpers/fetch";
 import { types } from "../types/types";
 
@@ -17,7 +18,7 @@ export const startLogin = (correo, contrasenia) => {
         })
       );
     } else {
-      alert("Error en la autenticacion", body.msg);
+      alert("error", body.msg);
       // Swal.fire("Error", body.msg, "error");
     }
   };
@@ -42,7 +43,7 @@ export const startRegister = (
       localStorage.setItem("token", body.token);
       localStorage.setItem("token-init-date", new Date().getTime());
 
-      await dispatch(
+      dispatch(
         login({
           uid: body.uid,
           name: body.name,
@@ -55,23 +56,25 @@ export const startRegister = (
   };
 };
 
-export const startChecking = () => {
+export const startCambioContrasenia = (contrasenia) => {
   return async (dispatch) => {
-    const resp = await fetchConToken("auth/renew");
+    const { uid } = await useSelector((state) => {
+      return state.auth;
+    });
+    const resp = await fetchConToken(
+      "auth/cambiarcontrasenia",
+      { uid, contrasenia },
+      "POST"
+    );
     const body = await resp.json();
 
     if (body.ok) {
-      localStorage.setItem("token", body.token);
-      localStorage.setItem("token-init-date", new Date().getTime());
+      // localStorage.setItem("token", body.token);
+      // localStorage.setItem("token-init-date", new Date().getTime());
 
-      await dispatch(
-        login({
-          uid: body.uid,
-          name: body.name,
-        })
-      );
+      await dispatch(login(cambioContrasenia));
     } else {
-      await dispatch(checkingFinish());
+      dispatch(checkingFinish());
     }
   };
 };
@@ -91,3 +94,5 @@ export const startLogout = () => {
 };
 
 const logout = () => ({ type: types.authLogout });
+
+const cambioContrasenia = () => ({ type: types.configCambioContrasenia });

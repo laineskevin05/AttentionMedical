@@ -12,11 +12,8 @@ const password = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,12}$/);
 
 const LoginPage = ({ uid }) => {
   const dispatch = useDispatch();
-  // const auth =  useSelector((state) => {
-  //   return state.auth;
-  // });
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const [formLoginValues, handleLoginInputChange, setValues] = useForm({
     correo: "",
     contrasenia: "",
@@ -44,22 +41,23 @@ const LoginPage = ({ uid }) => {
     return error;
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const result = validacion(formLoginValues);
     setValues({ ...formLoginValues, hasError: result });
+    await uid;
 
     if (Object.keys(result).length === 0) {
       console.log(uid);
-      if (uid) {
-        dispatch(startLogout());
-      }
+      // if (uid) {
+      dispatch(startLogout());
+      // }
       dispatch(startLogin(correo, contrasenia));
-      if (uid) {
-        setTimeout(() => {
-          navigate("/");
-        }, 500);
-      }
+      // if (uid) {
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
+      // }
     }
   };
   return (
