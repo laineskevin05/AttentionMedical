@@ -42,7 +42,7 @@ export const startRegister = (
       localStorage.setItem("token", body.token);
       localStorage.setItem("token-init-date", new Date().getTime());
 
-      dispatch(
+      await dispatch(
         login({
           uid: body.uid,
           name: body.name,
@@ -64,14 +64,14 @@ export const startChecking = () => {
       localStorage.setItem("token", body.token);
       localStorage.setItem("token-init-date", new Date().getTime());
 
-      dispatch(
+      await dispatch(
         login({
           uid: body.uid,
           name: body.name,
         })
       );
     } else {
-      dispatch(checkingFinish());
+      await dispatch(checkingFinish());
     }
   };
 };
