@@ -11,11 +11,11 @@ export const startLogin = async (correo, contrasenia) => {
       localStorage.setItem("token-init-date", new Date().getTime());
       console.log(correo, contrasenia);
       await dispatch(
-        login({
-          uid: body.uid,
-          name: body.name,
-        })
-      );
+    login({
+      uid: body.uid,
+      name: body.name,
+    })
+  );
     } else {
       alert("Error en la autenticacion", body.msg);
       // Swal.fire("Error", body.msg, "error");
@@ -42,12 +42,7 @@ export const startRegister = (
       localStorage.setItem("token", body.token);
       localStorage.setItem("token-init-date", new Date().getTime());
 
-      await dispatch(
-        login({
-          uid: body.uid,
-          name: body.name,
-        })
-      );
+      
     } else {
       // Swal.fire("Error", body.msg, "error");
       console.Console("error", body.msg);

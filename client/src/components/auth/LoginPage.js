@@ -24,12 +24,12 @@ const LoginPage = () => {
   const validacion = (values) => {
     const error = {};
 
-    if (values.correo === "") {
-      error.correo = "Este campo es obligatorio";
-    }
-
     if (!email.test(values.correo)) {
       error.correo = "Correo no valido";
+    }
+
+    if (values.correo === "") {
+      error.correo = "Este campo es obligatorio";
     }
 
     if (!password.test(values.contrasenia) || values.contrasenia.length < 6) {
@@ -90,6 +90,7 @@ const LoginPage = () => {
                   className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
                   placeholder="Correo"
                   name="correo"
+                  autoComplete="off"
                   onChange={handleLoginInputChange}
                   value={correo}
                   style={{ transition: "all .15s ease" }}
@@ -106,6 +107,7 @@ const LoginPage = () => {
                   className="mt-1 border-0 py-3 px-3 rounded shadow text-sm w-full placeholder-gray-400 text-gray-600 bg-white"
                   placeholder="Contraseña"
                   name="contrasenia"
+                  autoComplete="off"
                   onChange={handleLoginInputChange}
                   value={contrasenia}
                   style={{ transition: "all .15s ease" }}

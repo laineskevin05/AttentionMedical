@@ -23,18 +23,18 @@ const CambioContraseña = () => {
     const error = {};
 
     if (!password.test(values.contraseniaC) || values.contraseniaC.length < 6) {
-      error.contrasenia =
+      error.contraseniaC =
         "La contraseña debe tener al entre 6 y 12 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula";
     }
     if (values.contraseniaC === "") {
-      error.contrasenia = "Este campo es obligatorio";
+      error.contraseniaC = "Este campo es obligatorio";
     }
     if (!password.test(values.contraseniaN) || values.contraseniaN.length < 6) {
-      error.contrasenia =
+      error.contraseniaN =
         "La contraseña debe tener al entre 6 y 12 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula";
     }
-    if (values.contrasenia === "") {
-      error.contrasenia = "Este campo es obligatorio";
+    if (values.contraseniaN === "") {
+      error.contraseniaN = "Este campo es obligatorio";
     }
     if (values.contraseniaC !== values.contraseniaN) {
       error.contraseniaC = "las constraseñas no coinciden";
