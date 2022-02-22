@@ -1,7 +1,7 @@
 // import { useDispatch } from "react-redux";
 // import { startLogout } from "../actions/auth";
 
-export const PublicRoute = ({ children, uid }) => {
+export const PublicRoute = ({ children }) => {
   // const dispatch = useDispatch();
 
   // if (typeof uid === "string" && uid) {

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Loginpage from "../components/auth/LoginPage";
 import RegisterPage from "../components/auth/RegisterPage";
+import CambioContrasenia from "../components/auth/CambioContrasenia";
 import Bienvenido from "../components/user/Bienvenido";
 
 import { startChecking } from "../actions/auth";
@@ -42,10 +43,19 @@ export const AppRouter = () => {
         <Route
           path="/register"
           element={
-            <PublicRoute uid={uid}>
+            <PublicRoute>
               <Navbar />
-              <RegisterPage />
+              <RegisterPage uid={uid} />
             </PublicRoute>
+          }
+        />
+        <Route
+          path="/cambiarcontrasenia"
+          element={
+            <PrivateRoute uid={uid}>
+              <Navbar />
+              <CambioContrasenia uid />
+            </PrivateRoute>
           }
         />
         <Route

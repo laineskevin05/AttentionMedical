@@ -56,25 +56,20 @@ export const startRegister = (
   };
 };
 
-export const startCambioContrasenia = (contrasenia) => {
+export const startCambioContrasenia = (uid, contrasenia) => {
   return async (dispatch) => {
-    const { uid } = await useSelector((state) => {
-      return state.auth;
-    });
     const resp = await fetchConToken(
-      "auth/cambiarcontrasenia",
+      "config/cambiarcontrasenia",
       { uid, contrasenia },
       "POST"
     );
     const body = await resp.json();
-
+    console.log("respuesta del backend cambio de contraseña", body);
     if (body.ok) {
-      // localStorage.setItem("token", body.token);
-      // localStorage.setItem("token-init-date", new Date().getTime());
-
-      await dispatch(login(cambioContrasenia));
+      await dispatch(cambioContrasenia());
+      alert("La contraseña se cambio correctamente");
     } else {
-      dispatch(checkingFinish());
+      alert("No se pudo cambiar la contrasenia");
     }
   };
 };

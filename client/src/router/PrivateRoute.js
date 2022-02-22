@@ -5,5 +5,6 @@ import { Navigate } from "react-router-dom";
 
 export const PrivateRoute = ({ children, uid }) => {
   //const { user } = useContext(AuthContext )
+
   return typeof uid === "string" && uid ? children : <Navigate to="/login" />;
 };

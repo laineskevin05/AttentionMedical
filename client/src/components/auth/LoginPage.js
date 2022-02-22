@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hook/useForm";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useStore } from "react-redux";
 import { startLogin, startLogout } from "../../actions/auth";
 
 import Fondo from "../../assets/images/img.svg";
@@ -10,7 +10,8 @@ import IconUser from "../../assets/images/user.svg";
 const email = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 const password = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,12}$/);
 
-const LoginPage = ({ uid }) => {
+const LoginPage = () => {
+  const { auth } = useStore().getState();
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -45,19 +46,14 @@ const LoginPage = ({ uid }) => {
     e.preventDefault();
     const result = validacion(formLoginValues);
     setValues({ ...formLoginValues, hasError: result });
-    await uid;
 
     if (Object.keys(result).length === 0) {
-      console.log(uid);
-      // if (uid) {
-      dispatch(startLogout());
-      // }
-      dispatch(startLogin(correo, contrasenia));
-      // if (uid) {
-      setTimeout(() => {
-        navigate("/");
-      }, 500);
-      // }
+      console.log(auth.uid);
+      if (auth.uid) {
+        await dispatch(startLogout());
+      }
+      await dispatch(await startLogin(correo, contrasenia));
+      auth.uid && navigate("/");
     }
   };
   return (

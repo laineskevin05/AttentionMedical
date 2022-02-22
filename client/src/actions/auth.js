@@ -1,7 +1,7 @@
 import { fetchSinToken, fetchConToken } from "../helpers/fetch";
 import { types } from "../types/types";
 
-export const startLogin = (correo, contrasenia) => {
+export const startLogin = async (correo, contrasenia) => {
   return async (dispatch) => {
     const resp = await fetchSinToken("auth", { correo, contrasenia }, "POST");
     const body = await resp.json();
