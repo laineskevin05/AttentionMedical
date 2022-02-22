@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hook/useForm";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLogin, startLogout } from "../../actions/auth";
 
 import Fondo from "../../assets/images/img.svg";
@@ -10,9 +10,11 @@ import IconUser from "../../assets/images/user.svg";
 const email = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
 const password = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,12}$/);
 
-const LoginPage = () => {
+const LoginPage = ({ uid }) => {
   const dispatch = useDispatch();
-
+  // const auth =  useSelector((state) => {
+  //   return state.auth;
+  // });
   const navigate = useNavigate();
 
   const [formLoginValues, handleLoginInputChange, setValues] = useForm({
@@ -21,9 +23,9 @@ const LoginPage = () => {
     hasError: {},
   });
   const { correo, contrasenia, hasError } = formLoginValues;
-  const validacion = (values)=>{
+  const validacion = (values) => {
     const error = {};
-    
+
     if (values.correo === "") {
       error.correo = "Este campo es obligatorio";
     }
@@ -40,17 +42,24 @@ const LoginPage = () => {
       error.contrasenia = "Este campo es obligatorio";
     }
     return error;
-  }
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
     const result = validacion(formLoginValues);
-    setValues({ ...formLoginValues, hasError: result })
+    setValues({ ...formLoginValues, hasError: result });
+
     if (Object.keys(result).length === 0) {
-      //dispatch(startLogout());
+      console.log(uid);
+      if (uid) {
+        dispatch(startLogout());
+      }
       dispatch(startLogin(correo, contrasenia));
-      setTimeout(() => {
-        navigate("/");
-      }, 500);
+      if (uid) {
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+      }
     }
   };
   return (

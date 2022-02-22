@@ -32,9 +32,9 @@ export const AppRouter = () => {
         <Route
           path="/login"
           element={
-            <PublicRoute uid={uid}>
+            <PublicRoute>
               <Navbar />
-              <Loginpage />
+              <Loginpage uid={uid} />
             </PublicRoute>
           }
         />
