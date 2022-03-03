@@ -7,7 +7,7 @@ import Loginpage from "../components/auth/LoginPage";
 import RegisterPage from "../components/auth/RegisterPage";
 import CambioContrasenia from "../components/auth/CambioContrasenia";
 // import Bienvenido from "../components/user/Bienvenido";
-// import { UserInicio } from "../components/user/UserInicio";
+import { UserInicio } from "../components/user/UserInicio";
 import NuevaCita from "../components/user/NuevaCita";
 
 import { startChecking } from "../actions/auth";
@@ -35,7 +35,7 @@ export const AppRouter = () => {
         <Route
           path="/login"
           element={
-            <PublicRoute>
+            <PublicRoute uid={uid}>
               <Navbar />
               <Loginpage uid={uid} />
             </PublicRoute>
@@ -45,7 +45,7 @@ export const AppRouter = () => {
         <Route
           path="/register"
           element={
-            <PublicRoute>
+            <PublicRoute uid={uid}>
               <Navbar />
               <RegisterPage uid={uid} />
             </PublicRoute>
@@ -57,6 +57,15 @@ export const AppRouter = () => {
             <PrivateRoute uid={uid}>
               <Navbar />
               <CambioContrasenia uid />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute uid={uid}>
+              <Navbar />
+              <UserInicio />
             </PrivateRoute>
           }
         />

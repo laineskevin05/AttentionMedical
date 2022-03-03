@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "../../hook/useForm";
 import React from "react";
 import { useDispatch, useStore } from "react-redux";
@@ -14,7 +14,7 @@ const LoginPage = () => {
   const { auth } = useStore().getState();
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [formLoginValues, handleLoginInputChange, setValues] = useForm({
     correo: "",
     contrasenia: "",
@@ -53,7 +53,7 @@ const LoginPage = () => {
         await dispatch(startLogout());
       }
       await dispatch(await startLogin(correo, contrasenia));
-      auth.uid && navigate("/");
+      // auth.uid && navigate("/");
     }
   };
   return (
