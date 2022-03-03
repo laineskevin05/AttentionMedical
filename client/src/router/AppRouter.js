@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Loginpage from "../components/auth/LoginPage";
 import RegisterPage from "../components/auth/RegisterPage";
 import CambioContrasenia from "../components/auth/CambioContrasenia";
-import Bienvenido from "../components/user/Bienvenido";
+// import Bienvenido from "../components/user/Bienvenido";
+// import { UserInicio } from "../components/user/UserInicio";
+import NuevaCita from "../components/user/NuevaCita";
 
 import { startChecking } from "../actions/auth";
 import { PublicRoute } from "./PublicRoute";
@@ -63,7 +65,7 @@ export const AppRouter = () => {
           element={
             <PrivateRoute uid={uid}>
               <Navbar />
-              <Bienvenido />
+              <NuevaCita />
             </PrivateRoute>
           }
         />
