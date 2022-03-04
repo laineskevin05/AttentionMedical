@@ -9,6 +9,9 @@ import CambioContrasenia from "../components/auth/CambioContrasenia";
 // import Bienvenido from "../components/user/Bienvenido";
 import { UserInicio } from "../components/user/UserInicio";
 import NuevaCita from "../components/user/NuevaCita";
+import Prueba from "../components/user/Prueba";
+import MenuUsuarioIzquierdo from "../components/ui/MenuUsuarioIzquierdo";
+import MenuUsuarioDerecho from "../components/ui/MenuUsuarioDerecho";
 
 import { startChecking } from "../actions/auth";
 import { PublicRoute } from "./PublicRoute";
@@ -41,6 +44,19 @@ export const AppRouter = () => {
             </PublicRoute>
           }
         />
+        <Route
+          path="/a"
+          element={
+            <PublicRoute uid={uid}>
+              <Navbar />
+              <div>
+                <MenuUsuarioIzquierdo />
+                <Prueba />
+                <MenuUsuarioDerecho />
+              </div>
+            </PublicRoute>
+          }
+        />
 
         <Route
           path="/register"
@@ -65,7 +81,11 @@ export const AppRouter = () => {
           element={
             <PrivateRoute uid={uid}>
               <Navbar />
-              <UserInicio />
+              <div className="flex min-h-screen">
+                <MenuUsuarioIzquierdo />
+                <UserInicio />
+                <MenuUsuarioDerecho />
+              </div>
             </PrivateRoute>
           }
         />

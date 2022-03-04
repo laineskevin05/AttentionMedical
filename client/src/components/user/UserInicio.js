@@ -1,12 +1,74 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import PageCitas from "./PageCitas";
 
 export const UserInicio = () => {
+  const [pages, setPages] = useState({
+    page1: true,
+    page2: false,
+  });
+  const { page1, page2 } = pages;
   return (
     <>
-      {/* <div className="px-4 py-16  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20"> */}
-      <div className="grid grid-cols-5">
-        <div className="bg-red-300 col-span-1 min-h-screen"></div>
-        <div className="grid gap-8  grid-cols-2 col-span-3 p-2 pt-8 content-start">
+      <div className="w-3/5 inline-block">
+        <ul className="grid grid-flow-col text-center text-gray-500 bg-gray-100 rounded-lg p-1">
+          <li>
+            <a href="#page1" className="flex justify-center py-4">
+              Pilot Training
+            </a>
+          </li>
+          <li>
+            <a
+              href="#page2"
+              className="flex justify-center bg-white rounded-lg shadow text-indigo-900 py-4"
+            >
+              Titan maintenance
+            </a>
+          </li>
+          <li>
+            <a href="#page3" className="flex justify-center py-4">
+              Loadout
+            </a>
+          </li>
+          <li>
+            <a href="#page4" className="flex justify-center py-4">
+              Server Browser
+            </a>
+          </li>
+          <li>
+            <a href="#page5" className="flex justify-center py-4">
+              Settings
+            </a>
+          </li>
+        </ul>
+        <div className="grid gap-8  grid-cols-2  p-2 pt-8 content-start">
+          {/* Solo esta tarjeta se debe de dejar, los dos div de arriba son contenedores */}
+          <button
+            className="bg-red-100"
+            onClick={(e) => {
+              e.preventDefault();
+              setPages({
+                page1: true,
+                page2: false,
+              });
+            }}
+          >
+            Cita
+          </button>
+          <button
+            className="bg-red-100"
+            onClick={(e) => {
+              e.preventDefault();
+              setPages({
+                page1: false,
+                page2: true,
+              });
+            }}
+          >
+            Historial
+          </button>
+          {page1 && <PageCitas />}
+          {page2 && <p>Wuuaaaau 222222222</p>}
           <div className="flex ">
             <div className="pt-1 mr-6 text-center">
               <div className="px-2 pb-1 mb-1 border-b border-gray-400">
@@ -56,6 +118,8 @@ export const UserInicio = () => {
               </div>
             </div>
           </div>
+          {/* Aqui termina la primer tarjeta, las demas se deben de borrar, y con un for o map, mostrar la cantidad de tarjetas necesarias */}
+
           <div className="flex ">
             <div className="pt-1 mr-6 text-center">
               <div className="px-2 pb-1 mb-1 border-b border-gray-400">
@@ -204,7 +268,6 @@ export const UserInicio = () => {
             </div>
           </div>
         </div>
-        <div className="bg-blue-300  col-span-1 "></div>
       </div>
     </>
   );
