@@ -37,7 +37,9 @@ export const UserInicio = () => {
     <>
       <div className="w-3/5 inline-block bg-gray-50">
         <ul className="grid grid-flow-col text-center text-gray-500 bg-gray-100 rounded-b-lg p-1">
-          <li>
+          <li></li>
+          <li></li>
+          <li className="px-2">
             <button
               id="btnPagina1"
               onClick={(e) => {
@@ -49,7 +51,7 @@ export const UserInicio = () => {
               Proximas citas
             </button>
           </li>
-          <li>
+          <li className="px-2">
             <button
               id="btnPagina2"
               onClick={(e) => {
@@ -61,7 +63,6 @@ export const UserInicio = () => {
               Historial de citas
             </button>
           </li>
-          <li></li>
           <li></li>
           <li></li>
         </ul>
