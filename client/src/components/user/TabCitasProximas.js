@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PageCitas = () => {
+const TabCitasProximas = () => {
   return (
-    <div className="flex ">
+    // Esta es una unica tarjeta.
+    <div className="flex rounded-md bg-gray-100 p-2 border-2">
       <div className="pt-1 mr-6 text-center">
         <div className="px-2 pb-1 mb-1 border-b border-gray-400">
           <p className="text-sm text-blue-gray-700">Jul</p>
@@ -55,4 +56,4 @@ const PageCitas = () => {
   );
 };
 
-export default PageCitas;
+export default TabCitasProximas;

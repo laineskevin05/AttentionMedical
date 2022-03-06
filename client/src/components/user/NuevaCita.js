@@ -4,9 +4,8 @@ import React from "react";
 const NuevaCita = () => {
   return (
     <>
-      <div className="grid grid-cols-5">
-        <div className="bg-red-300 col-span-1 min-h-screen"></div>
-        <div className="grid gap-8 col-span-3 p-2 pt-8 content-start">
+      <div className="w-3/5 inline-block">
+        <div className="grid gap-8  p-2 pt-8 content-start">
           <div className="text-center border-2 m-4">
             <h6 className="uppercase text block py-3 bg-slate-700 text-white font-bold">
               Nueva cita
@@ -82,7 +81,6 @@ const NuevaCita = () => {
             </div>
           </div>
         </div>
-        <div className="bg-blue-300  col-span-1 "></div>
       </div>
     </>
   );

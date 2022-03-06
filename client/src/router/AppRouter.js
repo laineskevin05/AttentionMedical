@@ -90,6 +90,19 @@ export const AppRouter = () => {
           }
         />
         <Route
+          path="/nuevacita"
+          element={
+            <PrivateRoute uid={uid}>
+              <Navbar />
+              <div className="flex min-h-screen">
+                <MenuUsuarioIzquierdo />
+                <NuevaCita />
+                <MenuUsuarioDerecho />
+              </div>
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/*"
           element={
             <PrivateRoute uid={uid}>
