@@ -70,9 +70,9 @@ export const UserInicio = () => {
           {/* Solo esta tarjeta se debe de dejar, los dos div de arriba son contenedores */}
 
           {page1 && <TabCitasProximas />}
+          {/* {page1 && <TabCitasProximas />}
           {page1 && <TabCitasProximas />}
-          {page1 && <TabCitasProximas />}
-          {page1 && <TabCitasProximas />}
+          {page1 && <TabCitasProximas />} */}
         </div>
         {page2 && <TabCitasHistorial />}
       </div>

@@ -20,6 +20,7 @@ app.use(express.json());
 
 // Rutas
 app.use("/api/auth", require("./routes/auth"));
+app.use("/api/cita", require("./routes/cita"))
 app.use("/api/config", require("./routes/config"));
 // TODO: CRUD:
 

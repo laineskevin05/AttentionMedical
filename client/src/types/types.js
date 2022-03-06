@@ -20,4 +20,7 @@ export const types = {
   authLogout: "[auth] Logout",
 
   configCambioContrasenia: "[config] Cambio de contraseña",
+
+  citaAddNew: "[cita] Add New",
+  citaLoaded: "[cita] cita Loaded",
 };

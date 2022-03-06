@@ -1,10 +1,38 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {  useNavigate } from "react-router-dom";
+import { citaStartAddNew } from "../../actions/cita";
+import { useForm } from "../../hook/useForm";
 // import { Link } from "react-router-dom";
 
 const NuevaCita = () => {
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const state = useSelector( state => state );
+  console.log(state);
+
+  const [formValues, handleInputChange] = useForm({
+      clinica: "",
+      doctor: "",
+      fecha: "",
+      hora: "",
+      descripcion: ""
+  });
+  
+  const handleAdd = (e) => {
+    e.preventDefault();
+    dispatch(citaStartAddNew( formValues ))
+    navigate("/", {replace: true});
+  }
+
+  const { clinica, doctor, fecha, hora, descripcion } = formValues;
+
   return (
-    <>
-      <div className="w-3/5 inline-block">
+      <>
+      <form className="w-3/5 inline-block" onSubmit={ handleAdd }>
         <div className="grid gap-8  p-2 pt-8 content-start">
           <div className="text-center border-2 m-4">
             <h6 className="uppercase text block py-3 bg-slate-700 text-white font-bold">
@@ -17,7 +45,10 @@ const NuevaCita = () => {
                 </label>
                 <input
                   type="text"
-                  name="afiliado"
+                  name="clinica"
+                  value={ clinica }
+                  onChange={ handleInputChange }
+                  autoComplete="off"
                   placeholder="Clinica San martin"
                   className="px-2 w-2/3 bg-slate-100 rounded border-2 my-1"
                 />
@@ -30,8 +61,11 @@ const NuevaCita = () => {
                 </label>
                 <input
                   type="text"
-                  name="doctor_a"
+                  name="doctor"
                   placeholder="Nombre"
+                  autoComplete="off"
+                  value={ doctor }
+                  onChange={ handleInputChange }
                   className="px-2 w-2/3 bg-slate-100 rounded border-2 my-1"
                 />
               </div>
@@ -44,6 +78,8 @@ const NuevaCita = () => {
                 <input
                   type="date"
                   name="fecha"
+                  value={ fecha }
+                  onChange={ handleInputChange }
                   placeholder=""
                   className="px-2 w-2/3 bg-slate-100 rounded border-2 my-1"
                 />
@@ -57,6 +93,8 @@ const NuevaCita = () => {
                 <input
                   type="time"
                   name="hora"
+                  value={ hora }
+                  onChange={ handleInputChange }
                   className="px-2 w-2/3 bg-slate-100 rounded border-2 my-1"
                 />
               </div>
@@ -66,7 +104,12 @@ const NuevaCita = () => {
                 <label className="inline-block mx-2 w-36 text-right align-top">
                   Descripcion:{" "}
                 </label>
-                <textarea className="px-2 w-2/3 bg-slate-100 rounded border-2 my-1 h-32" />
+                <textarea 
+                  className="px-2 w-2/3 bg-slate-100 rounded border-2 my-1 h-32"
+                  name="descripcion"
+                  value={ descripcion }
+                  onChange={ handleInputChange }
+                />
               </div>
             </div>
             <div className="p-1 text-center">
@@ -81,7 +124,7 @@ const NuevaCita = () => {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 };
