@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { crearCita, getCitas } = require("../controllers/cita");
+const { crearCita, getCitas, DeleteCita } = require("../controllers/cita");
 const { validarCampos } = require("../middlewares/validar-campos");
 
 const { validarJWT } = require("../middlewares/validar-jwt");
@@ -26,5 +26,10 @@ router.get(
   '/:id',
   getCitas
   )
+
+
+  router.delete(
+    '/:id'  
+  , DeleteCita)
 
 module.exports = router;

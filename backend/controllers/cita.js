@@ -33,7 +33,17 @@ const getCitas = async(req, res=response)=>{
 
 }
 
+const DeleteCita = async  (req, res) => {
+    const { id } = req.params;
+    await Cita.deleteOne({ _id: id });
+    res.json({ msg:'cita eliminada' });
+ }
+
+
+
 module.exports = {
     crearCita,
     getCitas
+    getCitas,
+    DeleteCita
 }
