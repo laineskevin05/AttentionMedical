@@ -43,7 +43,6 @@ const DeleteCita = async  (req, res) => {
 
 module.exports = {
     crearCita,
-    getCitas
     getCitas,
     DeleteCita
 }
