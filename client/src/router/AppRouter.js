@@ -17,6 +17,8 @@ import { startChecking } from "../actions/auth";
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
 import Navbar from "../components/ui/Navbar";
+import Perfil from "../components/user/Perfil";
+import Configuracion from "../components/ui/Configuracion";
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -90,6 +92,15 @@ export const AppRouter = () => {
           }
         />
         <Route
+          path="/configuracion"
+          element={
+            <PrivateRoute uid={uid}>
+              <Navbar />
+              <Configuracion />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/nuevacita"
           element={
             <PrivateRoute uid={uid}>
@@ -97,6 +108,19 @@ export const AppRouter = () => {
               <div className="flex min-h-screen">
                 <MenuUsuarioIzquierdo />
                 <NuevaCita />
+                <MenuUsuarioDerecho />
+              </div>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/perfil"
+          element={
+            <PrivateRoute uid={uid}>
+              <Navbar />
+              <div className="flex min-h-screen">
+                <MenuUsuarioIzquierdo />
+                <Perfil />
                 <MenuUsuarioDerecho />
               </div>
             </PrivateRoute>

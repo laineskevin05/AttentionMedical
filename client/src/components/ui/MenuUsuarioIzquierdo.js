@@ -19,6 +19,13 @@ const MenuUsuarioIzquierdo = () => {
           </button>
         </Link>
       </div>
+      <div className="flex  w-full justify-end my-2 ">
+        <Link to="/perfil" className="w-1/2">
+          <button className="bg-red-600 rounded text-white p-4 items-center w-full">
+            Perfil
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
