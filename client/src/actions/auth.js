@@ -85,4 +85,27 @@ export const startLogout = () => {
   };
 };
 
+export const startLoadProfile = () => {
+    return async( dispatch, getState ) => {
+      console.log(getState().auth);
+      
+      try {
+        const { uid } = getState().auth
+        console.log(uid);
+        const res = await fetchConToken(`perfil/${ uid }`)
+        const body = await res.json();
+        console.log(body);
+        const perfil = body.perfil;
+        dispatch( loadProfile(perfil))
+      } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+const loadProfile = (profile) => ({
+    type: types.profileLoad,
+    payload: profile
+})
+
 const logout = () => ({ type: types.authLogout });

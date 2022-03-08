@@ -9,6 +9,7 @@ const {
   crearUsuario,
   loginUsuario,
   revalidarToken,
+  cargarUsuario,
 } = require("../controllers/auth");
 const { validarJWT } = require("../middlewares/validar-jwt");
 
@@ -45,6 +46,8 @@ router.post(
   ],
   loginUsuario
 );
+
+router.get("/perfil/:id", validarJWT, cargarUsuario);
 
 router.get("/renew", validarJWT, revalidarToken);
 

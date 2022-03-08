@@ -1,15 +1,25 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { startLoadProfile } from "../../actions/profile";
+
+
 
 const Perfil = () => {
 
-  const state = useSelector( state => state );
-  console.log(state);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {  
+    dispatch( startLoadProfile() );
+  }, [dispatch])
+
+  const { user } = useSelector( state => state.profile );
 
   return (
     <>
-      <div className="w-3/5 inline-block bg-gray-50">
+      {user.map( dato => {
+      return (
+      <div className="w-3/5 inline-block bg-gray-50" key={dato._id}>
         <div className="pt-8 p-2 relative">
           <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl   flex items-center justify-center text-indigo-500">
             <svg
@@ -60,7 +70,7 @@ const Perfil = () => {
               autoComplete="off"
               disabled={true}
               //   onChange={handleRegisterInputChange}
-              //   value={nombre}
+                value={dato.nombre}
               style={{ transition: "all .15s ease" }}
             />
           </div>
@@ -76,7 +86,7 @@ const Perfil = () => {
               name="apellido"
               autoComplete="off"
               //   onChange={handleRegisterInputChange}
-              //   value={apellido}
+                value={dato.apellido}
               style={{ transition: "all .15s ease" }}
             />
           </div>
@@ -92,7 +102,7 @@ const Perfil = () => {
               autoComplete="off"
               disabled={true}
               //   onChange={handleRegisterInputChange}
-              //   value={correo}
+                value={dato.correo}
               style={{ transition: "all .15s ease" }}
             />
           </div>
@@ -109,12 +119,13 @@ const Perfil = () => {
               autoComplete="off"
               disabled={true}
               //   onChange={handleRegisterInputChange}
-              //   value={telefono}
+                value={dato.telefono}
               style={{ transition: "all .15s ease" }}
             />
           </div>
         </div>
       </div>
+      )})}    
     </>
   );
 };

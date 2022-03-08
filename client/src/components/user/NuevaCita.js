@@ -19,6 +19,7 @@ const NuevaCita = () => {
       doctor: "",
       fecha: "",
       hora: "",
+      estado: "Activo",
       descripcion: ""
   });
   

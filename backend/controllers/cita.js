@@ -11,7 +11,7 @@ const crearCita = async(req, res=response)=>{
         res.json({
             ok:true,
             cita: citaGuardada
-      })
+        })
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -33,16 +33,51 @@ const getCitas = async(req, res=response)=>{
 
 }
 
-const DeleteCita = async  (req, res) => {
-    const { id } = req.params;
-    await Cita.deleteOne({ _id: id });
-    res.json({ msg:'cita eliminada' });
- }
+const actualizarCita = async(req, res=response)=>{
+    const CitaId = req.params.id;
+    console.log(CitaId)
+    const uid = req.uid;
+    
+    try {
+       const cita = await Cita.findById(CitaId); 
+       if(!cita){
+           return res.status(404).json({
+               ok:false,
+               msg:'Lacita no existe por ese id'
+           });
+       }
+
+       if(cita.user.toString() !== uid){
+        return res.status(401).json({
+            ok:false,
+            msg:'No tiene los privilegios de editar esta cita'
+        })
+       }
+
+       const nuevoCIta = {
+           ...req.body,
+           user: uid
+       }
+
+       const citaActualizado = await Cita.findByIdAndUpdate(CitaId, nuevoCIta, {new: true});
+       res.json({
+           ok:true,
+           cita: citaActualizado
+       });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok:false,
+            msg: 'hable con el administrador'
+        });
+    }
+}
 
 
 
 module.exports = {
     crearCita,
     getCitas,
-    DeleteCita
+    actualizarCita
 }

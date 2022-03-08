@@ -19,6 +19,10 @@ const CitaSchema = Schema({
   },
   descripcion: {
     type: String,
+  },  
+  estado:{
+    type: String,
+    required: true
   },
   user:{
     type: Schema.Types.ObjectId,

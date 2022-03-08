@@ -157,8 +157,29 @@ const cambiarContrasenia = async (req, res = response) => {
   }
 };
 
+const cargarUsuario = async (req, res = response) => {
+
+    try {
+      const userId = req.params.id;
+      const user = await Usuario.find({_id: userId});
+      
+      console.log(user);
+      
+      res.json({
+        ok: true,
+        user
+      })
+    } catch (error) {
+      res.json({
+        ok: false,
+        msg: "Por favor hable con el administrador"
+      })
+    }
+}
+
 module.exports = {
   crearUsuario,
   loginUsuario,
   revalidarToken,
+  cargarUsuario,
 };
