@@ -1,22 +1,25 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Perfil = () => {
+
+  const state = useSelector( state => state );
+  console.log(state);
+
   return (
     <>
       <div className="w-3/5 inline-block bg-gray-50">
         <div className="pt-8 p-2 relative">
-          <div class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl   flex items-center justify-center text-indigo-500">
+          <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl   flex items-center justify-center text-indigo-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-24 w-24"
+              className="h-24 w-24"
               viewBox="0 0 20 20"
-              fill="currentColor"
+              
             >
               <path
-                fill-rule="evenodd"
                 d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                clip-rule="evenodd"
               />
             </svg>
           </div>
@@ -27,7 +30,6 @@ const Perfil = () => {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
-              fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
@@ -56,7 +58,7 @@ const Perfil = () => {
               className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
               name="nombre"
               autoComplete="off"
-              disabled="true"
+              disabled={true}
               //   onChange={handleRegisterInputChange}
               //   value={nombre}
               style={{ transition: "all .15s ease" }}
@@ -70,7 +72,7 @@ const Perfil = () => {
               type="text"
               className="mt-1 border-0 py-3 px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow w-full "
               placeholder="..."
-              disabled="true"
+              disabled={true}
               name="apellido"
               autoComplete="off"
               //   onChange={handleRegisterInputChange}
@@ -88,7 +90,7 @@ const Perfil = () => {
               placeholder="..."
               name="correo"
               autoComplete="off"
-              disabled="true"
+              disabled={true}
               //   onChange={handleRegisterInputChange}
               //   value={correo}
               style={{ transition: "all .15s ease" }}
@@ -105,7 +107,7 @@ const Perfil = () => {
               type="tel"
               name="telefono"
               autoComplete="off"
-              disabled="true"
+              disabled={true}
               //   onChange={handleRegisterInputChange}
               //   value={telefono}
               style={{ transition: "all .15s ease" }}
