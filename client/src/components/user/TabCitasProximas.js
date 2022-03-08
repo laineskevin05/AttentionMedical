@@ -16,7 +16,7 @@ const TabCitasProximas = () => {
       {citas.map((cita) => {
         return (
           <div
-            className="flex border-2 rounded-lg p-4 m-2 bg-white "
+            className="flex border-2  rounded-lg p-4 m-2 bg-white "
             key={cita.id}
           >
             <div className="pt-1 mr-6 text-center">
@@ -39,13 +39,13 @@ const TabCitasProximas = () => {
                   <div>
                     <button
                       type="button"
-                      className="inline-flex justify-center w-full rounded-md border  shadow-sm px-2 py-1  text-sm font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                      className="inline-flex relative hover:sub_menu div justify-center w-full rounded-md border  shadow-sm px-2 py-1  text-sm font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
                       id="menu-button"
-                      aria-expanded="true"
-                      aria-haspopup="true"
                       onClick={(e) => {
                         e.preventDefault();
-                        const menuCita = document.getElementById("sub_menu");
+                        const menuCita = document.getElementById(
+                          "menu_" + cita.id
+                        );
 
                         if (menuCita?.classList.contains("hidden")) {
                           menuCita?.classList.remove("hidden");
@@ -70,23 +70,22 @@ const TabCitasProximas = () => {
                   </div>
 
                   <div
-                    className="origin-top-right hidden right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                    role="menu"
-                    id="sub_menu"
+                    className=" hidden absolute w-36 rounded-md shadow-lg bg-white ring-1  ring-opacity-5 focus:outline-none"
+                    id={"menu_" + cita.id}
                     aria-orientation="vertical"
                     aria-labelledby="menu-button"
                   >
-                    <div className="py-1" role="none">
+                    <div className="text-left" role="none">
                       {/* <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" --> */}
                       <button
-                        className="text-gray-700 block px-4 py-2 text-sm"
+                        className="text-gray-700 block w-full text-left px-4 py-2 hover:bg-gray-300 text-sm"
                         id="menu-item-0"
                       >
                         Cancelar cita
                       </button>
                       <Link
                         to="/cita/editar"
-                        className="text-gray-700 block px-4 py-2 text-sm"
+                        className="text-gray-700 block w-full text-left px-4 py-2 hover:bg-gray-300 text-sm"
                         id="menu-item-1"
                       >
                         Editar cita
