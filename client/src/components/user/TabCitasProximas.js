@@ -81,7 +81,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { starCitaLoaded } from "../../actions/cita";
+import { citaStartCanceled, starCitaLoaded } from "../../actions/cita";
 import Moment from "react-moment";
 
 const TabCitasProximas = () => {
