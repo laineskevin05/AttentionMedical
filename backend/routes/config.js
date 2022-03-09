@@ -3,7 +3,10 @@ const { check } = require("express-validator");
 
 const { validarJWT } = require("../middlewares/validar-jwt");
 const { validarCampos } = require("../middlewares/validar-campos");
-const { cambiarContrasenia } = require("../controllers/config");
+const {
+  cambiarContrasenia,
+  actualizarPerfil,
+} = require("../controllers/config");
 
 const router = Router();
 
@@ -24,5 +27,8 @@ router.post(
   ],
   cambiarContrasenia
 );
+
+// actualizar informacion de usuario
+router.put("/configuracion/:id", actualizarPerfil);
 
 module.exports = router;

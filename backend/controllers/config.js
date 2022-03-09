@@ -63,6 +63,54 @@ const cambiarContrasenia = async (req, res = response) => {
   }
 };
 
+const actualizarPerfil = async (req, res = response) => {
+  const userId = req.params.id;
+  console.log(userId);
+  const uid = req.uid;
+
+  try {
+    const user = await Usuario.findById(userId);
+    console.log(user);
+
+    if (!user) {
+      return res.status(404).json({
+        ok: false,
+        msg: "El usuario no existe",
+      });
+    }
+
+    if (user._id.toString() !== userId) {
+      return res.status(404).json({
+        ok: false,
+        msg: "No tiene los privilegios de editar este perfil",
+      });
+    }
+
+    const nuevoUsuario = {
+      ...req.body,
+      user: uid,
+    };
+
+    const usuarioActualizado = await Usuario.findByIdAndUpdate(
+      userId,
+      nuevoUsuario,
+      { new: true }
+    );
+
+    res.json({
+      ok: true,
+      user: usuarioActualizado,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
+};
+
 module.exports = {
   cambiarContrasenia,
+  actualizarPerfil,
 };
