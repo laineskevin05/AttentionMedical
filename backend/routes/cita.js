@@ -17,34 +17,29 @@ router.post(
     check("doctor", "El nombre del doctor es obligatorio").not().isEmpty(),
     check("fecha", "La fecha es obligatorio").not().isEmpty(),
     check("hora", "La hora es obligatorio").not().isEmpty(),
-    validarCampos
+    validarCampos,
   ],
   crearCita
 );
 
 // Obtener citas
-router.get(
-  '/:id',
-  getCitas
-  );
+router.get("/:id", getCitas);
 
-  //Editiar Cita
+//Editiar Cita
 router.put(
-  '/actualizarCita/:id',
+  "/actualizarCita/:id",
   [
     check("clinica", "El nombre de la clinca es obligatorio").not().isEmpty(),
     check("doctor", "El nombre del doctor es obligatorio").not().isEmpty(),
     check("fecha", "La fecha es obligatorio").not().isEmpty(),
     check("hora", "La hora es obligatorio").not().isEmpty(),
-    validarCampos
+    validarCampos,
   ],
   actualizarCita
 );
 
 //Cancelar cita
-router.put(
-  '/cancelarCita/:id',
-  actualizarCita
-  );
+router.put("/cancelarCita/:id", actualizarCita);
+//Editiar cita
 
 module.exports = router;

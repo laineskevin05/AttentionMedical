@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { starCitaLoaded } from "../../actions/cita";
 
 const TabCitasHistorial = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(starCitaLoaded());
+  }, [dispatch]);
+
+  const { citas } = useSelector((state) => state.cita);
+
+  // const historialCitas = citas.filter((cita) => {
+  //   return cita.estado !== "Activo";
+  // });
+
   return (
     <div className="flex w-full px-4 ">
       <table className="table w-full border-2 border-zinc-400 ">
@@ -16,73 +30,22 @@ const TabCitasHistorial = () => {
           </tr>
         </thead>
         <tbody className="bg-white">
-          <tr className="hover:bg-gray-200 bg-white">
-            <th className="p-1">15548855445</th>
-            <td className="p-1">2020/jul/18</td>
-            <td className="p-1">14:00 a 15:00</td>
-            <td className="p-1">Activa</td>
-            <td className="p-1">Clinica Dolores</td>
-            <td className="p-1">Pedro Guzman</td>
-            <td className="p-1">
-              Descripcion: Sed ut perspiciatis unde omnis iste natus error sit
-              sed quia consequuntur magni voluptatem doloremque.
-            </td>
-          </tr>
-          {/* Estas filas se deberan de borrar, solo son ilustrativas
-          asi que se debe de adaptar un map con la lista de datos para mostrar todo adaptando el codigo de arriba */}
-
-          <tr className="hover:bg-gray-200  ">
-            <th className="p-1">15548855445</th>
-            <td className="p-1">2020/jul/18</td>
-            <td className="p-1">14:00 a 15:00</td>
-            <td className="p-1">Por confirmar</td>
-            <td className="p-1">Clinica Dolores</td>
-            <td className="p-1">Pedro Guzman</td>
-            <td className="p-1">
-              Descripcion: Sed ut perspiciatis unde omnis iste natus error sit
-              sed quia consequuntur magni voluptatem doloremque.
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-200 ">
-            <th className="p-1">15548855445</th>
-            <td className="p-1">2020/jul/18</td>
-            <td className="p-1">14:00 a 15:00</td>
-            <td className="p-1">Cancelada</td>
-            <td className="p-1">Clinica Dolores</td>
-            <td className="p-1">Pedro Guzman</td>
-            <td className="p-1">
-              Descripcion: Sed ut perspiciatis unde omnis iste natus error sit
-              sed quia consequuntur magni voluptatem doloremque.
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-200  ">
-            <th className="p-1">15548855445</th>
-            <td className="p-1">2020/jul/18</td>
-            <td className="p-1">14:00 a 15:00</td>
-            <td className="p-1">Realizada</td>
-            <td className="p-1">Clinica Dolores</td>
-            <td className="p-1">Pedro Guzman</td>
-            <td className="p-1">
-              Descripcion: Sed ut perspiciatis unde omnis iste natus error sit
-              sed quia consequuntur magni voluptatem doloremque.
-            </td>
-          </tr>
-          <tr className="hover:bg-gray-200 ">
-            <th className="p-1">15548855445</th>
-            <td className="p-1">2020/jul/18</td>
-            <td className="p-1">14:00 a 15:00</td>
-            <td className="p-1">Activa</td>
-            <td className="p-1">Clinica Dolores</td>
-            <td className="p-1">Pedro Guzman</td>
-            <td className="p-1">
-              Descripcion: Sed ut perspiciatis unde omnis iste natus error sit
-              sed quia consequuntur magni voluptatem doloremque.
-            </td>
-          </tr>
+          {citas.map((cita) => {
+            return (
+              <tr className="hover:bg-gray-200 bg-white" key={cita.id}>
+                <th className="p-1">{cita.id}</th>
+                <td className="p-1">{cita.fecha}</td>
+                <td className="p-1">{cita.hora}</td>
+                <td className="p-1">{cita.estado}</td>
+                <td className="p-1">{cita.clinica}</td>
+                <td className="p-1">{cita.doctor}</td>
+                <td className="p-1">{cita.descripcion}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
   );
 };
-
 export default TabCitasHistorial;

@@ -191,7 +191,8 @@ const TabCitasProximas = () => {
                       <button
                         className="text-gray-700 block w-full text-left px-4 py-2 hover:bg-gray-300 text-sm"
                         id="menu-item-0"
-                        onClick={() =>
+                        onClick={(e) => {
+                          e.preventDefault();
                           handleCanceled({
                             id: cita.id,
                             clinica: cita.clinica,
@@ -200,8 +201,8 @@ const TabCitasProximas = () => {
                             hora: cita.hora,
                             descripcion: cita.descripcion,
                             estado: cita.estado,
-                          })
-                        }
+                          });
+                        }}
                       >
                         Cancelar cita
                       </button>

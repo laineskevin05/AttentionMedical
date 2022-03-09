@@ -60,12 +60,11 @@ const Navbar = () => {
     //     )}
     //   </div>
     // </nav>
-    <nav class="bg-white relative px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800  border-b border-slate-900 border-solid shadow shadow-gray-600">
-      <div class="container flex flex-wrap justify-between items-center mx-auto">
-        <Link to="/" class="flex items-center">
+    <nav className="bg-white relative px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800  border-b border-slate-900 border-solid shadow shadow-gray-600">
+      <div className="container flex flex-wrap justify-between items-center mx-auto">
+        <Link to="/" className="flex items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            enable-background="new 0 0 24 24"
             height="24px"
             viewBox="0 0 24 24"
             width="24px"
@@ -78,65 +77,53 @@ const Navbar = () => {
               <path d="M20,7h-5V4c0-1.1-0.9-2-2-2h-2C9.9,2,9,2.9,9,4v3H4C2.9,7,2,7.9,2,9v11c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V9 C22,7.9,21.1,7,20,7z M11,4h2v5h-2V4z M20,20H4V9h5c0,1.1,0.9,2,2,2h2c1.1,0,2-0.9,2-2h5V20z M11,16H9v2H7v-2H5v-2h2v-2h2v2h2V16z M13,14.5V13h6v1.5H13z M13,17.5V16h4v1.5H13z" />
             </g>
           </svg>
-          <span class="self-center text-xl font-bold whitespace-nowrap px-2 text-textop uppercase dark:text-white">
+          <span className="self-center text-xl font-bold whitespace-nowrap px-2 text-textop uppercase dark:text-white">
             Atencion Medica
           </span>
         </Link>
-        <div class="flex md:order-2">
+        <div className="flex md:order-2">
           <button
             data-collapse-toggle="mobile-menu-3"
             type="button"
-            class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="mobile-menu-3"
             aria-expanded="false"
           >
-            <span class="sr-only">Open main menu</span>
+            <span className="sr-only">Open main menu</span>
             <svg
-              class="w-6 h-6"
+              className="w-6 h-6"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                fill-rule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"
-              ></path>
+              <path d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path>
             </svg>
             <svg
-              class="hidden w-6 h-6"
+              className="hidden w-6 h-6"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                fill-rule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
+              <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path>
             </svg>
           </button>
           {typeof uid === "string" && uid ? (
             <>
-              <div class="hidden relative mr-3 md:mr-0 md:block">
-                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+              <div className="hidden relative mr-3 md:mr-0 md:block">
+                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                   <svg
-                    class="w-5 h-5 text-gray-500"
+                    className="w-5 h-5 text-gray-500"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                      clip-rule="evenodd"
-                    ></path>
+                    <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"></path>
                   </svg>
                 </div>
                 <input
                   type="text"
                   id="email-adress-icon"
-                  class="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Search..."
                 />
               </div>
@@ -166,7 +153,7 @@ const Navbar = () => {
                 </button>
               </div>
               <div
-                className=" hidden absolute  right-4 top-14 rounded-md shadow-lg bg-gray-100 ring-1  ring-opacity-5 focus:outline-none"
+                className=" hidden absolute z-30 right-4 top-14 rounded-md shadow-lg bg-gray-100 ring-1  ring-opacity-5 focus:outline-none"
                 id="menu_nav"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"
@@ -205,7 +192,6 @@ const Navbar = () => {
                     <svg
                       className="inline-block"
                       xmlns="http://www.w3.org/2000/svg"
-                      enable-background="new 0 0 24 24"
                       height="24px"
                       viewBox="0 0 24 24"
                       width="24px"
@@ -224,7 +210,6 @@ const Navbar = () => {
                     <svg
                       className="inline-block"
                       xmlns="http://www.w3.org/2000/svg"
-                      enable-background="new 0 0 24 24"
                       height="24px"
                       viewBox="0 0 24 24"
                       width="24px"
@@ -269,14 +254,14 @@ const Navbar = () => {
           )}
         </div>
         <div
-          class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
+          className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
           id="mobile-menu-3"
         >
-          <ul class="flex flex-col mt-4 md:flex-row md:space-x-2 md:mt-0 md:text-sm md:font-medium">
+          <ul className="flex flex-col mt-4 md:flex-row md:space-x-2 md:mt-0 md:text-sm md:font-medium">
             <li>
               <Link
                 to="/"
-                class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+                className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
                 aria-current="page"
               >
                 Inicio
@@ -286,7 +271,7 @@ const Navbar = () => {
               <li>
                 <p
                   href="#"
-                  class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Mensajes
                 </p>
@@ -296,7 +281,7 @@ const Navbar = () => {
             <li>
               <p
                 href="#"
-                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Sobre nosotros
               </p>
@@ -304,15 +289,15 @@ const Navbar = () => {
           </ul>
         </div>
         {/* <div
-          class="hidden justify-between items-end w-full md:flex md:w-auto md:order-3"
+          className="hidden justify-between items-end w-full md:flex md:w-auto md:order-3"
           id="mobile-menu-3"
         >
-          <ul class="flex flex-col mt-4 md:flex-row md:space-x-2 md:mt-0 md:text-sm md:font-medium">
+          <ul className="flex flex-col mt-4 md:flex-row md:space-x-2 md:mt-0 md:text-sm md:font-medium">
             {typeof uid === "string" && uid && (
               <li>
                 <p
                   href="#"
-                  class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Mensajes
                 </p>
