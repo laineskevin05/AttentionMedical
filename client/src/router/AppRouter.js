@@ -9,6 +9,7 @@ import CambioContrasenia from "../components/auth/CambioContrasenia";
 // import Bienvenido from "../components/user/Bienvenido";
 import { UserInicio } from "../components/user/UserInicio";
 import NuevaCita from "../components/user/NuevaCita";
+import EditarCita from "../components/user/cita/EditarCita";
 import Prueba from "../components/user/Prueba";
 import MenuUsuarioIzquierdo from "../components/ui/MenuUsuarioIzquierdo";
 import MenuUsuarioDerecho from "../components/ui/MenuUsuarioDerecho";
@@ -108,6 +109,19 @@ export const AppRouter = () => {
               <div className="flex min-h-screen">
                 <MenuUsuarioIzquierdo />
                 <NuevaCita />
+                <MenuUsuarioDerecho />
+              </div>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/cita/editar"
+          element={
+            <PrivateRoute uid={uid}>
+              <Navbar />
+              <div className="flex min-h-screen">
+                <MenuUsuarioIzquierdo />
+                <EditarCita />
                 <MenuUsuarioDerecho />
               </div>
             </PrivateRoute>
