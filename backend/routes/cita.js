@@ -26,9 +26,9 @@ router.post(
 router.get(
   '/:id',
   getCitas
-  )
+  );
 
-  //actualizar Cita
+  //Editiar Cita
 router.put(
   '/actualizarCita/:id',
   [
@@ -39,6 +39,12 @@ router.put(
     validarCampos
   ],
   actualizarCita
-)
+);
+
+//Cancelar cita
+router.put(
+  '/cancelarCita/:id',
+  actualizarCita
+  );
 
 module.exports = router;
