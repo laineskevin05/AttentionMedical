@@ -6,7 +6,7 @@
 
 // const TabCitasProximas = () => {
 //   const dispatch = useDispatch();
- 
+
 //   useEffect(()=>{
 //     dispatch(starCitaLoaded());
 //   },[dispatch])
@@ -17,11 +17,11 @@
 //   })
 //   return (
 //     <>
-    
+
 //     {
 //       citasActivas.map(cita=>{
 //         return(
-          
+
 //       <div className="flex " key={cita.id}>
 //         <div className="pt-1 mr-6 text-center">
 //           <div className="px-2 pb-1 mb-1 border-b border-gray-400">
@@ -80,9 +80,9 @@
 
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { starCitaLoaded } from "../../actions/cita";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 
 const TabCitasProximas = () => {
   const dispatch = useDispatch();
@@ -92,9 +92,9 @@ const TabCitasProximas = () => {
   }, [dispatch]);
 
   const { citas } = useSelector((state) => state.cita);
-  const citasActivas = citas.filter((cita)=>{
-    return cita.estado === "Activo"
-  })
+  const citasActivas = citas.filter((cita) => {
+    return cita.estado === "Activo";
+  });
   return (
     <>
       {citasActivas.map((cita) => {
@@ -105,17 +105,21 @@ const TabCitasProximas = () => {
           >
             <div className="pt-1 mr-6 text-center">
               <div className="px-2 pb-1 mb-1 border-b border-gray-400">
-                <p className="text-sm text-blue-gray-700"><Moment format="MMM">{cita.fecha}</Moment></p>
+                <p className="text-sm text-textop">
+                  <Moment format="MMM">{cita.fecha}</Moment>
+                </p>
               </div>
               <div className="px-2">
-                <p className="text-lg font-bold"><Moment format="DD">{cita.fecha}</Moment></p>
+                <p className="text-lg text-textop font-bold">
+                  <Moment format="DD">{cita.fecha}</Moment>
+                </p>
               </div>
             </div>
             <div>
               <div className="mb-1">
                 <Link
                   to="/"
-                  className="inline-block text-2xl font-bold pr-2 leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
+                  className="inline-block text-xl font-bold pr-2 leading-5 text-textop uppercase transition-colors duration-200 hover:text-deep-purple-accent-400"
                 >
                   {cita.clinica}
                 </Link>
@@ -216,4 +220,3 @@ const TabCitasProximas = () => {
 };
 
 export default TabCitasProximas;
-
