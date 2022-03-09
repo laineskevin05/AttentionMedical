@@ -17,7 +17,14 @@ export const citaReducer = (state = init, action) => {
                 ...state,
                 citas: [...action.payload]
             }
-    
+        case types.citaCanceled:
+            console.log(action.payload);
+            return {
+                ...state,
+                citas: state.citas.map(
+                    e => ( e.id === action.payload.id ) ? action.payload : e
+                )
+            }
         
     
         default:

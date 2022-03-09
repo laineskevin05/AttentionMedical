@@ -35,6 +35,34 @@ export const starCitaLoaded = ()=>{
     }
 }
 
+export const citaStartCanceled = ( cita ) => {
+    return async(dispatch, getState) => {
+        const { uid, name} = getState().auth;
+        try {
+            const resp = await fetchConToken(`cita/cancelarCita/${ cita.id }`, cita, 'PUT' );
+            const body = await resp.json();
+
+            if ( body.ok ) {
+                //cita.id = body.citas.id;
+                cita.user = name
+                dispatch( citaCanceled( cita ) );
+            } else {
+                console.log('error 1');
+            }
+
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+}
+
+const citaCanceled = ( cita ) => ({
+    type: types.citaCanceled,
+    payload: cita
+});
+
 const citaAddNew = ( cita )=>({
     type: types.citaAddNew,
     payload: cita

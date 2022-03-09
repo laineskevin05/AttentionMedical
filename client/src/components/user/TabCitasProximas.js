@@ -78,20 +78,37 @@
 
 // export default TabCitasProximas;
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { starCitaLoaded } from "../../actions/cita";
+import { citaStartCanceled, starCitaLoaded } from "../../actions/cita";
 import Moment from 'react-moment';
 
 const TabCitasProximas = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(starCitaLoaded());
   }, [dispatch]);
 
   const { citas } = useSelector((state) => state.cita);
+  
+  const handleCanceled = ({
+    id: id,
+    clinica: clinica,
+    doctor: doctor,
+    fecha: fecha,
+    hora: hora,
+    descripcion: descripcion,
+    estado: estado
+    
+  })=>{
+    const canceled = {
+      id, clinica ,doctor, fecha, hora, descripcion , estado: "Cancelado", 
+    }
+    dispatch(citaStartCanceled( canceled));
+    console.log(canceled)
+  }
+
   const citasActivas = citas.filter((cita)=>{
     return cita.estado === "Activo"
   })
@@ -164,6 +181,16 @@ const TabCitasProximas = () => {
                       <button
                         className="text-gray-700 block w-full text-left px-4 py-2 hover:bg-gray-300 text-sm"
                         id="menu-item-0"
+                        
+                        onClick={()=>handleCanceled({
+                          id: cita.id,
+                          clinica: cita.clinica,
+                          doctor: cita.doctor,
+                          fecha: cita.fecha,
+                          hora: cita.hora,
+                          descripcion: cita.descripcion,
+                          estado: cita.estado
+                        })}
                       >
                         Cancelar cita
                       </button>

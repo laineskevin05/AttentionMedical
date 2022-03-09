@@ -24,6 +24,7 @@ export const types = {
 
   citaAddNew: "[cita] Add New",
   citaLoaded: "[cita] cita Loaded",
+  citaCanceled: "[cita] cita Cancelada",
 
   profileLoad: "[profile] Load Profile",
 };
