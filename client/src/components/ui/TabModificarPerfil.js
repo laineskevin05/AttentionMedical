@@ -15,6 +15,7 @@ const TabModificarPerfil = () => {
   const [usuarioActiv, setuUsuarioActiv] = useState({});
 
   useEffect(() => {
+    dispatch(startLoadProfile());
     user.map((producto, index) => {
       setuUsuarioActiv(producto);
     });
