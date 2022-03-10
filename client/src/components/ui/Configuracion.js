@@ -13,7 +13,7 @@ const Configuracion = () => {
     const pagina1 = document.getElementById("btnPagina1");
     const pagina2 = document.getElementById("btnPagina2");
     if (numero === 1) {
-      pagina2.className = " py-4 w-full";
+      pagina2.className = "text-white py-4 w-full";
       pagina1.className =
         " bg-white rounded-lg shadow text-indigo-900 py-4 w-full font-bold";
       setPages({
@@ -23,7 +23,7 @@ const Configuracion = () => {
       console.log(11111);
     }
     if (numero === 2) {
-      pagina1.className = " py-4 w-full";
+      pagina1.className = "text-white py-4 w-full";
       pagina2.className =
         " bg-white rounded-lg shadow text-indigo-900 py-4 w-full font-bold";
       setPages({
