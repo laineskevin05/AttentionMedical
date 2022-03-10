@@ -29,6 +29,14 @@ router.post(
 );
 
 // actualizar informacion de usuario
-router.put("/configuracion/:id", actualizarPerfil);
+router.put("/configuracion/:id",
+  [    
+    check("nombre", "El nombre no debe estar vacio").not().isEmpty(),
+    check("apellido", "El apellido no debe estar vacio").not().isEmpty(),
+    check("telefono", "El telefono no debe estar vacio").not().isEmpty(),
+    validarCampos
+  ], 
+  actualizarPerfil
+);
 
 module.exports = router;

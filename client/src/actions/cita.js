@@ -33,6 +33,22 @@ export const starCitaLoaded = () => {
   };
 };
 
+export const editCita = (cita) => {
+  return async (dispacth, getState) => {
+    try {
+      const res = await fetchConToken(`cita/actualizarCita/${cita.id}`, cita, "PUT");
+      const body = await res.json();
+
+      const citas = body.cita.id;
+      console.log(citas);
+      dispacth(citaEdit(cita));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
 export const citaStartCanceled = (cita) => {
   return async (dispatch, getState) => {
     const { uid } = getState().auth;
@@ -71,3 +87,8 @@ const citaLoad = (citas) => ({
   type: types.citaLoaded,
   payload: citas,
 });
+
+const citaEdit = (cita) => ({
+  type: types.citaEdit, 
+  payload: cita
+})

@@ -1,17 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { citaStartAddNew } from "../../../actions/cita";
+import { useNavigate, useParams } from "react-router-dom";
+import { citaStartAddNew, editCita } from "../../../actions/cita";
 import { useForm } from "../../../hook/useForm";
 // import { Link } from "react-router-dom";
 
 const EditarCita = () => {
+  const {id} = useParams();
   const navigate = useNavigate();
-
+  console.log(id);
   const dispatch = useDispatch();
 
-  const state = useSelector((state) => state);
-  console.log(state);
+  //const state = useSelector((state) => state);
 
   const [formValues, handleInputChange] = useForm({
     clinica: "",
@@ -20,11 +20,13 @@ const EditarCita = () => {
     hora: "",
     estado: "Activo",
     descripcion: "",
+    id: id
   });
 
   const handleEditar = (e) => {
     e.preventDefault();
-    dispatch(citaStartAddNew(formValues));
+    dispatch(editCita(formValues));
+    
     navigate("/", { replace: true });
   };
 
@@ -33,6 +35,7 @@ const EditarCita = () => {
   return (
     <>
       <form className="w-3/5 inline-block" onSubmit={handleEditar}>
+      <span>NOTA: SOLO LLENE LOS CAMPOS QUE DESEA ACTUALIZAR, LO DEMAS DEJELO EN BLANCO EQUIS DE</span>
         <div className="grid gap-8  p-2 pt-8 content-start">
           <div className="text-center border-2 m-4">
             <h6 className="uppercase text block py-3 bg-slate-700 text-white font-bold">

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { startLoadProfile } from "../../actions/profile";
 
 import { updateProfile } from "../../actions/profile";
 
 // import { useForm } from "../../hook/useForm";
+const letra = new RegExp(/^[a-zA-ZÀ-ÿ\s]{1,40}$/);
+const telef = new RegExp(/^([0-9]){8}$/);
 
 const TabModificarPerfil = () => {
   const navigate = useNavigate();
@@ -14,8 +17,38 @@ const TabModificarPerfil = () => {
 
   const [usuarioActiv, setuUsuarioActiv] = useState({});
 
+  const validacion = (values) => {
+    const error = {};
+    if (!letra.test(values.nombre)) {
+      error.nombre = "Este campo solo acepta caracteres";
+      Swal.fire("Error", error.nombre, 'error');
+    }
+    if (values.nombre === "") {
+      error.nombre = "Este campo es obligatorio";
+    }
+
+    if (!letra.test(values.apellido)) {
+      error.apellido = "Este campo solo acepta caracteres";
+      Swal.fire("Error", error.apellido, 'error');
+    }
+    if (values.apellido === "") {
+      error.apellido = "Este campo es obligatorio";
+    }
+
+    if (!telef.test(values.telefono) && values.telefono !== "") {
+      error.telefono = "Este campo solo acepta numeros";
+      Swal.fire("Error", error.telefono, 'error');
+    }
+
+    if (values.telefono === "") {
+      error.telefono = "Este campo es obligatorio";
+    }
+
+    return error;
+  };
+
   useEffect(() => {
-    dispatch(startLoadProfile());
+    // dispatch(startLoadProfile());
     user.map((producto, index) => {
       setuUsuarioActiv(producto);
     });
@@ -54,11 +87,24 @@ const TabModificarPerfil = () => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateProfile(valor));
+    const validados = validacion(valor);
+    if(Object.keys(validados).length > 0){
+      console.log(validados);
+    }
+    if (Object.keys(validados).length === 0) {
+      dispatch(updateProfile(valor));
+      setTimeout(() => {
+      }, 500);
     dispatch(startLoadProfile());
     navigate("/perfil");
+    }
   };
+  
+  useEffect(() => {
+    dispatch(startLoadProfile());
+  }, [])
 
+  
   return (
     <>
       <h5>

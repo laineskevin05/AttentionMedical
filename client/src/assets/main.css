@@ -817,10 +817,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
-.bg-secundario {
-  --tw-bg-opacity: 1;
-  background-color: rgb(56 104 106 / var(--tw-bg-opacity));
-}
 .bg-slate-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
@@ -841,19 +837,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
-.bg-gray-200 {
+.bg-menu_izquierdo {
   --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+  background-color: rgb(163 206 241 / var(--tw-bg-opacity));
 }
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 .bg-menu_derecho {
-  --tw-bg-opacity: 1;
-  background-color: rgb(163 206 241 / var(--tw-bg-opacity));
-}
-.bg-menu_izquierdo {
   --tw-bg-opacity: 1;
   background-color: rgb(163 206 241 / var(--tw-bg-opacity));
 }
@@ -900,10 +892,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-blue-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(219 234 254 / var(--tw-bg-opacity));
-}
-.bg-grisFuerte {
-  --tw-bg-opacity: 1;
-  background-color: rgb(108 117 125 / var(--tw-bg-opacity));
 }
 .fill-textop {
   fill: #462255;

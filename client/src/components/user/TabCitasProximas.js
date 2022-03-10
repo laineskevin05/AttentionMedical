@@ -207,7 +207,7 @@ const TabCitasProximas = () => {
                         Cancelar cita
                       </button>
                       <Link
-                        to="/cita/editar"
+                        to={`/cita/editar/${cita.id}`}
                         className="text-gray-700 block w-full text-left px-4 py-2 hover:bg-gray-300 text-sm"
                         id="menu-item-1"
                       >

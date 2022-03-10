@@ -115,13 +115,13 @@ export const AppRouter = () => {
           }
         />
         <Route
-          path="/cita/editar"
+          path="/cita/editar/:id"
           element={
             <PrivateRoute uid={uid}>
               <Navbar />
               <div className="flex min-h-screen">
                 <MenuUsuarioIzquierdo />
-                <EditarCita />
+                <EditarCita/>
                 <MenuUsuarioDerecho />
               </div>
             </PrivateRoute>
