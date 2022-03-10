@@ -35,9 +35,9 @@ const Configuracion = () => {
   };
   return (
     <div className="min-h-screen relative  grid grid-cols-6 px-32 bg-gray-100 ">
-      <div className="h-full  col-span-2 bg-menu_izquierdo pt-8 border-2 border-slate-900">
+      <div className="h-full  col-span-2 bg-tab pt-8 border-2 border-slate-900">
         {/*bg-gray-200 */}
-        <h1 className="text-center font-bold text-gray-800 pt-2 mb-4 uppercase text-xl border-b-2 border-slate-900">
+        <h1 className="text-center font-bold text-white pt-2 mb-4 uppercase text-xl border-b-2 border-slate-900">
           Configuracion
         </h1>
         <div className="text-center">
@@ -55,7 +55,7 @@ const Configuracion = () => {
         <div className=" text-center">
           <button
             id="btnPagina2"
-            className="py-4 w-full"
+            className="py-4 w-full text-white"
             onClick={(e) => {
               e.preventDefault();
               cambiarFocoTab(2);

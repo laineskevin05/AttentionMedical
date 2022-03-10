@@ -35,9 +35,10 @@ export const UserInicio = () => {
 
   return (
     <>
-      <div className="w-3/5 inline-block bg-gray-50">
+      <div className="w-3/5 inline-block bg-fondo">
+        {/*bg-gray-50*/}
         {/*  */}
-        <ul className="grid grid-flow-col relative shadow-neutral-400 shadow border-b border-x border-slate-900 text-center text-white bg-gray-500 rounded-b-md border-solid p-1">
+        <ul className="grid grid-flow-col relative shadow-neutral-400 shadow border-b border-x border-slate-900 text-center text-white bg-tab rounded-b-md border-solid p-1">
           {/*bg gray-100 */}
           <li></li>
           <li></li>

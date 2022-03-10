@@ -123,7 +123,7 @@ const TabCitasProximas = () => {
       {citasActivas.map((cita) => {
         return (
           <div
-            className="flex border-2  rounded-lg p-4 m-2 bg-white "
+            className="flex border  rounded-lg border-black p-4 m-2 bg-white "
             key={cita.id}
           >
             <div className="pt-1 mr-6 text-center">

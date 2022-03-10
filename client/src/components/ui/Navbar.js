@@ -60,7 +60,7 @@ const Navbar = () => {
     //     )}
     //   </div>
     // </nav>
-    <nav className="bg-white relative px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800  border-b border-slate-900 border-solid shadow shadow-gray-600">
+    <nav className="bg-gray-800 relative px-2 sm:px-4 py-2.5 rounded-b-md dark:bg-gray-800  border-b border-slate-900 border-solid shadow shadow-gray-600">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <Link to="/" className="flex items-center">
           <svg
@@ -73,11 +73,11 @@ const Navbar = () => {
             <g>
               <rect fill="none" height="24" width="24" />
             </g>
-            <g className=" fill-textop">
+            <g className=" fill-white">
               <path d="M20,7h-5V4c0-1.1-0.9-2-2-2h-2C9.9,2,9,2.9,9,4v3H4C2.9,7,2,7.9,2,9v11c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V9 C22,7.9,21.1,7,20,7z M11,4h2v5h-2V4z M20,20H4V9h5c0,1.1,0.9,2,2,2h2c1.1,0,2-0.9,2-2h5V20z M11,16H9v2H7v-2H5v-2h2v-2h2v2h2V16z M13,14.5V13h6v1.5H13z M13,17.5V16h4v1.5H13z" />
             </g>
           </svg>
-          <span className="self-center text-xl font-bold whitespace-nowrap px-2 text-textop uppercase dark:text-white">
+          <span className="self-center text-xl font-bold whitespace-nowrap px-2 text-white uppercase dark:text-white">
             Atencion Medica
           </span>
         </Link>
@@ -261,7 +261,7 @@ const Navbar = () => {
             <li>
               <Link
                 to="/"
-                className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+                className="block py-2 pr-4 pl-3 text-white bg-blue-500 rounded md:bg-transparent md:text-blue-500 md:p-0 dark:text-white"
                 aria-current="page"
               >
                 Inicio
@@ -271,7 +271,7 @@ const Navbar = () => {
               <li>
                 <p
                   href="#"
-                  className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 pr-4 pl-3 text-white  border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Mensajes
                 </p>
@@ -281,7 +281,7 @@ const Navbar = () => {
             <li>
               <p
                 href="#"
-                className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Sobre nosotros
               </p>
