@@ -6,7 +6,7 @@ import { useForm } from "../../../hook/useForm";
 // import { Link } from "react-router-dom";
 
 const EditarCita = () => {
-  const {id} = useParams();
+  const { id, cita } = useParams();
   const navigate = useNavigate();
   console.log(id);
   const dispatch = useDispatch();
@@ -14,19 +14,19 @@ const EditarCita = () => {
   //const state = useSelector((state) => state);
 
   const [formValues, handleInputChange] = useForm({
-    clinica: "",
-    doctor: "",
-    fecha: "",
-    hora: "",
+    clinica: cita.split(",")[0],
+    doctor: cita.split(",")[1],
+    fecha: cita.split(",")[2],
+    hora: cita.split(",")[3],
     estado: "Activo",
-    descripcion: "",
-    id: id
+    descripcion: cita.split(",")[4],
+    id: id,
   });
 
   const handleEditar = (e) => {
     e.preventDefault();
     dispatch(editCita(formValues));
-    
+
     navigate("/", { replace: true });
   };
 
@@ -35,7 +35,10 @@ const EditarCita = () => {
   return (
     <>
       <form className="w-3/5 inline-block" onSubmit={handleEditar}>
-      <span>NOTA: SOLO LLENE LOS CAMPOS QUE DESEA ACTUALIZAR, LO DEMAS DEJELO EN BLANCO EQUIS DE</span>
+        <span>
+          NOTA: SOLO LLENE LOS CAMPOS QUE DESEA ACTUALIZAR, LO DEMAS DEJELO EN
+          BLANCO EQUIS DE
+        </span>
         <div className="grid gap-8  p-2 pt-8 content-start">
           <div className="text-center border-2 m-4">
             <h6 className="uppercase text block py-3 bg-slate-700 text-white font-bold">
