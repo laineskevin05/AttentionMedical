@@ -7,6 +7,7 @@ const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const {
   crearUsuario,
+  crearCentroMedico,
   loginUsuario,
   revalidarToken,
   cargarUsuario,
@@ -31,6 +32,25 @@ router.post(
     validarCampos,
   ],
   crearUsuario
+);
+
+router.post(
+  "/newcentro",
+  [
+    // middlewares
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    check("correo", "El correo es obligatorio").isEmail(),
+    check(
+      "contrasenia",
+      "La Contrasenia debe de ser de 6 o mas caracteres"
+    ).isLength({ min: 6 }),
+    check("telefono", "El telefono es obligatorio").not().isEmpty(),
+    check("direccion", "La direccion es obligatoria").not().isEmpty(),
+    check("descripcion", "la descipcion es obligatoria").not().isEmpty(),
+
+    validarCampos,
+  ],
+  crearCentroMedico
 );
 
 router.post(

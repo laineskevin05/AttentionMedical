@@ -1,6 +1,7 @@
 const { response } = require("express");
 const bcrypt = require("bcryptjs");
 const Usuario = require("../models/Usuario");
+const centroMedico = require("../models/Hospital");
 const { generarJWT } = require("../helpers/jwt");
 
 const crearUsuario = async (req, res = response) => {
@@ -8,8 +9,8 @@ const crearUsuario = async (req, res = response) => {
 
   try {
     let usuario = await Usuario.findOne({ correo });
-
-    if (usuario) {
+    let centro = await centroMedico.findOne({ correo });
+    if (centro || usuario) {
       return res.status(400).json({
         ok: false,
         msg: "El usuario ya existe",
@@ -32,6 +33,47 @@ const crearUsuario = async (req, res = response) => {
       uid: usuario.id,
       name: usuario.correo,
       token,
+      tipo: "usuario",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
+};
+const crearCentroMedico = async (req, res = response) => {
+  const { correo, contrasenia } = req.body;
+
+  try {
+    let usuario = await Usuario.findOne({ correo });
+    let centro = await centroMedico.findOne({ correo });
+
+    if (centro || usuario) {
+      return res.status(400).json({
+        ok: false,
+        msg: "El usuario ya existe",
+      });
+    }
+
+    centro = new centroMedico(req.body);
+    console.log(centro);
+    // Encriptar contraseña
+    const salt = bcrypt.genSaltSync();
+    centro.contrasenia = bcrypt.hashSync(contrasenia, salt);
+
+    await centro.save();
+
+    // Generar JWT
+    const token = await generarJWT(centro.id, centro.correo);
+
+    res.status(201).json({
+      ok: true,
+      uid: centro.id,
+      name: centro.correo,
+      token,
+      tipo: "centro",
     });
   } catch (error) {
     console.log(error);
@@ -47,33 +89,62 @@ const loginUsuario = async (req, res = response) => {
 
   try {
     const usuario = await Usuario.findOne({ correo });
+    const centro = await centroMedico.findOne({ correo });
 
-    if (!usuario) {
+    if (!usuario && !centro) {
       return res.status(400).json({
         ok: false,
-        msg: "El usuario no existe con ese email",
+        msg: "No existe el usuario con ese email",
       });
     }
 
-    // Confirmar los passwords
-    const validPassword = bcrypt.compareSync(contrasenia, usuario.contrasenia);
+    if (usuario) {
+      // Confirmar los passwords
+      const validPassword = bcrypt.compareSync(
+        contrasenia,
+        usuario.contrasenia
+      );
 
-    if (!validPassword) {
-      return res.status(400).json({
-        ok: false,
-        msg: "Password incorrecto",
+      if (!validPassword) {
+        return res.status(400).json({
+          ok: false,
+          msg: "Password incorrecto",
+        });
+      }
+
+      // Generar JWT
+      const token = await generarJWT(usuario.id, usuario.correo);
+
+      res.json({
+        ok: true,
+        uid: usuario.id,
+        name: usuario.correo,
+        token,
+        tipo: "usuario",
       });
     }
+    if (centro) {
+      // Confirmar los passwords
+      const validPassword = bcrypt.compareSync(contrasenia, centro.contrasenia);
 
-    // Generar JWT
-    const token = await generarJWT(usuario.id, usuario.correo);
+      if (!validPassword) {
+        return res.status(400).json({
+          ok: false,
+          msg: "Password incorrecto",
+        });
+      }
 
-    res.json({
-      ok: true,
-      uid: usuario.id,
-      name: usuario.correo,
-      token,
-    });
+      // Generar JWT
+      const token = await generarJWT(centro.id, centro.correo);
+
+      res.json({
+        ok: true,
+        uid: centro.id,
+        name: centro.correo,
+        token,
+        tipo: "centro",
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -158,27 +229,34 @@ const cambiarContrasenia = async (req, res = response) => {
 };
 
 const cargarUsuario = async (req, res = response) => {
-
-    try {
-      const userId = req.params.id;
-      const user = await Usuario.find({_id: userId});
-      
-      console.log(user);
-      
+  try {
+    const userId = req.params.id;
+    const user = await Usuario.find({ _id: userId });
+    const centro = await centroMedico.find({ _id: userId });
+    // console.log(user);
+    if (user) {
       res.json({
         ok: true,
-        user
-      })
-    } catch (error) {
-      res.json({
-        ok: false,
-        msg: "Por favor hable con el administrador"
-      })
+        user,
+      });
     }
-}
+    if (centro) {
+      res.json({
+        ok: true,
+        centro,
+      });
+    }
+  } catch (error) {
+    res.json({
+      ok: false,
+      msg: "Por favor hable con el administrador, no se pudo cargar el usuario",
+    });
+  }
+};
 
 module.exports = {
   crearUsuario,
+  crearCentroMedico,
   loginUsuario,
   revalidarToken,
   cargarUsuario,

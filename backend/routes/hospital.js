@@ -2,13 +2,13 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 
-const {
+// const {
 
-    crearCentroMedico,
-    loginCentroMedico,
-    revalidarToken,
-    cargarCentroMedico
-} = require ("../controllers/centroMedico");
+//     crearCentroMedico,
+//     loginCentroMedico,
+//     revalidarToken,
+//     cargarCentroMedico
+// } = require ("../controllers/centroMedico");
 
 const { validarJWT } = require("../middlewares/validar-jwt");
 
@@ -51,11 +51,10 @@ router.post(
     loginCentroMedico
   );*/
 
-  router.get("/renew", validarJWT, revalidarToken);
+// router.get("/renew", validarJWT, revalidarToken);
 
-  router.get("/perfil/:id", validarJWT, cargarCentroMedico );
-
+// router.get("/perfil/:id", validarJWT, cargarCentroMedico );
 
 //Buscar Hospital
-router.get("/buscar/:nombreH", validarJWT, buacarHospital);
-  module.exports = router;
+// router.get("/buscar/:nombreH", validarJWT, buacarHospital);
+module.exports = router;
