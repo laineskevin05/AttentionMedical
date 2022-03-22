@@ -1,13 +1,25 @@
 const { response } = require("express");
 const bcrypt = require("bcryptjs");
 const centroMedico = require("../models/Hospital");
-const { generarJWT } = require("../helpers/jwt");
+//const { generarJWT } = require("../helpers/jwt");
 
-
-/*Creacion del Mentro Médico*/
-const crearCentroMedico = async (req, res = response) => {
-    const { correo, contrasenia } = req.body;
+const buscarHospital = async (req, res = response)=>{
+    const userNombre = req.params.nombre;
+    const centroMedico = await centroMedico.find({ nombre: userNombre });
   
+    res.json({
+      ok: true,
+      citas,
+    });
+}
+module.exports = {
+  buscarHospital
+}
+
+ /* //Creacion del Mentro Médico
+  const crearCentroMedico = async (req, res = response) => {
+    const { correo, contrasenia } = req.body;
+
     try {
       let centro = await centroMedico.findOne({ correo });
   
@@ -47,11 +59,11 @@ const crearCentroMedico = async (req, res = response) => {
 
 
 
-/* Login del Centro Médico*/
+  // Login del Centro Médico
 
 
 
-const loginCentroMedico = async (req, res = response) => {
+  const loginCentroMedico = async (req, res = response) => {
     const { correo, contrasenia } = req.body;
   
     try {
@@ -99,7 +111,7 @@ const loginCentroMedico = async (req, res = response) => {
 
 
 
-  /* Revalidar Token */
+  //Revalidar Token
 
 
 
@@ -119,7 +131,7 @@ const loginCentroMedico = async (req, res = response) => {
 
 
 
-  /* Cargar Centro Médico */
+  //Cargar Centro Médico 
 
 
   const cargarCentroMedico = async (req, res = response) => {
@@ -140,7 +152,8 @@ const loginCentroMedico = async (req, res = response) => {
         msg: "Por favor hable con el administrador"
       })
     }
-}
+  }
+  
 
 
 
@@ -149,4 +162,4 @@ const loginCentroMedico = async (req, res = response) => {
     loginCentroMedico,
     revalidarToken,
     cargarCentroMedico,
-  };
+  };*/

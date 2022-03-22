@@ -13,7 +13,7 @@ const {
 const { validarJWT } = require("../middlewares/validar-jwt");
 
 const router = Router();
-
+/*//CREAR Hospital
 router.post(
     "/new",
     [
@@ -36,7 +36,7 @@ router.post(
   );
 
 
-
+//LOGIN
   router.post(
     "/",
     [
@@ -49,10 +49,13 @@ router.post(
       validarCampos,
     ],
     loginCentroMedico
-  );
+  );*/
 
   router.get("/renew", validarJWT, revalidarToken);
 
   router.get("/perfil/:id", validarJWT, cargarCentroMedico );
 
+
+//Buscar Hospital
+router.get("/buscar/:nombreH", validarJWT, buacarHospital);
   module.exports = router;
