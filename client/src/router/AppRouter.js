@@ -20,6 +20,8 @@ import { PrivateRoute } from "./PrivateRoute";
 import Navbar from "../components/ui/Navbar";
 import Perfil from "../components/user/Perfil";
 import Configuracion from "../components/ui/Configuracion";
+import PageHospital from "../components/hospital/PageHospital";
+import RegisterHospital from "../components/auth/RegisterHospital";
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -71,6 +73,15 @@ export const AppRouter = () => {
           }
         />
         <Route
+          path="/registercentro"
+          element={
+            <PublicRoute uid={uid}>
+              <Navbar />
+              <RegisterHospital uid={uid} />
+            </PublicRoute>
+          }
+        />
+        <Route
           path="/cambiarcontrasenia"
           element={
             <PrivateRoute uid={uid}>
@@ -114,6 +125,19 @@ export const AppRouter = () => {
             </PrivateRoute>
           }
         />
+        {/* <Route
+          path="/centro/"
+          element={
+            <PrivateRoute uid={uid}>
+              <Navbar />
+              <div className="flex min-h-screen">
+                <MenuUsuarioIzquierdo />
+                <PageHospital />
+                <MenuUsuarioDerecho />
+              </div>
+            </PrivateRoute>
+          }
+        /> */}
         <Route
           path="/cita/editar/:id/:cita"
           element={
