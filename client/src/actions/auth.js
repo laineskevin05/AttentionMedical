@@ -11,11 +11,12 @@ export const startLogin = async (correo, contrasenia) => {
       localStorage.setItem("token-init-date", new Date().getTime());
       console.log(correo, contrasenia);
       await dispatch(
-    login({
-      uid: body.uid,
-      name: body.name,
-    })
-  );
+        login({
+          uid: body.uid,
+          name: body.name,
+          tipo: body.tipo,
+        })
+      );
     } else {
       alert("Error en la autenticacion", body.msg);
       // Swal.fire("Error", body.msg, "error");
@@ -42,8 +43,6 @@ export const startRegister = (
     if (body.ok) {
       localStorage.setItem("token", body.token);
       localStorage.setItem("token-init-date", new Date().getTime());
-
-      
     } else {
       // Swal.fire("Error", body.msg, "error");
       console.Console("error", body.msg);
@@ -64,6 +63,7 @@ export const startChecking = () => {
         login({
           uid: body.uid,
           name: body.name,
+          tipo: body.tipo,
         })
       );
     } else {
@@ -87,26 +87,26 @@ export const startLogout = () => {
 };
 
 export const startLoadProfile = () => {
-    return async( dispatch, getState ) => {
-      console.log(getState().auth);
-      
-      try {
-        const { uid } = getState().auth
-        console.log(uid);
-        const res = await fetchConToken(`perfil/${ uid }`)
-        const body = await res.json();
-        console.log(body);
-        const perfil = body.perfil;
-        dispatch( loadProfile(perfil))
-      } catch (error) {
-            console.log(error);
-        }
+  return async (dispatch, getState) => {
+    console.log(getState().auth);
+
+    try {
+      const { uid } = getState().auth;
+      console.log(uid);
+      const res = await fetchConToken(`perfil/${uid}`);
+      const body = await res.json();
+      console.log(body);
+      const perfil = body.perfil;
+      dispatch(loadProfile(perfil));
+    } catch (error) {
+      console.log(error);
     }
-}
+  };
+};
 
 const loadProfile = (profile) => ({
-    type: types.profileLoad,
-    payload: profile
-})
+  type: types.profileLoad,
+  payload: profile,
+});
 
 const logout = () => ({ type: types.authLogout });

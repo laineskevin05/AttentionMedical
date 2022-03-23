@@ -22,10 +22,12 @@ import Perfil from "../components/user/Perfil";
 import Configuracion from "../components/ui/Configuracion";
 import PageHospital from "../components/hospital/PageHospital";
 import RegisterHospital from "../components/auth/RegisterHospital";
+import InicioHospital from "../components/hospital/InicioHospital";
+import NuevoDoctor from "../components/hospital/NuevoDoctor";
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
-  const { checking, uid } = useSelector((state) => {
+  const { checking, uid, tipo } = useSelector((state) => {
     return state.auth;
   });
 
@@ -96,9 +98,15 @@ export const AppRouter = () => {
             <PrivateRoute uid={uid}>
               <Navbar />
               <div className="flex min-h-screen">
-                <MenuUsuarioIzquierdo />
-                <UserInicio />
-                <MenuUsuarioDerecho />
+                {tipo === "usuario" ? (
+                  <>
+                    <MenuUsuarioIzquierdo />
+                    <UserInicio />
+                    <MenuUsuarioDerecho />
+                  </>
+                ) : (
+                  <InicioHospital />
+                )}
               </div>
             </PrivateRoute>
           }
@@ -109,6 +117,15 @@ export const AppRouter = () => {
             <PrivateRoute uid={uid}>
               <Navbar />
               <Configuracion />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/centro/nuevodoctor"
+          element={
+            <PrivateRoute uid={uid}>
+              <Navbar />
+              <NuevoDoctor />
             </PrivateRoute>
           }
         />
