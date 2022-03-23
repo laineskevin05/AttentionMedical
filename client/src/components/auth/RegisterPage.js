@@ -24,6 +24,7 @@ const RegisterPage = () => {
     contrasenia: "",
     confContrasenia: "",
     hasError: {},
+    validarDr: false
   });
   const {
     nombre,
@@ -33,6 +34,7 @@ const RegisterPage = () => {
     contrasenia,
     confContrasenia,
     hasError,
+    validarDr
   } = formRegisterValues;
 
   const validacion = (values) => {
@@ -88,7 +90,7 @@ const RegisterPage = () => {
     setValues({ ...formRegisterValues, hasError: result });
     console.log(Object.keys(result).length);
     if (Object.keys(result).length === 0) {
-      dispatch(startRegister(nombre, apellido, correo, telefono, contrasenia));
+      dispatch(startRegister(nombre, apellido, correo, telefono, contrasenia, validarDr));
       setTimeout(() => {
         navigate("/");
       }, 500);

@@ -7,7 +7,7 @@ const crearCita = async (req, res = response) => {
   try {
     cita.user = req.uid;
     const citaGuardada = await cita.save();
-    res.json({
+    res.status(201).json({
       ok: true,
       cita: citaGuardada,
     });
@@ -24,7 +24,7 @@ const getCitas = async (req, res = response) => {
   const userId = req.params.id;
   const citas = await Cita.find({ user: userId });
 
-  res.json({
+  res.status(201).json({
     ok: true,
     citas,
   });
