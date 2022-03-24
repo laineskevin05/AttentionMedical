@@ -27,6 +27,10 @@ const DoctorSchema = Schema({
         type: String,
         required: true,
     },
+    descripcion: {
+        type: String,
+        required:true
+    }
 });
 
 DoctorSchema.method('toJSON', function(){

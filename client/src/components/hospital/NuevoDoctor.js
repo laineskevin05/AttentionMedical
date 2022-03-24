@@ -1,10 +1,14 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { doctorStartAddNew } from "../../actions/doctor";
 import { useForm } from "../../hook/useForm";
 
 const NuevoDoctor = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [formValues, handleInputChange] = useForm({
-    clinica: "",
-    doctor: "",
     correo: "",
     horaEntrada: "",
     horaSalida: "",
@@ -15,13 +19,12 @@ const NuevoDoctor = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    //   dispatch(citaStartAddNew( formValues ))
-    //   navigate("/", {replace: true});
-  };
+    dispatch(doctorStartAddNew( formValues ))
+    navigate("/", {replace: true});
+  }
+
 
   const {
-    clinica,
-    doctor,
     correo,
     horaEntrada,
     horaSalida,

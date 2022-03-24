@@ -28,4 +28,6 @@ export const types = {
   citaEdit: "[cita] cita Editada",
 
   profileLoad: "[profile] Load Profile",
+
+  doctorAddNew: "[doctor] Add New doctor",
 };

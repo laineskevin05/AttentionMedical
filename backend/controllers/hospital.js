@@ -31,11 +31,11 @@ const buscarHospital = async (req, res = response)=>{
 
 const registrarDoctor = async (req, res = response) => {
   const hospitalId = req.params.id;
-  const correoDr = req.params.correo;
-  console.log(correoDr, hospitalId);
+  const {correo} = req.body;
+  console.log(correo);
     
   try {
-    const doctor = await Usuario.find({correo: correoDr});
+    const doctor = await Usuario.find({correo: correo});
     const userId = doctor[0]._id;
     console.log(userId);
     if (doctor.length == 0) {
@@ -47,7 +47,7 @@ const registrarDoctor = async (req, res = response) => {
     
     const doctor2 = await Doctor.find({user: userId});
     
-    if(doctor2) {
+    if(doctor2.length===1) {
       return res.json({
         ok: false,
         msg: "Ya esta validado como doctor"

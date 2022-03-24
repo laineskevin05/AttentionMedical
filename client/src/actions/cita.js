@@ -9,7 +9,7 @@ export const citaStartAddNew = (cita) => {
       const body = await resp.json();
       console.log(body);
       if (body.ok) {
-        cita.id = body.citas.id;
+        cita.id = body.cita.id;
         cita.user = uid;
         dispacth(citaAddNew(cita));
       }

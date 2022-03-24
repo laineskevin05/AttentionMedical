@@ -12,7 +12,6 @@ const NuevaCita = () => {
   const dispatch = useDispatch();
 
   const state = useSelector( state => state );
-  console.log(state);
 
   const [formValues, handleInputChange] = useForm({
       clinica: "",

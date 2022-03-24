@@ -16,15 +16,18 @@ router.get("/:idHospital", validarJWT, getDoctor);
 
 //REGISTRAR DOCTOR
 router.post(
-    "/newdoctor/:id/:correo",
+    "/newdoctor/:id",
     [
       check("correo", "El correo es obligatorio").isEmail(),
       check("horaEntrada", "La hora es obligatoria").not().isEmpty(),
       check("horaSalida", "La hora es obligatoria").not().isEmpty(),
       check("especialidad", "El nombre de la especialidad es obligatorio").not().isEmpty(),
-      check("dias", "Los dias disponibles son obligatorios").not().isEmpty(),    
+      check("dias", "Los dias disponibles son obligatorios").not().isEmpty(),
+      check("descripcion", "La descripcion debe ser obligatorio").not().isEmpty(),      
       validarCampos
     ],
+    validarJWT
+    ,
     registrarDoctor
   ); 
   
