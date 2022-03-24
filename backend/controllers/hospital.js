@@ -83,9 +83,27 @@ const registrarDoctor = async (req, res = response) => {
     }
   }  
   
-
+const getDoctor = async(req, res = response)=>{
+  const hospitalId = req.params.idHospital
+    
+    try {
+      const hospital = await Doctor.find({ hospital: hospitalId }).populate("user", "nombre apellido");
+    
+      res.status(201).json({
+        ok: true,
+        hospital
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        ok: false,
+        msg: "Por favor hable con el administrador",
+      });
+    }
+}
 
 module.exports = {
   buscarHospital,
-  registrarDoctor
+  registrarDoctor,
+  getDoctor
 }
