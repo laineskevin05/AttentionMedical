@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { startLogout } from "../../actions/auth";
@@ -8,7 +8,7 @@ const Navbar = () => {
   const { uid } = useSelector((state) => {
     return state.auth;
   });
-
+  const [barraBusqueda, setBarraBusqueda] = useState(false);
   const dispatch = useDispatch();
 
   const handleLogout = (e) => {
@@ -17,49 +17,6 @@ const Navbar = () => {
     navigate("/login");
   };
   return (
-    // <nav className="grid grid-cols-3 bg-navbar w-full h-20  ">
-    //   <div className="col-span-2 flex items-center  ">
-    //     {/* <span className="text-white p-1 text-xl font-sans font-bold ml-3 uppercase border-2 rounded-full shadow shadow-slate-700 ">
-    //       AM
-    //     </span>
-    //     <input
-    //       className="bg-white w-1/2 mx-6 rounded-md border-1 px-5 border-slate-400 h-10 shadow-md shadow-slate-500"
-    //       placeholder="Buscar /"
-    //     /> */}
-    //   </div>
-
-    //   <div className=" flex items-center w-full justify-end p-4">
-    //     {typeof uid === "string" && uid ? (
-    //       <button
-    //         className="bg-blue-600 py-3 w-28 mr-3 text-center text-sm font-sans font-bold rounded-md text-white shadow"
-    //         onClick={handleLogout}
-    //       >
-    //         <span> Cerrar Sesion</span>
-    //       </button>
-    //     ) : (
-    //       <>
-    //         <button
-    //           className="bg-blue-600 py-3 w-28 mr-6 text-center text-sm font-sans font-bold rounded-md text-white shadow"
-    //           onClick={(e) => {
-    //             e.preventDefault();
-    //             navigate("/login");
-    //           }}
-    //         >
-    //           <span> Iniciar Sesion</span>
-    //         </button>
-    //         <button
-    //           className="bg-blue-600 py-3 w-28 mr-3 text-center text-sm font-sans font-bold rounded-md text-white shadow"
-    //           onClick={(e) => {
-    //             e.preventDefault();
-    //             navigate("/register");
-    //           }}
-    //         >
-    //           <span> Registrarse</span>
-    //         </button>
-    //       </>
-    //     )}
-    //   </div>
-    // </nav>
     <nav className="bg-gray-800 relative px-2 sm:px-4 py-2.5 rounded-b-md dark:bg-gray-800  border-b border-slate-900 border-solid shadow shadow-gray-600">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <Link to="/" className="flex items-center">
@@ -125,7 +82,24 @@ const Navbar = () => {
                   id="email-adress-icon"
                   className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Search..."
+                  onChange={(e) => {
+                    if (e.target.value.length > 2) {
+                      setBarraBusqueda(true);
+                    } else {
+                      setBarraBusqueda(false);
+                    }
+                  }}
                 />
+                {barraBusqueda && (
+                  <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md">
+                    <div className="block p-2  border-b border-gray-400">
+                      Hospital San antonio
+                    </div>
+                    <div className="block p-2 border-b  border-gray-400">
+                      Hospital San carlos
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="items-center relative inline-flex px-2">
                 <button
