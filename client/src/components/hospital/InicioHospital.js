@@ -7,9 +7,10 @@ import {
 } from "../../actions/config";
 import fotoPerfilHospital from "../../assets/images/fondo_Hospital.jpg";
 import svgSimbolSum from "../../assets/images/svgSimbolSum.svg";
-
+import { useNavigate } from "react-router-dom";
 const InicioHospital = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(cargarDepartamentosHospital());
   }, [dispatch]);
@@ -94,7 +95,13 @@ const InicioHospital = () => {
         </div>
         <div className="w-3/4 bg-green-300 inline-block py-6 px-2">
           <div className=" flex justify-end mb-4">
-            <button className="bg-gray-700 rounded-md p-2 text-white">
+            <button
+              className="bg-gray-700 rounded-md p-2 text-white"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/centro/nuevodoctor");
+              }}
+            >
               Añadir doctor
             </button>
           </div>
