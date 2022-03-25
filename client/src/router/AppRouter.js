@@ -97,17 +97,18 @@ export const AppRouter = () => {
           element={
             <PrivateRoute uid={uid}>
               <Navbar />
-              <div className="flex min-h-screen">
-                {tipo === "usuario" ? (
-                  <>
+
+              {tipo === "usuario" ? (
+                <>
+                  <div className="flex min-h-screen">
                     <MenuUsuarioIzquierdo />
                     <UserInicio />
                     <MenuUsuarioDerecho />
-                  </>
-                ) : (
-                  <InicioHospital />
-                )}
-              </div>
+                  </div>
+                </>
+              ) : (
+                <InicioHospital />
+              )}
             </PrivateRoute>
           }
         />
