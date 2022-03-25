@@ -1,7 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { Link } from "react-router-dom";
+import {
+  cargarDepartamentosHospital,
+  startCambioDepartamentosHospital,
+} from "../../actions/config";
 import fotoPerfilHospital from "../../assets/images/fondo_Hospital.jpg";
+import svgSimbolSum from "../../assets/images/svgSimbolSum.svg";
+
 const InicioHospital = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(cargarDepartamentosHospital());
+  }, [dispatch]);
+  const { departamentos } = useSelector((state) => {
+    return state.config;
+  });
+
+  const agregarDepartamento = (e) => {
+    let nuevoDepartamento = prompt("Ingrese el nombre del departamento");
+    if (nuevoDepartamento == null || nuevoDepartamento === "") {
+    } else {
+      dispatch(
+        startCambioDepartamentosHospital([...departamentos, nuevoDepartamento])
+      );
+    }
+  };
+  // console.log(uid, "gggg");
+
+  console.log(departamentos, "ppp");
   return (
     <>
       <div className="w-full h-36 bg-menu flex">
@@ -28,19 +55,37 @@ const InicioHospital = () => {
 
       <div className="w-full flex min-h-[70vh]">
         <div className="w-1/4 bg-teal-500 inline-block py-6 ">
-          <h2 className="text-lg font-semibold text-center font-sans text-white">
-            DOCTORES
+          <div className=" flex w-full justify-end items-end ">
+            <button
+              className="p-2  text-right bg-gray-600 text-white rounded-md shadow-lg  "
+              onClick={agregarDepartamento}
+            >
+              <img
+                src={svgSimbolSum}
+                alt="simbol_sum"
+                className="inline w-6 pr-2"
+              />
+              Añadir
+            </button>
+          </div>
+          <h2 className="text-lg font-semibold text-center font-sans ">
+            Doctores
           </h2>
+
           <hr className=" border-gray-700" />
           <button className="py-2 w-full bg-teal-300 border-2 text-gray-800 font-bold rounded-lg">
             Todos
           </button>
-          <button className="py-2 w-full text-white font-bold rounded-md">
-            Categoria 1
-          </button>
-          <button className="py-2 w-full text-white font-bold rounded-md">
-            Categoria 2
-          </button>
+          {departamentos?.map((area) => {
+            return (
+              <button
+                className="py-2 w-full text-white font-semibold rounded-md  "
+                key={area}
+              >
+                {area.charAt(0).toUpperCase() + area.toLowerCase().slice(1)}
+              </button>
+            );
+          })}
 
           <hr className=" border-gray-700" />
           <button className="py-2 w-full  text-gray-800 font-bold rounded-md">

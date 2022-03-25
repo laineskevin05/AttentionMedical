@@ -6,6 +6,8 @@ const { validarCampos } = require("../middlewares/validar-campos");
 const {
   cambiarContrasenia,
   actualizarPerfil,
+  cambiarDepartamentosHospital,
+  cargaDepartamentosHospital,
 } = require("../controllers/config");
 
 const router = Router();
@@ -27,15 +29,26 @@ router.post(
   ],
   cambiarContrasenia
 );
+router.get("/cargadepartamentoshospital/:uid", cargaDepartamentosHospital);
+
+router.post("/cambiodepartamentoshospital", [
+  check("uid", "El uid es obligatorio"),
+  check("departamentos", "La contrasenia debe de ser de 6 caracteres")
+    .not()
+    .isEmpty(),
+  cambiarDepartamentosHospital,
+  validarCampos,
+]);
 
 // actualizar informacion de usuario
-router.put("/configuracion/:id",
-  [    
+router.put(
+  "/configuracion/:id",
+  [
     check("nombre", "El nombre no debe estar vacio").not().isEmpty(),
     check("apellido", "El apellido no debe estar vacio").not().isEmpty(),
     check("telefono", "El telefono no debe estar vacio").not().isEmpty(),
-    validarCampos
-  ], 
+    validarCampos,
+  ],
   actualizarPerfil
 );
 

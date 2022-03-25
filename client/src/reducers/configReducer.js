@@ -12,6 +12,12 @@ export const configReducer = (state = initialState, action) => {
       return {
         checking: false,
       };
+    case types.configCambioDepartamentosHospital:
+      return {
+        ...state,
+        checking: false,
+        departamentos: [...action.payload],
+      };
 
     default:
       return state;

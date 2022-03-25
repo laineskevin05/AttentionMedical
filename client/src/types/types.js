@@ -18,9 +18,10 @@ export const types = {
   authStartRegister: "[auth] Start Register",
   authStartStartTokenRenew: "[auth] Start token renew",
   authLogout: "[auth] Logout",
-  
 
   configCambioContrasenia: "[config] Cambio de contraseña",
+  configCambioDepartamentosHospital:
+    "[config] Cambio de departamentos del hospital",
 
   citaAddNew: "[cita] Add New",
   citaLoaded: "[cita] cita Loaded",

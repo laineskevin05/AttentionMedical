@@ -107,7 +107,7 @@ export const AppRouter = () => {
                   </div>
                 </>
               ) : (
-                <InicioHospital />
+                <InicioHospital uid={uid} />
               )}
             </PrivateRoute>
           }
