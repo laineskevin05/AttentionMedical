@@ -80,6 +80,7 @@ const Navbar = () => {
                 </div>
                 <input
                   type="text"
+                  autoComplete="off"
                   id="email-adress-icon"
                   className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Search..."
@@ -92,7 +93,7 @@ const Navbar = () => {
                   }}
                 />
                 {barraBusqueda && (
-                  <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md">
+                  <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md z-40">
                     {}
                     <div className="block p-2  border-b border-gray-400">
                       Hospital San antonio
