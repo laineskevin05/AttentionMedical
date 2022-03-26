@@ -9,6 +9,7 @@ const Navbar = () => {
     return state.auth;
   });
   const [barraBusqueda, setBarraBusqueda] = useState(false);
+
   const dispatch = useDispatch();
 
   const handleLogout = (e) => {
@@ -92,6 +93,7 @@ const Navbar = () => {
                 />
                 {barraBusqueda && (
                   <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md">
+                    {}
                     <div className="block p-2  border-b border-gray-400">
                       Hospital San antonio
                     </div>
@@ -164,7 +166,7 @@ const Navbar = () => {
                     }}
                   >
                     <svg
-                      className="inline-block"
+                      className="inline-block "
                       xmlns="http://www.w3.org/2000/svg"
                       height="24px"
                       viewBox="0 0 24 24"

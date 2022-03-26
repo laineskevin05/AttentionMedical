@@ -156,16 +156,38 @@ const loginUsuario = async (req, res = response) => {
 
 const revalidarToken = async (req, res = response) => {
   const { uid, name } = req;
-
+  let usuario = await Usuario.findOne({ _id: uid });
+  let centro = await centroMedico.findOne({ _id: uid });
   // Generar JWT
   const token = await generarJWT(uid, name);
-
-  res.json({
-    ok: true,
-    uid,
-    name,
-    token,
-  });
+  try {
+    if (usuario) {
+      res.json({
+        ok: true,
+        uid,
+        name,
+        token,
+        tipo: "usuario",
+      });
+    }
+    if (centro) {
+      res.json({
+        ok: true,
+        uid,
+        name,
+        token,
+        tipo: "centro",
+      });
+    }
+  } catch {
+    res.json({
+      ok: false,
+      uid,
+      name,
+      token,
+      msg: "Error, usuario no encontrado",
+    });
+  }
 };
 
 const cambiarContrasenia = async (req, res = response) => {
