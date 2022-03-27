@@ -122,6 +122,15 @@ export const AppRouter = () => {
           }
         />
         <Route
+          path="/centro/:id"
+          element={
+            <PrivateRoute uid={uid}>
+              <Navbar />
+              <InicioHospital />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/centro/nuevodoctor"
           element={
             <PrivateRoute uid={uid}>
