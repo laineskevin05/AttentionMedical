@@ -1,19 +1,18 @@
 import { types } from "../types/types";
 
 const init = {
-    hospitales: []
-} 
+  //hospitales: []
+};
 
 export const hospitalReducer = (state = init, action) => {
-    switch (action.type) {
+  switch (action.type) {
+    case types.hospitalSearch:
+      return {
+        ...state,
+        hospitales: [...action.payload],
+      };
 
-        case types.hospitalSearch:
-            return{
-                ...state,
-                hospitales: [...action.payload]
-            }
-    
-        default:
-            return init;
-    }
-}
+    default:
+      return state;
+  }
+};

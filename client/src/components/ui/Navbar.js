@@ -7,40 +7,56 @@ import { hospitalSearchStar } from "../../actions/hospital";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(hospitalSearchStar());
   }, [dispatch]);
 
-  const {hospitales} = useSelector((state)=>state.hospital);
-  const { uid} = useSelector((state) => {
+  const { hospitales } = useSelector((state) => state.hospital);
+  const { uid } = useSelector((state) => {
     return state.auth;
   });
 
   const [barraBusqueda, setBarraBusqueda] = useState(false);
-  
-  const  [valueSearch, setValueSearch] = useState({
-    search:""
-  })
-  
-  const {search} = valueSearch;
+  const [coincidenciasHospitales, setCoincidenciasHospitales] = useState({});
 
+  const [valueSearch, setValueSearch] = useState({
+    search: "",
+  });
+
+  const { search } = valueSearch;
 
   const handleInputChange = ({ target }) => {
-   setValueSearch({
+    setValueSearch({
       ...valueSearch,
       [target.name]: target.value,
     });
-    if (target.value.length > 2) {
+    if (target.value.length > 1) {
       setBarraBusqueda(true);
+      setCoincidenciasHospitales(
+        hospitales.filter((dato) => {
+          return dato.nombre
+            .toLocaleLowerCase()
+            ?.includes(search.toLocaleLowerCase());
+        })
+      );
+
+      console.log(
+        hospitales.filter((dato) => {
+          return dato.nombre
+            .toLocaleLowerCase()
+            ?.includes(search.toLocaleLowerCase());
+        })
+      );
     } else {
       setBarraBusqueda(false);
+      setCoincidenciasHospitales({});
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("cambio");
-  },[search])
+  }, [search]);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -120,10 +136,18 @@ const Navbar = () => {
                   onChange={handleInputChange}
                 />
                 {barraBusqueda && (
-                  
-                    <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md z-40">
-                      pe
-                    </div>
+                  <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md">
+                    {coincidenciasHospitales?.map((e) => {
+                      return (
+                        <div
+                          className="block p-2  border-b border-gray-400"
+                          key={e.id}
+                        >
+                          {e.nombre}
+                        </div>
+                      );
+                    })}
+                  </div>
                 )}
               </div>
               <div className="items-center relative inline-flex px-2">
