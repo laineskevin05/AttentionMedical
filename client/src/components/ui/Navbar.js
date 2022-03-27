@@ -1,16 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { startLogout } from "../../actions/auth";
+import { hospitalSearchStar } from "../../actions/hospital";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { uid } = useSelector((state) => {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(hospitalSearchStar());
+  }, [dispatch]);
+
+  const {hospitales} = useSelector((state)=>state.hospital);
+  const { uid} = useSelector((state) => {
     return state.auth;
   });
-  const [barraBusqueda, setBarraBusqueda] = useState(false);
 
-  const dispatch = useDispatch();
+  const [barraBusqueda, setBarraBusqueda] = useState(false);
+  
+  const  [valueSearch, setValueSearch] = useState({
+    search:""
+  })
+  
+  const {search} = valueSearch;
+
+
+  const handleInputChange = ({ target }) => {
+   setValueSearch({
+      ...valueSearch,
+      [target.name]: target.value,
+    });
+    if (target.value.length > 2) {
+      setBarraBusqueda(true);
+    } else {
+      setBarraBusqueda(false);
+    }
+  };
+
+  useEffect(()=>{
+    console.log("cambio");
+  },[search])
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -39,6 +69,7 @@ const Navbar = () => {
             Atencion Medica
           </span>
         </Link>
+        {/*<div><span>Bienvenido {name}</span></div>*/}
         <div className="flex md:order-2">
           <button
             data-collapse-toggle="mobile-menu-3"
@@ -82,26 +113,17 @@ const Navbar = () => {
                   type="text"
                   autoComplete="off"
                   id="email-adress-icon"
+                  name="search"
+                  value={search}
                   className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Search..."
-                  onChange={(e) => {
-                    if (e.target.value.length > 2) {
-                      setBarraBusqueda(true);
-                    } else {
-                      setBarraBusqueda(false);
-                    }
-                  }}
+                  onChange={handleInputChange}
                 />
                 {barraBusqueda && (
-                  <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md z-40">
-                    {}
-                    <div className="block p-2  border-b border-gray-400">
-                      Hospital San antonio
+                  
+                    <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md z-40">
+                      pe
                     </div>
-                    <div className="block p-2 border-b  border-gray-400">
-                      Hospital San carlos
-                    </div>
-                  </div>
                 )}
               </div>
               <div className="items-center relative inline-flex px-2">

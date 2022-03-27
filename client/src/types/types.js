@@ -31,4 +31,6 @@ export const types = {
   profileLoad: "[profile] Load Profile",
 
   doctorAddNew: "[doctor] Add New doctor",
+
+  hospitalSearch: "[hospital] Search hospital"
 };

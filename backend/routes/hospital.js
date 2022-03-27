@@ -9,7 +9,7 @@ const { validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
 //Buscar Hospital
-router.get("/buscar/:nombreH", validarJWT, buscarHospital);
+router.get("/buscar", validarJWT, buscarHospital);
 module.exports = router;
 //Obtener don
 router.get("/:idHospital", validarJWT, getDoctor);
