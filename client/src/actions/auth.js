@@ -110,3 +110,33 @@ const loadProfile = (profile) => ({
 });
 
 const logout = () => ({ type: types.authLogout });
+
+/*    Centro      */
+
+export const startRegisterCentro = (
+  nombre,
+  correo,
+  contrasenia,
+  telefono,
+  direccion,
+  descripcion
+  
+) => {
+  return async (dispatch) => {
+    const resp = await fetchSinToken(
+      "auth/newcentro",
+      { nombre, correo, contrasenia, telefono, direccion, descripcion},"POST"
+    );
+    const body = await resp.json();
+
+    if (body.ok) {
+      localStorage.setItem("token", body.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
+
+      
+    } else {
+      
+      console.Console("error", body.msg);
+    }
+  };
+};

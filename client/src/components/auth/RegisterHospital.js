@@ -1,9 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import svgHospital from "../../assets/images/svgHospital.svg";
 import svgfondo1 from "../../assets/images/img.svg";
 import { useForm } from "../../hook/useForm";
+import{ useDispatch } from "react-redux"
+import { startRegisterCentro } from "../../actions/auth";
+
+const letra = new RegExp(/^[a-zA-ZÀ-ÿ\s]{1,40}$/);
+const password = new RegExp(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,12}$/);
+const telef = new RegExp(/^([0-9]){8}$/);
+const email = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
+
 const RegisterHospital = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [formRegisterValues, handleRegisterInputChange, setValues] = useForm({
     nombre: "",
     correo: "",
@@ -24,9 +34,81 @@ const RegisterHospital = () => {
     descripcion,
     hasError,
   } = formRegisterValues;
-  const handleRegister = (e) => {
-    e.preventDefault();
-  };
+
+  /******* Validacion *********/
+
+const validacion = (values) => {
+  const error = {};
+  if (!letra.test(values.nombre)) {
+    error.nombre = "Este campo solo acepta caracteres";
+  }
+  if (values.nombre === "") {
+    error.nombre = "Este campo es obligatorio";
+  }
+
+  if (!email.test(values.correo)) {
+    error.correo = "Correo no valido";
+  }
+  if (values.correo === "") {
+    error.correo = "Este campo es obligatorio";
+  }
+
+  if (!password.test(values.contrasenia) || values.contrasenia.length < 6) {
+    error.contrasenia =
+      "La contraseña debe tener al entre 6 y 12 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula";
+  }
+  if (values.contrasenia === "") {
+    error.contrasenia = "Este campo es obligatorio";
+  }
+
+  if (values.confContrasenia !== values.contrasenia) {
+    error.confContrasenia = "Las contraseñas no coinciden";
+  }
+  if (values.confContrasenia === "") {
+    error.confContrasenia = "Las contraseñas no coinciden";
+  }
+
+  if (!telef.test(values.telefono) && values.telefono !== "") {
+    error.telefono = "Este campo solo acepta numeros";
+  }
+  if (values.telefono === "") {
+    error.telefono = "Este campo es obligatorio";
+  }
+
+  if (!letra.test(values.direccion)) {
+    error.direccion = "Este campo solo acepta caracteres";
+  }
+  if (values.direccion === "") {
+    error.direccion = "Este campo es obligatorio";
+  }
+
+  if (!letra.test(values.descripcion)) {
+    error.descripcion = "Este campo solo acepta caracteres";
+  }
+  if (values.descripcion === "") {
+    error.descripcion = "Este campo es obligatorio";
+  }
+
+  return error;
+};
+
+const handleRegister = (e) => {
+  e.preventDefault();
+
+  const result = validacion(formRegisterValues);
+  setValues({ ...formRegisterValues, hasError: result });
+  console.log(Object.keys(result).length);
+  if (Object.keys(result).length === 0) {
+    dispatch(startRegisterCentro(nombre, correo, contrasenia, telefono, direccion, descripcion));
+    setTimeout(() => {
+      navigate("/");
+    }, 500);
+  } else {
+    console.log("Rellene los campos vacios");
+  }
+
+};
+
   return (
     <>
       <div className="grid grid-cols-5 bg-indigo-600 ">

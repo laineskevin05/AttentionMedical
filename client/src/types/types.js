@@ -32,5 +32,9 @@ export const types = {
 
   doctorAddNew: "[doctor] Add New doctor",
 
-  hospitalSearch: "[hospital] Search hospital"
+  hospitalSearch: "[hospital] Search hospital",
+
+  centroLogout: "[centro] Logout",
+  centroLogin: "[centro] Login",
+  centroCheckingFinish: "[centro] Finish checking login state",
 };
