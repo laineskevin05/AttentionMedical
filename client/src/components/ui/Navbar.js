@@ -21,7 +21,7 @@ const Navbar = () => {
   const [coincidenciasHospitales, setCoincidenciasHospitales] = useState({});
 
   const [valueSearch, setValueSearch] = useState({
-    search: "",
+    search: ""
   });
 
   const { search } = valueSearch;
@@ -57,6 +57,11 @@ const Navbar = () => {
   useEffect(() => {
     console.log("cambio");
   }, [search]);
+
+  const reset = ()=>{
+      setValueSearch({search:""})
+      setBarraBusqueda(false);
+  };
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -136,14 +141,21 @@ const Navbar = () => {
                   onChange={handleInputChange}
                 />
                 {barraBusqueda && (
-                  <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md">
+                  <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md z-40"
+                  onClick={reset}>
                     {coincidenciasHospitales?.map((e) => {
                       return (
                         <div
                           className="block p-2  border-b border-gray-400"
                           key={e.id}
                         >
+                          <Link
+                          to={`/centro/${e.id}`}
+                          className="text-gray-700 block w-full text-left px-4 py-2 hover:bg-gray-300 text-sm"
+                          id="menu-item-1"
+                          >
                           {e.nombre}
+                          </Link>
                         </div>
                       );
                     })}
