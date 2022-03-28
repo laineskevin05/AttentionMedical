@@ -11,32 +11,48 @@ import { useNavigate, useParams } from "react-router-dom";
 import { limpiarDoctores, starDoctorLoaded } from "../../actions/doctor";
 import { hospitalSearchStar, startLoadHospital } from "../../actions/hospital";
 
-const InicioHospital = memo(() => {
-  
+const InicioHospital = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {id} = useParams();
 
-  const {doctor, auth, hospitalAct} = useSelector( state => state);
-  const [especialidad, setEspecialidad] = useState()
-  
+  const { id } = useParams();
+
+  const { doctor, auth, hospitalAct } = useSelector((state) => state);
+  const [especialidad, setEspecialidad] = useState();
+  const [infoHospital, setInfoHospital] = useState({});
+
   console.log(hospitalAct.id);
-  
-  const type = auth.tipo;
-  
+
   useEffect(() => {
-    dispatch(cargarDepartamentosHospital());
-    if ( type == 'usuario' ) {
-      // // dispatch(startLoadHospital(id));
-      // setTimeout(() => {
-      //   dispatch(starDoctorLoaded(hospitalAct.id));
-      // }, 3000);
-      console.log('hola');
+    dispatch(limpiarDoctores());
+    dispatch(hospitalSearchStar());
+  }, []);
+  const { hospitales } = useSelector((state) => state.hospital);
+
+  useEffect(() => {
+    dispatch(limpiarDoctores());
+    if (auth.tipo === "usuario") {
+      dispatch(cargarDepartamentosHospital(id));
+      dispatch(starDoctorLoaded(id));
     } else {
+      dispatch(cargarDepartamentosHospital(auth.uid));
       dispatch(starDoctorLoaded(auth.uid));
     }
-  }, [dispatch]);
+  }, [id]);
+  useEffect(() => {
+    hospitales &&
+      setInfoHospital(
+        Object.values(hospitales)?.find((dato) => {
+          if (auth.tipo === "usuario") {
+            return dato.id === id;
+          } else {
+            return dato.id === auth.uid;
+          }
+        })
+      );
+  }, [hospitales, id]);
 
+  console.log(infoHospital);
   const [coincidenciasHospitales, setCoincidenciasHospitales] = useState({});
 
   const doctores = doctor.doctores;
@@ -48,7 +64,7 @@ const InicioHospital = memo(() => {
 
   const agregarDepartamento = (e) => {
     let nuevoDepartamento = prompt("Ingrese el nombre del departamento");
-    
+
     if (nuevoDepartamento == null || nuevoDepartamento === "") {
     } else {
       dispatch(
@@ -57,19 +73,18 @@ const InicioHospital = memo(() => {
     }
   };
 
-  console.log(departamentos, "ppp");
-  
   const handleClick = (e) => {
     e.preventDefault();
 
     const especialidadAct = e.target.textContent;
-    
+
     dispatch(limpiarDoctores());
 
     setEspecialidad(especialidadAct);
     dispatch(starDoctorLoaded(especialidadAct));
-  }
+  };
 
+  // useEffect(() => {}, [coincidenciasHospitales]);
   return (
     <>
       <div className="w-full h-36 bg-menu flex">
@@ -85,10 +100,14 @@ const InicioHospital = memo(() => {
         <div className="w-3/4 flex  flex-wrap items-center ">
           <div>
             <h1 className="w-full text-3xl font-bold py-2  font-sans">
-              {nombre}
+              {auth.tipo === "usuario"
+                ? infoHospital?.nombre
+                : infoHospital?.nombre}
             </h1>
             <h3 className="py-2 text-base font-sans text-white">
-              Descipcion del hospital, tal como ser cuantos años tiene, etc
+              {auth.tipo === "usuario"
+                ? infoHospital?.descripcion
+                : infoHospital?.nombre}
             </h3>
           </div>
         </div>
@@ -114,9 +133,9 @@ const InicioHospital = memo(() => {
           </h2>
 
           <hr className=" border-gray-700" />
-          <button 
+          <button
             className="py-2 w-full bg-teal-300 border-2 text-gray-800 font-bold rounded-lg"
-            onClick={e => handleClick(e)}
+            onClick={(e) => handleClick(e)}
           >
             Todos
           </button>
@@ -125,7 +144,7 @@ const InicioHospital = memo(() => {
               <button
                 className="py-2 w-full text-white font-semibold rounded-md  "
                 key={area}
-                onClick={e => handleClick(e)}
+                onClick={(e) => handleClick(e)}
               >
                 {area.charAt(0).toUpperCase() + area.toLowerCase().slice(1)}
               </button>
@@ -163,7 +182,10 @@ const InicioHospital = memo(() => {
                       <div className="flex items-center">
                         <div className="flex px-2">
                           <h3 className="pr-2 font-semibold">Doctor:</h3>
-                          <h3 className="pr-2">{doctor.user.nombre}<span> {doctor.user.apellido}</span></h3>
+                          <h3 className="pr-2">
+                            {doctor.user.nombre}
+                            <span> {doctor.user.apellido}</span>
+                          </h3>
                         </div>
                         <div className="flex px-2">
                           <h3 className="pr-2 font-semibold">Horario:</h3>
@@ -171,10 +193,10 @@ const InicioHospital = memo(() => {
                           <h3 className="pr-2">{doctor.horaSalida}</h3>
                         </div>
                         <div className="flex px-2 ">
-                          <h3 className="pr-2 font-semibold">Dias laborales:</h3>
-                          <h3 className="pr-1">
-                          {doctor.dias}
+                          <h3 className="pr-2 font-semibold">
+                            Dias laborales:
                           </h3>
+                          <h3 className="pr-1">{doctor.dias}</h3>
                         </div>
                       </div>
                       <div className="flex">
@@ -193,13 +215,13 @@ const InicioHospital = memo(() => {
                     <button className="">Historial</button>
                   </div>
                 </div>
-            </div>
-            )
+              </div>
+            );
           })}
         </div>
       </div>
     </>
   );
-});
+};
 
 export default InicioHospital;

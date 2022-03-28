@@ -13,7 +13,8 @@ const Navbar = () => {
   }, [dispatch]);
 
   const { hospitales } = useSelector((state) => state.hospital);
-  const { uid } = useSelector((state) => {
+  // console.log(hospitales);
+  const { uid, tipo } = useSelector((state) => {
     return state.auth;
   });
 
@@ -21,7 +22,7 @@ const Navbar = () => {
   const [coincidenciasHospitales, setCoincidenciasHospitales] = useState({});
 
   const [valueSearch, setValueSearch] = useState({
-    search: ""
+    search: "",
   });
 
   const { search } = valueSearch;
@@ -31,23 +32,18 @@ const Navbar = () => {
       ...valueSearch,
       [target.name]: target.value,
     });
-    if (target.value.length > 1) {
+    if (target.value.length > 0) {
       setBarraBusqueda(true);
-      setCoincidenciasHospitales(
-        hospitales.filter((dato) => {
-          return dato.nombre
-            .toLocaleLowerCase()
-            ?.includes(search.toLocaleLowerCase());
-        })
-      );
-
-      console.log(
-        hospitales.filter((dato) => {
-          return dato.nombre
-            .toLocaleLowerCase()
-            ?.includes(search.toLocaleLowerCase());
-        })
-      );
+      const hopitals = Object.values(hospitales)?.filter((dato) => {
+        return dato.nombre
+          .toLocaleLowerCase()
+          ?.includes(target.value.toLocaleLowerCase());
+      });
+      if (hospitales) {
+        setCoincidenciasHospitales(hopitals);
+      } else {
+        setCoincidenciasHospitales({});
+      }
     } else {
       setBarraBusqueda(false);
       setCoincidenciasHospitales({});
@@ -58,9 +54,9 @@ const Navbar = () => {
     console.log("cambio");
   }, [search]);
 
-  const reset = ()=>{
-      setValueSearch({search:""})
-      setBarraBusqueda(false);
+  const reset = () => {
+    setValueSearch({ search: "" });
+    setBarraBusqueda(false);
   };
 
   const handleLogout = (e) => {
@@ -120,41 +116,47 @@ const Navbar = () => {
           {typeof uid === "string" && uid ? (
             <>
               <div className="hidden relative mr-3 md:mr-0 md:block">
-                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                  <svg
-                    className="w-5 h-5 text-gray-500"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"></path>
-                  </svg>
-                </div>
-                <input
-                  type="text"
-                  autoComplete="off"
-                  id="email-adress-icon"
-                  name="search"
-                  value={search}
-                  className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Search..."
-                  onChange={handleInputChange}
-                />
+                {tipo === "usuario" && (
+                  <>
+                    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                      <svg
+                        className="w-5 h-5 text-gray-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"></path>
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      id="email-adress-icon"
+                      name="search"
+                      value={search}
+                      className="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Search..."
+                      onChange={handleInputChange}
+                    />
+                  </>
+                )}
                 {barraBusqueda && (
-                  <div className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md z-40"
-                  onClick={reset}>
-                    {coincidenciasHospitales?.map((e) => {
+                  <div
+                    className="absolute bg-white mt-1 inline-block w-full border border-black rounded-md z-40"
+                    onClick={reset}
+                  >
+                    {Object.values(coincidenciasHospitales)?.map((e) => {
                       return (
                         <div
                           className="block p-2  border-b border-gray-400"
                           key={e.id}
                         >
                           <Link
-                          to={`/centro/${e.id}`}
-                          className="text-gray-700 block w-full text-left px-4 py-2 hover:bg-gray-300 text-sm"
-                          id="menu-item-1"
+                            to={`/centro/${e.id}`}
+                            className="text-gray-700 block w-full text-left px-4 py-2 hover:bg-gray-300 text-sm"
+                            id="menu-item-1"
                           >
-                          {e.nombre}
+                            {e.nombre}
                           </Link>
                         </div>
                       );

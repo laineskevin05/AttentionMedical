@@ -1,16 +1,16 @@
-import { types } from "../types/types"
+import { types } from "../types/types";
 
-const initalState = {} 
+const initalState = {};
 
 export const hospitalActReducer = (state = initalState, action) => {
-    switch (action.type) {
-        case types.hospitalActCargar:
-            return {
-                ...state,
-                ...action.payload
-            }
-    
-        default:
-            return initalState;
-    }
-}
+  switch (action.type) {
+    case types.hospitalActCargar:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
+    default:
+      return state;
+  }
+};

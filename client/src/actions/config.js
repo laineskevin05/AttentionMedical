@@ -38,9 +38,8 @@ export const startCambioDepartamentosHospital = (departamentos) => {
     }
   };
 };
-export const cargarDepartamentosHospital = () => {
-  return async (dispatch, getState) => {
-    const { uid } = getState().auth;
+export const cargarDepartamentosHospital = (uid) => {
+  return async (dispatch) => {
     console.log(uid);
     const resp = await fetchConToken(
       `config/cargadepartamentoshospital/${uid}`
