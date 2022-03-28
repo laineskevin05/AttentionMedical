@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { buscarHospital, registrarDoctor, getDoctor } = require("../controllers/hospital");
+const { buscarHospital, registrarDoctor, getDoctor, getHospitalAct } = require("../controllers/hospital");
 const { validarCampos } = require("../middlewares/validar-campos");
 
 
@@ -29,5 +29,7 @@ router.post(
     validarJWT
     ,
     registrarDoctor
-  ); 
+  );
+  
+router.get("/hospitalAct/:id", validarJWT, getHospitalAct)
   

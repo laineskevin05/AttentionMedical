@@ -31,10 +31,14 @@ export const types = {
   profileLoad: "[profile] Load Profile",
 
   doctorAddNew: "[doctor] Add New doctor",
+  doctorLoaded: "[doctor] doctor loaded",
+  doctorClean: "[doctor] clean doctor loaded",
 
   hospitalSearch: "[hospital] Search hospital",
+  hospitalActCargar: "[hospital] Load Info",
 
   centroLogout: "[centro] Logout",
   centroLogin: "[centro] Login",
   centroCheckingFinish: "[centro] Finish checking login state",
+
 };

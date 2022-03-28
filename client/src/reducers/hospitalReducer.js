@@ -9,7 +9,7 @@ export const hospitalReducer = (state = init, action) => {
     case types.hospitalSearch:
       return {
         ...state,
-        hospitales: [...action.payload],
+        ...action.payload
       };
 
     default:

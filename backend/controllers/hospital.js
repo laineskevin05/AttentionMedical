@@ -25,6 +25,29 @@ const buscarHospital = async (req, res = response)=>{
   }
 }
 
+const getHospitalAct = async (req, res = response) => {
+  const id = req.params.id
+  console.log(id);
+  try{
+    const hospital = await centroMedico.find({_id: id});
+
+    console.log(hospital[0]);
+
+    res.json({
+      ok: true,
+      hospital: hospital[0]
+    })
+
+
+  }catch(error){
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
+}
+
 
     
 
@@ -86,7 +109,7 @@ const getDoctor = async(req, res = response)=>{
   const hospitalId = req.params.idHospital
     
     try {
-      const hospital = await Doctor.find({ hospital: hospitalId }).populate("user", "nombre apellido");
+      const hospital = await Doctor.find({ hospital: hospitalId }).populate("user hospital", "nombre apellido");
     
       res.status(201).json({
         ok: true,
@@ -104,5 +127,6 @@ const getDoctor = async(req, res = response)=>{
 module.exports = {
   buscarHospital,
   registrarDoctor,
-  getDoctor
+  getDoctor,
+  getHospitalAct
 }

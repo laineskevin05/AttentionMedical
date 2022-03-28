@@ -118,7 +118,8 @@ const loginUsuario = async (req, res = response) => {
       res.json({
         ok: true,
         uid: usuario.id,
-        name: usuario.correo,
+        nombre: usuario.nombre,
+        correo: usuario.correo,
         token,
         tipo: "usuario",
       });
@@ -140,7 +141,8 @@ const loginUsuario = async (req, res = response) => {
       res.json({
         ok: true,
         uid: centro.id,
-        name: centro.correo,
+        nombre: centro.nombre,
+        correo: centro.correo,
         token,
         tipo: "centro",
       });
@@ -156,8 +158,10 @@ const loginUsuario = async (req, res = response) => {
 
 const revalidarToken = async (req, res = response) => {
   const { uid, name } = req;
+  console.log(req);
   let usuario = await Usuario.findOne({ _id: uid });
   let centro = await centroMedico.findOne({ _id: uid });
+  // console.log(centro);
   // Generar JWT
   const token = await generarJWT(uid, name);
   try {
@@ -166,6 +170,7 @@ const revalidarToken = async (req, res = response) => {
         ok: true,
         uid,
         name,
+        email: usuario.nombre,
         token,
         tipo: "usuario",
       });
@@ -175,6 +180,7 @@ const revalidarToken = async (req, res = response) => {
         ok: true,
         uid,
         name,
+        email: centro.nombre,
         token,
         tipo: "centro",
       });
@@ -255,6 +261,7 @@ const cargarUsuario = async (req, res = response) => {
     const userId = req.params.id;
     const user = await Usuario.find({ _id: userId });
     const centro = await centroMedico.find({ _id: userId });
+    console.log(centro);
     // console.log(user);
     if (user) {
       res.json({

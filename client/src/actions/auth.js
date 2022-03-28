@@ -6,6 +6,8 @@ export const startLogin = async (correo, contrasenia) => {
     const resp = await fetchSinToken("auth", { correo, contrasenia }, "POST");
     const body = await resp.json();
 
+    console.log(body);
+
     if (body.ok) {
       localStorage.setItem("token", body.token);
       localStorage.setItem("token-init-date", new Date().getTime());
@@ -13,7 +15,8 @@ export const startLogin = async (correo, contrasenia) => {
       await dispatch(
         login({
           uid: body.uid,
-          name: body.name,
+          name: body.nombre,
+          email: body.correo,
           tipo: body.tipo,
         })
       );
@@ -54,6 +57,7 @@ export const startChecking = () => {
   return async (dispatch) => {
     const resp = await fetchConToken("auth/renew");
     const body = await resp.json();
+    console.log(body);
 
     if (body.ok) {
       localStorage.setItem("token", body.token);
@@ -63,6 +67,7 @@ export const startChecking = () => {
         login({
           uid: body.uid,
           name: body.name,
+          email: body.email,
           tipo: body.tipo,
         })
       );

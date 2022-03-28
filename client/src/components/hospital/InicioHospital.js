@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 import {
@@ -7,19 +7,48 @@ import {
 } from "../../actions/config";
 import fotoPerfilHospital from "../../assets/images/fondo_Hospital.jpg";
 import svgSimbolSum from "../../assets/images/svgSimbolSum.svg";
-import { useNavigate } from "react-router-dom";
-const InicioHospital = () => {
+import { useNavigate, useParams } from "react-router-dom";
+import { limpiarDoctores, starDoctorLoaded } from "../../actions/doctor";
+import { hospitalSearchStar, startLoadHospital } from "../../actions/hospital";
+
+const InicioHospital = memo(() => {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {id} = useParams();
+
+  const {doctor, auth, hospitalAct} = useSelector( state => state);
+  const [especialidad, setEspecialidad] = useState()
+  
+  console.log(hospitalAct.id);
+  
+  const type = auth.tipo;
+  
   useEffect(() => {
     dispatch(cargarDepartamentosHospital());
+    if ( type == 'usuario' ) {
+      // // dispatch(startLoadHospital(id));
+      // setTimeout(() => {
+      //   dispatch(starDoctorLoaded(hospitalAct.id));
+      // }, 3000);
+      console.log('hola');
+    } else {
+      dispatch(starDoctorLoaded(auth.uid));
+    }
   }, [dispatch]);
+
+  const [coincidenciasHospitales, setCoincidenciasHospitales] = useState({});
+
+  const doctores = doctor.doctores;
+  const nombre = auth.email;
+
   const { departamentos } = useSelector((state) => {
     return state.config;
   });
 
   const agregarDepartamento = (e) => {
     let nuevoDepartamento = prompt("Ingrese el nombre del departamento");
+    
     if (nuevoDepartamento == null || nuevoDepartamento === "") {
     } else {
       dispatch(
@@ -27,9 +56,20 @@ const InicioHospital = () => {
       );
     }
   };
-  // console.log(uid, "gggg");
 
   console.log(departamentos, "ppp");
+  
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    const especialidadAct = e.target.textContent;
+    
+    dispatch(limpiarDoctores());
+
+    setEspecialidad(especialidadAct);
+    dispatch(starDoctorLoaded(especialidadAct));
+  }
+
   return (
     <>
       <div className="w-full h-36 bg-menu flex">
@@ -45,7 +85,7 @@ const InicioHospital = () => {
         <div className="w-3/4 flex  flex-wrap items-center ">
           <div>
             <h1 className="w-full text-3xl font-bold py-2  font-sans">
-              Hospital Masacrademonios
+              {nombre}
             </h1>
             <h3 className="py-2 text-base font-sans text-white">
               Descipcion del hospital, tal como ser cuantos años tiene, etc
@@ -74,7 +114,10 @@ const InicioHospital = () => {
           </h2>
 
           <hr className=" border-gray-700" />
-          <button className="py-2 w-full bg-teal-300 border-2 text-gray-800 font-bold rounded-lg">
+          <button 
+            className="py-2 w-full bg-teal-300 border-2 text-gray-800 font-bold rounded-lg"
+            onClick={e => handleClick(e)}
+          >
             Todos
           </button>
           {departamentos?.map((area) => {
@@ -82,6 +125,7 @@ const InicioHospital = () => {
               <button
                 className="py-2 w-full text-white font-semibold rounded-md  "
                 key={area}
+                onClick={e => handleClick(e)}
               >
                 {area.charAt(0).toUpperCase() + area.toLowerCase().slice(1)}
               </button>
@@ -105,51 +149,57 @@ const InicioHospital = () => {
               Añadir doctor
             </button>
           </div>
-          <div className="bg-green-100 rounded py-3 px-2 flex ">
-            <div className="flex w-5/6 items-center">
-              <img
-                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-                alt="avatar"
-                className="object-cover inline w-10 h-10 rounded-full shadow-sm"
-              />
-              <div className="flex flex-col">
-                <div className="flex items-center">
-                  <div className="flex px-2">
-                    <h3 className="pr-2 font-semibold">Doctor:</h3>
-                    <h3 className="pr-2">Carlos Lopez</h3>
+          {doctores?.map((doctor) => {
+            return (
+              <div key={doctor.id}>
+                <div className="bg-green-100 rounded py-3 px-2 flex ">
+                  <div className="flex w-5/6 items-center">
+                    <img
+                      src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                      alt="avatar"
+                      className="object-cover inline w-10 h-10 rounded-full shadow-sm"
+                    />
+                    <div className="flex flex-col">
+                      <div className="flex items-center">
+                        <div className="flex px-2">
+                          <h3 className="pr-2 font-semibold">Doctor:</h3>
+                          <h3 className="pr-2">{doctor.user.nombre}<span> {doctor.user.apellido}</span></h3>
+                        </div>
+                        <div className="flex px-2">
+                          <h3 className="pr-2 font-semibold">Horario:</h3>
+                          <h3 className="pr-1">{doctor.horaEntrada}-</h3>
+                          <h3 className="pr-2">{doctor.horaSalida}</h3>
+                        </div>
+                        <div className="flex px-2 ">
+                          <h3 className="pr-2 font-semibold">Dias laborales:</h3>
+                          <h3 className="pr-1">
+                          {doctor.dias}
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex px-2">
+                          <h3 className="pr-2 font-semibold">Detalles:</h3>
+                          <h3 className="pr-2">{doctor.descripcion}</h3>
+                        </div>
+                        <div className="flex px-2">
+                          <h3 className="pr-2 font-semibold">Departamento:</h3>
+                          <h3 className="pr-2">{doctor.especialidad}</h3>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex px-2">
-                    <h3 className="pr-2 font-semibold">Horario:</h3>
-                    <h3 className="pr-1">8:00 am -</h3>
-                    <h3 className="pr-2">5:00 pm</h3>
-                  </div>
-                  <div className="flex px-2 ">
-                    <h3 className="pr-2 font-semibold">Dias laborales:</h3>
-                    <h3 className="pr-1">
-                      Lunes, martes, miercoles, jueves, viernes
-                    </h3>
+                  <div className="flex justify-end w-1/6">
+                    <button className="">Historial</button>
                   </div>
                 </div>
-                <div className="flex">
-                  <div className="flex px-2">
-                    <h3 className="pr-2 font-semibold">Detalles:</h3>
-                    <h3 className="pr-2">12 años de experiencia</h3>
-                  </div>
-                  <div className="flex px-2">
-                    <h3 className="pr-2 font-semibold">Departamento:</h3>
-                    <h3 className="pr-2">pedriatria</h3>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div className="flex justify-end w-1/6">
-              <button className="">Historial</button>
-            </div>
-          </div>
+            )
+          })}
         </div>
       </div>
     </>
   );
-};
+});
 
 export default InicioHospital;
