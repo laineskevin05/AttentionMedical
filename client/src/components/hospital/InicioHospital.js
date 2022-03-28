@@ -21,8 +21,6 @@ const InicioHospital = () => {
   const [especialidad, setEspecialidad] = useState();
   const [infoHospital, setInfoHospital] = useState({});
 
-  console.log(hospitalAct.id);
-
   useEffect(() => {
     dispatch(limpiarDoctores());
     dispatch(hospitalSearchStar());
@@ -52,12 +50,13 @@ const InicioHospital = () => {
       );
   }, [hospitales, id]);
 
-  console.log(infoHospital);
-  const [coincidenciasHospitales, setCoincidenciasHospitales] = useState({});
+  const [coincidenciasDoctores, setCoincidenciasDoctores] = useState({});
 
   const doctores = doctor.doctores;
-  const nombre = auth.email;
 
+  useEffect(() => {
+    doctores && setCoincidenciasDoctores(doctores);
+  }, [doctores, id]);
   const { departamentos } = useSelector((state) => {
     return state.config;
   });
@@ -73,18 +72,47 @@ const InicioHospital = () => {
     }
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  const [pages, setPages] = useState([]);
+  useEffect(() => {
+    departamentos && setPages([departamentos]);
+  }, [departamentos, id]);
 
-    const especialidadAct = e.target.textContent;
+  const cambiarFocoTab = (numero) => {
+    if (numero === "-100") {
+      let item = document.getElementById(`btn--100`);
+      item.className =
+        "py-2 w-full bg-teal-300 border-2 text-gray-800 font-bold rounded-lg";
+      pages[0].forEach((dato, index) => {
+        let item = document.getElementById(`btn-${index}`);
 
-    dispatch(limpiarDoctores());
-
-    setEspecialidad(especialidadAct);
-    dispatch(starDoctorLoaded(especialidadAct));
+        item.className =
+          "py-2 w-full text-white font-semibold rounded-md menudepartamento";
+      });
+      setCoincidenciasDoctores(doctores);
+    } else {
+      let item = document.getElementById(`btn--100`);
+      item.className =
+        "py-2 w-full text-white font-semibold rounded-md menudepartamento";
+      pages[0].forEach((departamento, index) => {
+        let item = document.getElementById(`btn-${index}`);
+        if (index === numero) {
+          item.className =
+            "py-2 w-full bg-teal-300 border-2 text-gray-800 font-bold rounded-lg";
+          setCoincidenciasDoctores(
+            doctores.filter((datoDoc) => {
+              return (
+                datoDoc.especialidad.toLowerCase() ===
+                departamento.toLowerCase()
+              );
+            })
+          );
+        } else {
+          item.className =
+            "py-2 w-full text-white font-semibold rounded-md menudepartamento";
+        }
+      });
+    }
   };
-
-  // useEffect(() => {}, [coincidenciasHospitales]);
   return (
     <>
       <div className="w-full h-36 bg-menu flex">
@@ -115,36 +143,49 @@ const InicioHospital = () => {
 
       <div className="w-full flex min-h-[70vh]">
         <div className="w-1/4 bg-teal-500 inline-block py-6 ">
-          <div className=" flex w-full justify-end items-end ">
-            <button
-              className="p-2  text-right bg-gray-600 text-white rounded-md shadow-lg  "
-              onClick={agregarDepartamento}
-            >
-              <img
-                src={svgSimbolSum}
-                alt="simbol_sum"
-                className="inline w-6 pr-2"
-              />
-              Añadir
-            </button>
-          </div>
+          {auth.tipo === "centro" && (
+            <div className=" flex w-full justify-end items-end ">
+              <button
+                className="p-2  text-right bg-gray-600 text-white rounded-md shadow-lg  "
+                onClick={agregarDepartamento}
+              >
+                <img
+                  src={svgSimbolSum}
+                  alt="simbol_sum"
+                  className="inline w-6 pr-2"
+                />
+                Añadir
+              </button>
+            </div>
+          )}
           <h2 className="text-lg font-semibold text-center font-sans ">
             Doctores
           </h2>
 
           <hr className=" border-gray-700" />
           <button
+            id={`btn-${"-100"}`}
+            key={"todos"}
+            name={`btn-todos}`}
             className="py-2 w-full bg-teal-300 border-2 text-gray-800 font-bold rounded-lg"
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => {
+              e.preventDefault();
+              cambiarFocoTab("-100");
+            }}
           >
             Todos
           </button>
-          {departamentos?.map((area) => {
+          {departamentos?.map((area, index) => {
             return (
               <button
-                className="py-2 w-full text-white font-semibold rounded-md  "
+                className="py-2 w-full text-white font-semibold rounded-md menudepartamento "
+                id={`btn-${index}`}
                 key={area}
-                onClick={(e) => handleClick(e)}
+                name={`btn-${area}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  cambiarFocoTab(index);
+                }}
               >
                 {area.charAt(0).toUpperCase() + area.toLowerCase().slice(1)}
               </button>
@@ -157,18 +198,20 @@ const InicioHospital = () => {
           </button>
         </div>
         <div className="w-3/4 bg-green-300 inline-block py-6 px-2">
-          <div className=" flex justify-end mb-4">
-            <button
-              className="bg-gray-700 rounded-md p-2 text-white"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate("/centro/nuevodoctor");
-              }}
-            >
-              Añadir doctor
-            </button>
-          </div>
-          {doctores?.map((doctor) => {
+          {auth.tipo === "centro" && (
+            <div className=" flex justify-end mb-4">
+              <button
+                className="bg-gray-700 rounded-md p-2 text-white"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/centro/nuevodoctor");
+                }}
+              >
+                Añadir doctor
+              </button>
+            </div>
+          )}
+          {Object.values(coincidenciasDoctores)?.map((doctor) => {
             return (
               <div key={doctor.id}>
                 <div className="bg-green-100 rounded py-3 px-2 flex ">
