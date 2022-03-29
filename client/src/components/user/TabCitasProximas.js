@@ -144,7 +144,7 @@ const TabCitasProximas = () => {
                   to="/"
                   className="inline-block text-xl font-bold pr-2 leading-5 text-textop uppercase transition-colors duration-200 hover:text-deep-purple-accent-400"
                 >
-                  {cita.clinica}
+                  {cita.nombreClinica}
                 </Link>
                 <div className="relative inline-block text-left">
                   <div>
@@ -246,7 +246,7 @@ const TabCitasProximas = () => {
                     to="/"
                     className="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-400"
                   >
-                    {cita.doctor}
+                    {cita.nombreDoctor}
                   </Link>
                   <p className="text-sm font-medium leading-4 text-gray-600">
                     Dr/Dra.

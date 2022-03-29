@@ -37,8 +37,8 @@ const TabCitasHistorial = () => {
                 <td className="p-1">{cita.fecha}</td>
                 <td className="p-1">{cita.hora}</td>
                 <td className="p-1">{cita.estado}</td>
-                <td className="p-1">{cita.clinica}</td>
-                <td className="p-1">{cita.doctor}</td>
+                <td className="p-1">{cita.nombreClinica}</td>
+                <td className="p-1">{cita.nombreDoctor}</td>
                 <td className="p-1">{cita.descripcion}</td>
               </tr>
             );

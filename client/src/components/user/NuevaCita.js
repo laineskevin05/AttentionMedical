@@ -34,7 +34,7 @@ const NuevaCita = () => {
 
   const { fecha, hora, descripcion } = formValues;
   const infoDoctor = Object.values(doctores)?.find((dato) => {
-    return dato.id === idDoctor;
+    return dato.user._id === idDoctor;
   });
   return (
     <>

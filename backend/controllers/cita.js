@@ -22,7 +22,10 @@ const crearCita = async (req, res = response) => {
 
 const getCitas = async (req, res = response) => {
   const userId = req.params.id;
-  const citas = await Cita.find({ user: userId });
+  const citas = await Cita.find({ user: userId }).populate(
+    "clinica doctor",
+    "_id nombre "
+  );
 
   res.status(201).json({
     ok: true,

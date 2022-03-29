@@ -260,7 +260,7 @@ const InicioHospital = () => {
                           to={`/nuevacita/${[
                             infoHospital.id,
                             infoHospital.nombre,
-                          ]}/${doctor.id}`}
+                          ]}/${doctor.user._id}`}
                         >
                           Agendar cita
                         </Link>
