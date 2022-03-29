@@ -5,7 +5,7 @@ const MenuUsuarioIzquierdo = () => {
   return (
     <div className="bg-menu  w-1/5 inline-block border border-gray-800 ">
       <div>Menu Usuario Izquierdo</div>
-      <div className="flex  w-full justify-end my-2 px-2 ">
+      {/* <div className="flex  w-full justify-end my-2 px-2 ">
         <Link to="/nuevacita" className="w-1/2">
           <button className="bg-gray-100 rounded px-2 p-4 items-center w-full ">
             Nueva Cita
@@ -25,7 +25,7 @@ const MenuUsuarioIzquierdo = () => {
             Perfil
           </button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

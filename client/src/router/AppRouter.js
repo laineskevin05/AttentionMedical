@@ -20,7 +20,6 @@ import { PrivateRoute } from "./PrivateRoute";
 import Navbar from "../components/ui/Navbar";
 import Perfil from "../components/user/Perfil";
 import Configuracion from "../components/ui/Configuracion";
-import PageHospital from "../components/hospital/PageHospital";
 import RegisterHospital from "../components/auth/RegisterHospital";
 import InicioHospital from "../components/hospital/InicioHospital";
 import NuevoDoctor from "../components/hospital/NuevoDoctor";
@@ -140,7 +139,7 @@ export const AppRouter = () => {
           }
         />
         <Route
-          path="/nuevacita"
+          path="/nuevacita/:infoHospital/:idDoctor"
           element={
             <PrivateRoute uid={uid}>
               <Navbar />

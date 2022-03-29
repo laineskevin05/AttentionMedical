@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 import {
@@ -7,9 +7,9 @@ import {
 } from "../../actions/config";
 import fotoPerfilHospital from "../../assets/images/fondo_Hospital.jpg";
 import svgSimbolSum from "../../assets/images/svgSimbolSum.svg";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { limpiarDoctores, starDoctorLoaded } from "../../actions/doctor";
-import { hospitalSearchStar, startLoadHospital } from "../../actions/hospital";
+import { hospitalSearchStar } from "../../actions/hospital";
 
 const InicioHospital = () => {
   const dispatch = useDispatch();
@@ -17,8 +17,7 @@ const InicioHospital = () => {
 
   const { id } = useParams();
 
-  const { doctor, auth, hospitalAct } = useSelector((state) => state);
-  const [especialidad, setEspecialidad] = useState();
+  const { doctor, auth } = useSelector((state) => state);
   const [infoHospital, setInfoHospital] = useState({});
 
   useEffect(() => {
@@ -81,7 +80,7 @@ const InicioHospital = () => {
     if (numero === "-100") {
       let item = document.getElementById(`btn--100`);
       item.className =
-        "py-2 w-full bg-teal-300 border-2 text-gray-800 font-bold rounded-lg";
+        "py-2 w-full bg-green-300 text-gray-600 border border-gray-100  font-bold rounded-lg";
       pages[0].forEach((dato, index) => {
         let item = document.getElementById(`btn-${index}`);
 
@@ -97,7 +96,7 @@ const InicioHospital = () => {
         let item = document.getElementById(`btn-${index}`);
         if (index === numero) {
           item.className =
-            "py-2 w-full bg-teal-300 border-2 text-gray-800 font-bold rounded-lg";
+            "py-2 w-full bg-green-300 text-gray-600 border border-gray-100  font-bold rounded-lg";
           setCoincidenciasDoctores(
             doctores.filter((datoDoc) => {
               return (
@@ -115,9 +114,9 @@ const InicioHospital = () => {
   };
   return (
     <>
-      <div className="w-full h-36 bg-menu flex">
+      <div className="w-full h-36 bg-menu border-b-2 border-gray-400 shadow-2xl shadow-slate-50 border-solid flex">
         <div className="w-1/4 flex items-center p-4 justify-end">
-          <div className="w-32 h-32 rounded-full inline-block  outline outline-gray-500 shadow-md">
+          <div className="w-32 h-32 rounded-full inline-block  outline outline-gray-200 shadow-md">
             <img
               src={fotoPerfilHospital}
               alt="perfil_clinica"
@@ -127,7 +126,7 @@ const InicioHospital = () => {
         </div>
         <div className="w-3/4 flex  flex-wrap items-center ">
           <div>
-            <h1 className="w-full text-3xl font-bold py-2  font-sans">
+            <h1 className="w-full text-3xl font-bold py-2 text-gray-50 font-sans">
               {auth.tipo === "usuario"
                 ? infoHospital?.nombre
                 : infoHospital?.nombre}
@@ -142,7 +141,7 @@ const InicioHospital = () => {
       </div>
 
       <div className="w-full flex min-h-[70vh]">
-        <div className="w-1/4 bg-teal-500 inline-block py-6 ">
+        <div className="w-1/4 bg-menu inline-block py-6 ">
           {auth.tipo === "centro" && (
             <div className=" flex w-full justify-end items-end ">
               <button
@@ -162,12 +161,12 @@ const InicioHospital = () => {
             Doctores
           </h2>
 
-          <hr className=" border-gray-700" />
+          <hr className=" border-gray-400" />
           <button
             id={`btn-${"-100"}`}
             key={"todos"}
             name={`btn-todos}`}
-            className="py-2 w-full bg-teal-300 border-2 text-gray-800 font-bold rounded-lg"
+            className="py-2 w-full bg-green-300 text-gray-600 border border-gray-100  font-bold rounded-lg"
             onClick={(e) => {
               e.preventDefault();
               cambiarFocoTab("-100");
@@ -192,12 +191,12 @@ const InicioHospital = () => {
             );
           })}
 
-          <hr className=" border-gray-700" />
+          <hr className=" border-gray-400" />
           <button className="py-2 w-full  text-gray-800 font-bold rounded-md">
             Acerca de
           </button>
         </div>
-        <div className="w-3/4 bg-green-300 inline-block py-6 px-2">
+        <div className="w-3/4 bg-fondo inline-block py-6 px-2">
           {auth.tipo === "centro" && (
             <div className=" flex justify-end mb-4">
               <button
@@ -214,7 +213,7 @@ const InicioHospital = () => {
           {Object.values(coincidenciasDoctores)?.map((doctor) => {
             return (
               <div key={doctor.id}>
-                <div className="bg-green-100 rounded py-3 px-2 flex ">
+                <div className="bg-green-100 rounded py-3 px-2 flex mb-2">
                   <div className="flex w-5/6 items-center">
                     <img
                       src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
@@ -255,7 +254,20 @@ const InicioHospital = () => {
                     </div>
                   </div>
                   <div className="flex justify-end w-1/6">
-                    <button className="">Historial</button>
+                    {auth.tipo === "usuario" ? (
+                      <button className="">
+                        <Link
+                          to={`/nuevacita/${[
+                            infoHospital.id,
+                            infoHospital.nombre,
+                          ]}/${doctor.id}`}
+                        >
+                          Agendar cita
+                        </Link>
+                      </button>
+                    ) : (
+                      <button className="">Historial</button>
+                    )}
                   </div>
                 </div>
               </div>
