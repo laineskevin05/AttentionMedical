@@ -29,6 +29,10 @@ const HospitalSchema = Schema({
   departamentos: {
     type: Array,
   },
+  cuentaActiva: {
+    type: Boolean,
+    required:true
+  }
 });
 
 HospitalSchema.method("toJSON", function () {

@@ -23,6 +23,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/cita", require("./routes/cita"));
 app.use("/api/config", require("./routes/config"));
 app.use("/api/hospital", require("./routes/hospital"));
+app.use("/api/admi", require("./routes/admi"));
 // TODO: CRUD:
 
 // Escuchar peticiones

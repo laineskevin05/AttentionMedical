@@ -33,12 +33,13 @@ export const startRegister = (
   correo,
   telefono,
   contrasenia,
-  validarDr
+  validarDr,
+  cuentaActiva
 ) => {
   return async (dispatch) => {
     const resp = await fetchSinToken(
       "auth/new",
-      { nombre, apellido, correo, telefono, contrasenia, validarDr },
+      { nombre, apellido, correo, telefono, contrasenia, validarDr, cuentaActiva },
       "POST"
     );
     const body = await resp.json();
@@ -124,13 +125,13 @@ export const startRegisterCentro = (
   contrasenia,
   telefono,
   direccion,
-  descripcion
-  
+  descripcion,
+  cuentaActiva
 ) => {
   return async (dispatch) => {
     const resp = await fetchSinToken(
       "auth/newcentro",
-      { nombre, correo, contrasenia, telefono, direccion, descripcion},"POST"
+      { nombre, correo, contrasenia, telefono, direccion, descripcion, cuentaActiva},"POST"
     );
     const body = await resp.json();
 

@@ -25,6 +25,10 @@ const UsuarioSchema = Schema({
   validarDr: {
     type: Boolean,
     required:true
+  },
+  cuentaActiva: {
+    type: Boolean,
+    required:true
   }
 });
 

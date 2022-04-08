@@ -23,6 +23,7 @@ const RegisterHospital = () => {
     confContrasenia: "",
     descripcion: "",
     hasError: {},
+    cuentaActiva: true
   });
   const {
     nombre,
@@ -33,6 +34,7 @@ const RegisterHospital = () => {
     confContrasenia,
     descripcion,
     hasError,
+    cuentaActiva
   } = formRegisterValues;
 
   /******* Validacion *********/
@@ -75,16 +77,10 @@ const validacion = (values) => {
     error.telefono = "Este campo es obligatorio";
   }
 
-  if (!letra.test(values.direccion)) {
-    error.direccion = "Este campo solo acepta caracteres";
-  }
   if (values.direccion === "") {
     error.direccion = "Este campo es obligatorio";
   }
 
-  if (!letra.test(values.descripcion)) {
-    error.descripcion = "Este campo solo acepta caracteres";
-  }
   if (values.descripcion === "") {
     error.descripcion = "Este campo es obligatorio";
   }
@@ -99,7 +95,7 @@ const handleRegister = (e) => {
   setValues({ ...formRegisterValues, hasError: result });
   console.log(Object.keys(result).length);
   if (Object.keys(result).length === 0) {
-    dispatch(startRegisterCentro(nombre, correo, contrasenia, telefono, direccion, descripcion));
+    dispatch(startRegisterCentro(nombre, correo.toLocaleLowerCase(), contrasenia, telefono, direccion, descripcion, cuentaActiva));
     setTimeout(() => {
       navigate("/");
     }, 500);
