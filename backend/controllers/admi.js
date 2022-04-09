@@ -1,64 +1,72 @@
 const { response } = require("express");
-const Usuarios = require('../models/Usuario');
-const Hospitales = require('../models/Hospital');
-const Administrador = require('../models/Aministrador');
+const Usuarios = require("../models/Usuario");
+const Hospitales = require("../models/Hospital");
+const Administrador = require("../models/Aministrador");
 const { generarJWT } = require("../helpers/jwt");
 
 const getUsuario = async (req, res = response) => {
-    const usu = await Usuarios.find();
-  
-    res.status(201).json({
-      ok: true,
-      usu
-    });
-  };
+  const usu = await Usuarios.find();
 
-const getHospital = async (req, res = response) => {
-    const hsp = await Hospitales.find();
-
-    res.status(201).json({
+  res.status(201).json({
     ok: true,
-    hsp
-    });
+    usu,
+  });
 };
 
-const modCuentactiva = async(req, res = response)=>{
-  const {cuentaActiva, id} = req.body;
-    
-    try{
+const getHospital = async (req, res = response) => {
+  const hsp = await Hospitales.find();
+
+  res.status(201).json({
+    ok: true,
+    hsp,
+  });
+};
+
+const modCuentactiva = async (req, res = response) => {
+  const { cuentaActiva, id } = req.body;
+
+  try {
     const usuario = await Usuarios.findOne({ _id: id });
     const hospital = await Hospitales.findOne({ _id: id });
 
-    if(usuario){
+    if (usuario) {
       usuario.cuentaActiva = cuentaActiva;
-      
+
       const usuarioActivo = {
-        ...usuario
+        ...usuario,
       };
-    
-      const usuarioActualizado = await Usuarios.findByIdAndUpdate(id, usuarioActivo, {
-        new: true,
-      });
-      
+
+      const usuarioActualizado = await Usuarios.findByIdAndUpdate(
+        id,
+        usuarioActivo,
+        {
+          new: true,
+        }
+      );
+
       res.json({
         ok: true,
-        usuario: usuarioActualizado
+        usuario: usuarioActualizado,
       });
     }
 
-    if(hospital){
-      hospital.cuentaActiva = cuentaActiva
-      
+    if (hospital) {
+      hospital.cuentaActiva = cuentaActiva;
+
       const hospitalActivo = {
-        ...hospital
+        ...hospital,
       };
-  
-      const hospitalActualizado = await Hospitales.findByIdAndUpdate(id, hospitalActivo, {
-        new: true,
-      });
+
+      const hospitalActualizado = await Hospitales.findByIdAndUpdate(
+        id,
+        hospitalActivo,
+        {
+          new: true,
+        }
+      );
       res.json({
         ok: true,
-        hosptial: hospitalActualizado
+        hosptial: hospitalActualizado,
       });
     }
   } catch (error) {
@@ -68,7 +76,7 @@ const modCuentactiva = async(req, res = response)=>{
       msg: "Por favor hable con el administrador",
     });
   }
-}
+};
 
 const loginAdmi = async (req, res = response) => {
   const { correo, contrasenia } = req.body;
@@ -106,16 +114,16 @@ const loginAdmi = async (req, res = response) => {
         nombre: admi.nombre,
         correo: admi.correo,
         token,
-        tipo: "Administrador",
+        tipo: "admin",
       });
     }
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(500).json({
       ok: false,
       msg: "Por favor hable con el administrador",
     });
   }
-}
+};
 
-module.exports = {getUsuario, getHospital, modCuentactiva, loginAdmi};
+module.exports = { getUsuario, getHospital, modCuentactiva, loginAdmi };
