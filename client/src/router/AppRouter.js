@@ -23,6 +23,8 @@ import Configuracion from "../components/ui/Configuracion";
 import RegisterHospital from "../components/auth/RegisterHospital";
 import InicioHospital from "../components/hospital/InicioHospital";
 import NuevoDoctor from "../components/hospital/NuevoDoctor";
+import InicioAdministrador from "../components/administrador/InicioAdministrador";
+import LoginAdmistrador from "../components/administrador/LoginAdministrador";
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -47,6 +49,15 @@ export const AppRouter = () => {
             <PublicRoute uid={uid}>
               <Navbar />
               <Loginpage uid={uid} />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/admin/login"
+          element={
+            <PublicRoute uid={uid}>
+              <Navbar />
+              <LoginAdmistrador uid={uid} />
             </PublicRoute>
           }
         />
@@ -105,6 +116,8 @@ export const AppRouter = () => {
                     <MenuUsuarioDerecho />
                   </div>
                 </>
+              ) : tipo === "admin" ? (
+                <InicioAdministrador />
               ) : (
                 <InicioHospital uid={uid} />
               )}
@@ -118,6 +131,15 @@ export const AppRouter = () => {
               <Navbar />
               <Configuracion />
             </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <>
+              <Navbar />
+              <InicioAdministrador />
+            </>
           }
         />
         <Route
