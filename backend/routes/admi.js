@@ -9,7 +9,7 @@ const router = Router();
 
 //Logguear Admin
 router.post(
-    "/admin",
+    "/authAdmin",
     [
       check("correo", "El correo es obligatorio").isEmail(),
       check("contrasenia", "La contrasenia debe de ser de 6 caracteres").isLength(
