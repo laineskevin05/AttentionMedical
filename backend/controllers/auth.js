@@ -18,7 +18,7 @@ const crearUsuario = async (req, res = response) => {
     }
 
     usuario = new Usuario(req.body);
-    console.log(usuario);
+    
     // Encriptar contraseña
     const salt = bcrypt.genSaltSync();
     usuario.contrasenia = bcrypt.hashSync(contrasenia, salt);
@@ -58,7 +58,7 @@ const crearCentroMedico = async (req, res = response) => {
     }
 
     centro = new centroMedico(req.body);
-    console.log(centro);
+    
     // Encriptar contraseña
     const salt = bcrypt.genSaltSync();
     centro.contrasenia = bcrypt.hashSync(contrasenia, salt);
@@ -158,7 +158,7 @@ const loginUsuario = async (req, res = response) => {
 
 const revalidarToken = async (req, res = response) => {
   const { uid, name } = req;
-  console.log(req);
+  
   let usuario = await Usuario.findOne({ _id: uid });
   let centro = await centroMedico.findOne({ _id: uid });
   // console.log(centro);
@@ -261,7 +261,7 @@ const cargarUsuario = async (req, res = response) => {
     const userId = req.params.id;
     const user = await Usuario.find({ _id: userId });
     const centro = await centroMedico.find({ _id: userId });
-    console.log(centro);
+
     // console.log(user);
     if (user) {
       res.json({

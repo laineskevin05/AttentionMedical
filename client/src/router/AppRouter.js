@@ -25,13 +25,14 @@ import InicioHospital from "../components/hospital/InicioHospital";
 import NuevoDoctor from "../components/hospital/NuevoDoctor";
 import InicioAdministrador from "../components/administrador/InicioAdministrador";
 import LoginAdmistrador from "../components/administrador/LoginAdministrador";
+import SobreNosotros from "../components/ui/SobreNosotros"
+
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
   const { checking, uid, tipo } = useSelector((state) => {
     return state.auth;
   });
-
   useEffect(() => {
     dispatch(startChecking());
   }, [dispatch]);
@@ -39,7 +40,6 @@ export const AppRouter = () => {
   if (checking) {
     return <h5>Espere...</h5>;
   }
-
   return (
     <BrowserRouter>
       <Routes>
@@ -93,6 +93,16 @@ export const AppRouter = () => {
             </PublicRoute>
           }
         />
+         <Route  
+        exact={`true`} 
+         path="/SobreNosotros" 
+         element={
+           <PublicRoute uid={uid}>
+             <Navbar/>
+             <SobreNosotros uid={uid}/>
+           </PublicRoute>
+         }
+       />
         <Route
           path="/cambiarcontrasenia"
           element={

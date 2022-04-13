@@ -91,7 +91,7 @@ const registrarDoctor = async (req, res = response) => {
     const usuarioActualizado = await Usuario.findByIdAndUpdate(userId, nuevoUsuario, {new: true})
         
     const doctorGuardado = await doctorNuevo.save();
-        
+    //avisa al doctor de que el hospital lo contrato   
     res.json({
       ok: true,
       doctorGuardado
