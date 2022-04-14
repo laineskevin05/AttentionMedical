@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { startHospitalesLoaded, startUsuariosLoaded } from "../../actions/admin";
 import ListaHospitales from "./ListaHospitales";
 import ListaUsuarios from "./ListaUsuarios";
 
 const InicioAdministrador = () => {
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(startUsuariosLoaded());
+    dispatch(startHospitalesLoaded());
+  }, [dispatch]);
+
   const [pages, setPages] = useState({
     page1: true,
     page2: false,

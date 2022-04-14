@@ -7,6 +7,7 @@ import { profileReducer } from "./profileReducer";
 import { doctorReducer } from "./doctorReducer";
 import { hospitalReducer } from "./hospitalReducer";
 import { hospitalActReducer } from "./hospitalActReducer";
+import { adminReducer } from "./adminReducer";
  
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -15,5 +16,6 @@ export const rootReducer = combineReducers({
   profile: profileReducer,
   doctor: doctorReducer,
   hospital: hospitalReducer,
-  hospitalAct: hospitalActReducer
+  hospitalAct: hospitalActReducer,
+  admin: adminReducer
 });

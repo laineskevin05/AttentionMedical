@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { getUsuario, getHospital, modCuentactiva, loginAdmi } = require("../controllers/admi");
+const { getUsuario, getHospital, modCuentactiva, loginAdmi } = require("../controllers/admin");
 const { validarCampos } = require("../middlewares/validar-campos");
 
 const { validarJWT } = require("../middlewares/validar-jwt");
@@ -24,11 +24,11 @@ router.post(
 router.use(validarJWT);
 
 // Obtener Usuarios y Hospialtes
-router.get("/obtusu", getUsuario);
+router.get("/getusuarios", getUsuario);
 
-router.get("/obthosp", getHospital);
+router.get("/gethospitales", getHospital);
 
 //Desacrtivar/Activar cuenta Usuarios o Hospialtes
-router.put("/benearCuenta", modCuentactiva);
+router.put("/banearCuenta", modCuentactiva);
 
 module.exports= router;

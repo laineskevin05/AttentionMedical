@@ -41,4 +41,11 @@ export const types = {
   centroLogin: "[centro] Login",
   centroCheckingFinish: "[centro] Finish checking login state",
 
+  usuariosLoaded: "[admin] usuarios loaded",
+  hospitalesLoaded: "[admin] hospitales loaded",
+  usuarioBaned: "[admin] usuario baned",
+  hospitalBaned: "[admin] hospital baned",
+  usuarioUnbaned: "[admin] usuario desbaneado",
+  hospitalUnbaned: "[admin] hospital desbaneado",
+
 };

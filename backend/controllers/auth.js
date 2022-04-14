@@ -1,6 +1,7 @@
 const { response } = require("express");
 const bcrypt = require("bcryptjs");
 const Usuario = require("../models/Usuario");
+const Admin = require('../models/Aministrador');
 const centroMedico = require("../models/Hospital");
 const { generarJWT } = require("../helpers/jwt");
 
@@ -90,8 +91,9 @@ const loginUsuario = async (req, res = response) => {
   try {
     const usuario = await Usuario.findOne({ correo });
     const centro = await centroMedico.findOne({ correo });
-
-    if (!usuario && !centro) {
+    const admin = await Admin.findOne({ correo });
+    
+    if (!usuario && !centro && !admin) {
       return res.status(400).json({
         ok: false,
         msg: "No existe el usuario con ese email",
@@ -120,6 +122,7 @@ const loginUsuario = async (req, res = response) => {
         uid: usuario.id,
         nombre: usuario.nombre,
         correo: usuario.correo,
+        cuentaActiva: usuario.cuentaActiva,
         token,
         tipo: "usuario",
       });
@@ -143,8 +146,41 @@ const loginUsuario = async (req, res = response) => {
         uid: centro.id,
         nombre: centro.nombre,
         correo: centro.correo,
+        cuentaActiva: centro.cuentaActiva,
         token,
         tipo: "centro",
+      });
+    }
+    if (admin) {
+      // Confirmar los passwords
+      let validPassword = null;
+      if( contrasenia == admin.contrasenia){
+        validPassword = true;
+      }
+      // const validPassword = bcrypt.compareSync(
+      //   contrasenia,
+      //   admin.contrasenia
+      //   );
+        console.log(contrasenia);
+        console.log(admin.contrasenia);
+        console.log(validPassword);
+      if (!validPassword) {
+        return res.status(400).json({
+          ok: false,
+          msg: "Password incorrecto",
+        });
+      }
+
+      // Generar JWT
+      const token = await generarJWT(admin.id, admin.correo);
+
+      res.json({
+        ok: true,
+        uid: admin.id,
+        nombre: admin.nombre,
+        correo: admin.correo,
+        token,
+        tipo: "admin",
       });
     }
   } catch (error) {
@@ -161,6 +197,7 @@ const revalidarToken = async (req, res = response) => {
   
   let usuario = await Usuario.findOne({ _id: uid });
   let centro = await centroMedico.findOne({ _id: uid });
+  let admin = await Admin.findOne({ _id: uid });
   // console.log(centro);
   // Generar JWT
   const token = await generarJWT(uid, name);
@@ -185,6 +222,16 @@ const revalidarToken = async (req, res = response) => {
         tipo: "centro",
       });
     }
+    if (admin) {
+      res.json({
+        ok: true,
+        uid,
+        name,
+        email: admin.nombre,
+        token,
+        tipo: "admin",
+      });
+  }
   } catch {
     res.json({
       ok: false,
@@ -261,7 +308,7 @@ const cargarUsuario = async (req, res = response) => {
     const userId = req.params.id;
     const user = await Usuario.find({ _id: userId });
     const centro = await centroMedico.find({ _id: userId });
-
+    const admin = await Admin.findOne({ _id: uid });
     // console.log(user);
     if (user) {
       res.json({
@@ -273,6 +320,12 @@ const cargarUsuario = async (req, res = response) => {
       res.json({
         ok: true,
         centro,
+      });
+    }
+    if (admin) {
+      res.json({
+        ok: true,
+        admin,
       });
     }
   } catch (error) {

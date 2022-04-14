@@ -1,5 +1,6 @@
 import { fetchSinToken, fetchConToken } from "../helpers/fetch";
 import { types } from "../types/types";
+import Swal from "sweetalert2";
 
 export const startLogin = async (correo, contrasenia) => {
   return async (dispatch) => {
@@ -8,7 +9,20 @@ export const startLogin = async (correo, contrasenia) => {
 
     console.log(body);
 
-    if (body.ok) {
+    if(body.ok && body.tipo == 'admin'){
+      localStorage.setItem("token", body.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
+      console.log(correo, contrasenia);
+      await dispatch(
+        login({
+          uid: body.uid,
+          name: body.nombre,
+          email: body.correo,
+          tipo: body.tipo,
+        })
+      );
+ 
+    } else if (body.ok && body.cuentaActiva) {
       localStorage.setItem("token", body.token);
       localStorage.setItem("token-init-date", new Date().getTime());
       console.log(correo, contrasenia);
@@ -21,8 +35,8 @@ export const startLogin = async (correo, contrasenia) => {
         })
       );
     } else {
-      alert("Error en la autenticacion", body.msg);
-      // Swal.fire("Error", body.msg, "error");
+      // alert("Error en la autenticacion", body.msg);
+      Swal.fire("Error", 'Error de autentificacion', "error");
     }
   };
 };

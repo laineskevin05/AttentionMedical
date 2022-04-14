@@ -134,7 +134,7 @@ const InicioHospital = () => {
             <h3 className="py-2 text-base font-sans text-white">
               {auth.tipo === "usuario"
                 ? infoHospital?.descripcion
-                : infoHospital?.nombre}
+                : infoHospital?.descripcion}
             </h3>
           </div>
         </div>
