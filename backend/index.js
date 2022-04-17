@@ -24,6 +24,7 @@ app.use("/api/cita", require("./routes/cita"));
 app.use("/api/config", require("./routes/config"));
 app.use("/api/hospital", require("./routes/hospital"));
 app.use("/api/admin", require("./routes/admin"));
+app.use("/api/notificacion", require("./routes/notificaciones"));
 // TODO: CRUD:
 
 // Escuchar peticiones
