@@ -4,10 +4,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { citaStartAddNew } from "../../actions/cita";
 import { starDoctorLoaded } from "../../actions/doctor";
 import { useForm } from "../../hook/useForm";
+import moment from "moment";
 
 const NuevaCita = () => {
   const navigate = useNavigate();
   const fechaActual = new Date();
+  const fechaa = moment(fechaActual).add(1, "days");
   const dispatch = useDispatch();
   const { infoHospital, idDoctor } = useParams();
 
@@ -90,7 +92,7 @@ const NuevaCita = () => {
                   value={fecha}
                   onChange={handleInputChange}
                   placeholder=""
-                  min={fechaActual.toISOString()}
+                  min={fechaa.toISOString().split("T")[0]}
                   className="px-2 w-2/3 bg-slate-100 rounded border-2 my-1"
                 />
               </div>
