@@ -93,16 +93,18 @@ export const AppRouter = () => {
             </PublicRoute>
           }
         />
-         <Route  
-        exact={`true`} 
-         path="/SobreNosotros" 
-         element={
-           <PublicRoute uid={uid}>
-             <Navbar/>
-             <SobreNosotros uid={uid}/>
-           </PublicRoute>
-         }
+        
+        <Route  
+          exact={`true`} 
+          path="/sobreNosotros"        
+          element={
+            <PublicRoute> 
+            <Navbar />
+            <SobreNosotros uid={uid} />      
+            </PublicRoute> 
+          }   
        />
+       
         <Route
           path="/cambiarcontrasenia"
           element={
