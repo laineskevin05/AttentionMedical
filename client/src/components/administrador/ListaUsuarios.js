@@ -4,34 +4,27 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { banearCuenta, startUsuariosLoaded } from "../../actions/admin";
 
 const ListaUsuarios = () => {
-    
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   let location = useLocation();
-  const { usuarios } = useSelector( state => state.admin );
+  const { usuarios } = useSelector((state) => state.admin);
 
-  
   const handleAccount = (id, estado) => {
     let cuentaActiva = null;
-    if(estado === true) {
+    if (estado === true) {
       cuentaActiva = false;
     }
-    if(estado === false) {
+    if (estado === false) {
       cuentaActiva = true;
     }
 
     const info = {
       id: id,
-      cuentaActiva: cuentaActiva
-    }
-;
+      cuentaActiva: cuentaActiva,
+    };
     dispatch(banearCuenta(info));
   };
-  useEffect(() => {
-
-  }, [dispatch])
-  
-  
+  useEffect(() => {}, [dispatch]);
 
   return (
     <div className="col-span-5 col-start-2 bg-fondo inline-block py-1 px-2">
@@ -71,11 +64,23 @@ const ListaUsuarios = () => {
               </div>
               <div className="flex justify-end w-1/6">
                 {user.cuentaActiva === true ? (
-                  <button className="bg-red-500 text-white rounded-xl p-2" onClick={() => handleAccount(user.id, user.cuentaActiva)}>
+                  <button
+                    className="bg-red-500 text-white rounded-xl p-2"
+                    onClick={() => {
+                      handleAccount(user.id, user.cuentaActiva);
+                      user.cuentaActiva = false;
+                    }}
+                  >
                     Desactivar
                   </button>
                 ) : (
-                  <button className=" bg-indigo-500 text-white rounded-xl p-2" onClick={() => handleAccount(user.id, user.cuentaActiva)}>
+                  <button
+                    className=" bg-indigo-500 text-white rounded-xl p-2"
+                    onClick={() => {
+                      handleAccount(user.id, user.cuentaActiva);
+                      user.cuentaActiva = true;
+                    }}
+                  >
                     Activar
                   </button>
                 )}

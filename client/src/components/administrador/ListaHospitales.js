@@ -4,24 +4,22 @@ import { banearCuenta } from "../../actions/admin";
 
 const ListaHospitales = () => {
   const dispatch = useDispatch();
-  
-  const { hospitales } = useSelector( state => state.admin );
 
-  
+  const { hospitales } = useSelector((state) => state.admin);
+
   const handleAccount = (id, estado) => {
     let cuentaActiva = null;
-    if(estado == true) {
+    if (estado == true) {
       cuentaActiva = false;
     }
-    if(estado == false) {
+    if (estado == false) {
       cuentaActiva = true;
     }
 
     const info = {
       id: id,
-      cuentaActiva: cuentaActiva
-    }
-;
+      cuentaActiva: cuentaActiva,
+    };
     dispatch(banearCuenta(info));
   };
 
@@ -55,13 +53,25 @@ const ListaHospitales = () => {
               </div>
               <div className="flex justify-end w-1/6">
                 {hospital.cuentaActiva === true ? (
-                  <button className="bg-red-500 text-white rounded-xl p-2" onClick={() => handleAccount(hospital.id, hospital.cuentaActiva)}>
-                  Desactivar
-                </button>
-              ) : (
-                <button className=" bg-indigo-500 text-white rounded-xl p-2" onClick={() => handleAccount(hospital.id, hospital.cuentaActiva)}>
-                  Activar
-                </button>
+                  <button
+                    className="bg-red-500 text-white rounded-xl p-2"
+                    onClick={() => {
+                      handleAccount(hospital.id, hospital.cuentaActiva);
+                      hospital.cuentaActiva = false;
+                    }}
+                  >
+                    Desactivar
+                  </button>
+                ) : (
+                  <button
+                    className=" bg-indigo-500 text-white rounded-xl p-2"
+                    onClick={() => {
+                      handleAccount(hospital.id, hospital.cuentaActiva);
+                      hospital.cuentaActiva = true;
+                    }}
+                  >
+                    Activar
+                  </button>
                 )}
               </div>
             </div>
