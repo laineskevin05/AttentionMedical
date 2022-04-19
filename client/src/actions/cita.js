@@ -26,24 +26,7 @@ export const starCitaLoaded = () => {
       const res = await fetchConToken(`cita/${uid}`);
       const body = await res.json();
       const citas = body.citas;
-      console.log(citas);
-      console.log(
-        citas.map((dato) => {
-          return {
-            id: dato.id,
-            idClinica: dato.clinica ? dato.clinica._id : "Vacio",
-            nombreClinica: dato.clinica ? dato.clinica.nombre : "Vacio",
-            idUserDoctor: dato.doctor ? dato.doctor._id : "Vacio",
-            nombreDoctor: dato.doctor ? dato.doctor.nombre : "Vacio",
-            fecha: dato.fecha,
-            hora: dato.hora,
-            estado: dato.estado,
-            descripcion: dato.descripcion,
-            user: dato.user,
-          };
-        }),
-        "citas"
-      );
+
       dispacth(
         citaLoad(
           citas.map((dato) => {
@@ -78,11 +61,13 @@ export const editCita = (cita) => {
       );
       const body = await res.json();
 
-      const citas = body.cita.id;
-      console.log(citas);
       dispacth(citaEdit(cita));
+      if (body.ok) {
+        alert("Cita actualizada correctamente");
+      }
     } catch (error) {
       console.log(error);
+      alert("La cita no se pudo actualizadar");
     }
   };
 };

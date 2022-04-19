@@ -8,6 +8,9 @@ const TabCitasProximas = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(starCitaLoaded());
+  }, []);
+  useEffect(() => {
+    dispatch(starCitaLoaded());
   }, [dispatch]);
 
   const { citas } = useSelector((state) => state.cita);

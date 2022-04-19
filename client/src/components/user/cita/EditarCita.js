@@ -1,28 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { citaStartAddNew, editCita } from "../../../actions/cita";
+import {
+  citaStartAddNew,
+  editCita,
+  starCitaLoaded,
+} from "../../../actions/cita";
 import { useForm } from "../../../hook/useForm";
 // import { Link } from "react-router-dom";
 
 const EditarCita = () => {
-  const { id, cita } = useParams();
-  console.log(cita)
+  const { id } = useParams();
+
   const navigate = useNavigate();
-  console.log(id);
+
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(starCitaLoaded());
+  }, [dispatch]);
 
-  //const state = useSelector((state) => state);
+  const { citas } = useSelector((state) => state.cita);
 
-  const [formValues, handleInputChange] = useForm({
-    clinica: cita.split(",")[0],
-    doctor: cita.split(",")[1],
-    fecha: cita.split(",")[2],
-    hora: cita.split(",")[3],
+  const cita = citas.find((cita) => cita.id === id);
+
+  const [formValues, handleInputChange, setValues] = useForm({
+    clinica: "",
+    doctor: "",
+    fecha: "",
+    hora: "",
     estado: "Activo",
-    descripcion: cita.split(",")[4],
+    descripcion: "",
     id: id,
   });
+  useEffect(() => {
+    cita !== undefined &&
+      setValues({
+        clinica: cita.idClinica,
+        doctor: cita.idUserDoctor,
+        fecha: cita.fecha,
+        hora: cita.hora,
+        estado: cita.estado,
+        descripcion: cita.descripcion,
+        id: cita.id,
+      });
+    console.log(cita, "cita");
+  }, [cita]);
+
+  // const [formValues, handleInputChange] = useForm({
+  //   clinica: cita.split(",")[0],
+  //   doctor: cita.split(",")[1],
+  //   fecha: cita.split(",")[2],
+  //   hora: cita.split(",")[3],
+  //   estado: "Activo",
+  //   descripcion: cita.split(",")[4],
+  //   id: id,
+  // });
 
   const handleEditar = (e) => {
     e.preventDefault();
@@ -53,11 +85,11 @@ const EditarCita = () => {
                 <input
                   type="text"
                   name="clinica"
-                  value={clinica}
+                  value={cita ? cita.nombreClinica : ""}
                   onChange={handleInputChange}
                   autoComplete="off"
-                  placeholder="Clinica San martin"
-                  className="px-2 w-2/3 bg-slate-100 rounded border-2 my-1"
+                  placeholder="Clinica "
+                  className="px-2 w-2/3 bg-slate-200 rounded border-2 my-1"
                 />
               </div>
             </div>
@@ -71,9 +103,9 @@ const EditarCita = () => {
                   name="doctor"
                   placeholder="Nombre"
                   autoComplete="off"
-                  value={doctor}
+                  value={cita ? cita.nombreDoctor : ""}
                   onChange={handleInputChange}
-                  className="px-2 w-2/3 bg-slate-100 rounded border-2 my-1"
+                  className="px-2 w-2/3 bg-slate-200 rounded border-2 my-1"
                 />
               </div>
             </div>

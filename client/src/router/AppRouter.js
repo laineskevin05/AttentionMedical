@@ -25,8 +25,7 @@ import InicioHospital from "../components/hospital/InicioHospital";
 import NuevoDoctor from "../components/hospital/NuevoDoctor";
 import InicioAdministrador from "../components/administrador/InicioAdministrador";
 import LoginAdmistrador from "../components/administrador/LoginAdministrador";
-import SobreNosotros from "../components/ui/SobreNosotros"
-
+import SobreNosotros from "../components/ui/SobreNosotros";
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -38,7 +37,7 @@ export const AppRouter = () => {
   }, [dispatch]);
 
   if (checking) {
-    return <h5>Espere...</h5>;
+    return <h5>Cargando...</h5>;
   }
   return (
     <BrowserRouter>
@@ -93,18 +92,18 @@ export const AppRouter = () => {
             </PublicRoute>
           }
         />
-        
-        <Route  
-          exact={`true`} 
-          path="/sobreNosotros"        
+
+        <Route
+          exact={`true`}
+          path="/sobreNosotros"
           element={
-            <PublicRoute> 
-            <Navbar />
-            <SobreNosotros uid={uid} />      
-            </PublicRoute> 
-          }   
-       />
-       
+            <PublicRoute>
+              <Navbar />
+              <SobreNosotros uid={uid} />
+            </PublicRoute>
+          }
+        />
+
         <Route
           path="/cambiarcontrasenia"
           element={
