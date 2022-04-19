@@ -9,23 +9,22 @@ const crearCita = async (req, res = response) => {
   try {
     cita.user = req.uid;
     const citaGuardada = await cita.save();
-    
-    if(cita.user){
-      let doctor = await Usuario.find({ _id: cita.doctor })
-      let usuario = await Usuario.find({_id: cita.user })
+
+    if (cita.user) {
+      let doctor = await Usuario.find({ _id: cita.doctor });
+      let usuario = await Usuario.find({ _id: cita.user });
       const mensaje = `El usuario: ${usuario[0].nombre}, ha realizado una cita con el doctor: ${doctor[0].nombre}`;
       const fecha = new Date().toString();
-      
+
       const nuevaNotificacion = {
         usuario: cita.doctor,
         mensaje,
-        fecha
-      }
+        fecha,
+      };
 
       const guardaNotificacion = new Notificacion(nuevaNotificacion);
       await guardaNotificacion.save();
-      
-    };
+    }
     res.status(201).json({
       ok: true,
       cita: citaGuardada,
@@ -41,12 +40,12 @@ const crearCita = async (req, res = response) => {
 
 const getCitas = async (req, res = response) => {
   const userId = req.params.id;
-  
+
   const citasUsuario = await Cita.find({ user: userId }).populate(
     "clinica doctor",
     "_id nombre "
   );
-  
+
   const citasdoctor = await Cita.find({ doctor: userId }).populate(
     "clinica doctor",
     "_id nombre "
@@ -54,7 +53,7 @@ const getCitas = async (req, res = response) => {
 
   res.status(201).json({
     ok: true,
-    citas: [...citasUsuario, ...citasdoctor]
+    citas: [...citasUsuario, ...citasdoctor],
   });
 };
 
@@ -63,8 +62,10 @@ const actualizarCita = async (req, res = response) => {
 
   const uid = req.uid;
 
+  console.log(uid, "uid");
+
   try {
-    const cita = await Cita.findById(CitaId)
+    const cita = await Cita.findById(CitaId);
     if (!cita) {
       return res.status(404).json({
         ok: false,
@@ -87,55 +88,40 @@ const actualizarCita = async (req, res = response) => {
     const citaActualizado = await Cita.findByIdAndUpdate(CitaId, nuevoCIta, {
       new: true,
     });
+
     //poner funciones tanto para usuarios y doctores que pueden modificar una cita
-    if(cita.user===uid){
-      let doctor = await Usuario.find({ _id: cita.doctor })
-      let usuario = await Usuario.find({_id: cita.user })
+
+    if (cita.user.toString() === uid) {
+      let doctor = await Usuario.find({ _id: cita.doctor });
+      let usuario = await Usuario.find({ _id: cita.user });
       const mensaje = `El usuario: ${usuario[0].nombre}, ha realizado una modificacion en la cita, con el doctor: ${doctor[0].nombre}`;
       const fecha = new Date().toString();
-      
+
       const nuevaNotificacion = {
         usuario: cita.doctor,
         mensaje,
-        fecha
-      }
+        fecha,
+      };
 
       const guardaNotificacion = new Notificacion(nuevaNotificacion);
       await guardaNotificacion.save();
-      
-    };
+    }
 
-    if(cita.doctor===uid){
-      let doctor = await Usuario.find({ _id: cita.doctor })
-      let hospital = await Hospital.find({_id: cita.hospital })
+    if (cita.doctor.toString() === uid) {
+      let doctor = await Usuario.find({ _id: cita.doctor });
+      let hospital = await Hospital.find({ _id: cita.hospital });
       const mensaje = `El doctor: ${doctor[0].nombre}, ha realizado una modificacion en tu cita de Clinica/Hospital ${hospital[0].nombre}`;
       const fecha = new Date().toString();
-      
+
       const nuevaNotificacion = {
         usuario: cita.user,
         mensaje,
-        fecha
-      }
+        fecha,
+      };
 
       const guardaNotificacion = new Notificacion(nuevaNotificacion);
       await guardaNotificacion.save();
-    };
-
-    if(cita.user===uid){
-      let doctor = await Usuario.find({ _id: cita.doctor });
-      let usuario = await Usuario.find({_id: cita.user });
-      const mensaje = `El usuario: ${usuario[0].nombre}, ha realizado una modificacion de su cita, con el doctor ${doctor[0].nombre}`;
-      const fecha = new Date().toString();
-      
-      const nuevaNotificacion = {
-        usuario: cita.doctor,
-        mensaje,
-        fecha
-      }
-
-      const guardaNotificacion = new Notificacion(nuevaNotificacion);
-      await guardaNotificacion.save();
-    };
+    }
 
     res.json({
       ok: true,
