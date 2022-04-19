@@ -15,10 +15,6 @@ const Perfil = () => {
 
   const { user } = useSelector( state => state.profile );
   
-  useEffect(() => {  
-    dispatch( startLoadProfile() );
-  }, [])
-  
   return (
     <>
       {user.map( dato => {

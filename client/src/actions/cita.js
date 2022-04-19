@@ -9,9 +9,6 @@ export const citaStartAddNew = (cita) => {
       const body = await resp.json();
       console.log(body);
       if (body.ok) {
-        cita.id = body.cita.id;
-        cita.user = uid;
-        dispacth(citaAddNew(cita));
         alert("Cita agregada correctamente");
       }
     } catch (error) {
@@ -116,11 +113,6 @@ export const citaStartCanceled = (cita) => {
 
 const citaCanceled = (cita) => ({
   type: types.citaCanceled,
-  payload: cita,
-});
-
-const citaAddNew = (cita) => ({
-  type: types.citaAddNew,
   payload: cita,
 });
 

@@ -10,10 +10,9 @@ const crearCita = async (req, res = response) => {
     cita.user = req.uid;
     const citaGuardada = await cita.save();
     
-
     if(cita.user){
-      const doctor = await Usuario.find({ _id: cita.doctor })
-      const usuario = await Usuario.find({_id: cita.user })
+      let doctor = await Usuario.find({ _id: cita.doctor })
+      let usuario = await Usuario.find({_id: cita.user })
       const mensaje = `El usuario: ${usuario[0].nombre}, ha realizado una cita con el doctor: ${doctor[0].nombre}`;
       const fecha = new Date().toString();
       
@@ -42,14 +41,20 @@ const crearCita = async (req, res = response) => {
 
 const getCitas = async (req, res = response) => {
   const userId = req.params.id;
-  const citas = await Cita.find({ user: userId }).populate(
+  
+  const citasUsuario = await Cita.find({ user: userId }).populate(
+    "clinica doctor",
+    "_id nombre "
+  );
+  
+  const citasdoctor = await Cita.find({ doctor: userId }).populate(
     "clinica doctor",
     "_id nombre "
   );
 
   res.status(201).json({
     ok: true,
-    citas,
+    citas: [...citasUsuario, ...citasdoctor]
   });
 };
 
@@ -59,7 +64,7 @@ const actualizarCita = async (req, res = response) => {
   const uid = req.uid;
 
   try {
-    const cita = await Cita.findById(CitaId);
+    const cita = await Cita.findById(CitaId)
     if (!cita) {
       return res.status(404).json({
         ok: false,
@@ -84,8 +89,8 @@ const actualizarCita = async (req, res = response) => {
     });
     //poner funciones tanto para usuarios y doctores que pueden modificar una cita
     if(cita.user===uid){
-      const doctor = await Usuario.find({ _id: cita.doctor })
-      const usuario = await Usuario.find({_id: cita.user })
+      let doctor = await Usuario.find({ _id: cita.doctor })
+      let usuario = await Usuario.find({_id: cita.user })
       const mensaje = `El usuario: ${usuario[0].nombre}, ha realizado una modificacion en la cita, con el doctor: ${doctor[0].nombre}`;
       const fecha = new Date().toString();
       
@@ -101,8 +106,8 @@ const actualizarCita = async (req, res = response) => {
     };
 
     if(cita.doctor===uid){
-      const doctor = await Usuario.find({ _id: cita.doctor })
-      const hospital = await Hospital.find({_id: cita.hospital })
+      let doctor = await Usuario.find({ _id: cita.doctor })
+      let hospital = await Hospital.find({_id: cita.hospital })
       const mensaje = `El doctor: ${doctor[0].nombre}, ha realizado una modificacion en tu cita de Clinica/Hospital ${hospital[0].nombre}`;
       const fecha = new Date().toString();
       
@@ -117,8 +122,8 @@ const actualizarCita = async (req, res = response) => {
     };
 
     if(cita.user===uid){
-      const doctor = await Usuario.find({ _id: cita.doctor });
-      const usuario = await Usuario.find({_id: cita.user });
+      let doctor = await Usuario.find({ _id: cita.doctor });
+      let usuario = await Usuario.find({_id: cita.user });
       const mensaje = `El usuario: ${usuario[0].nombre}, ha realizado una modificacion de su cita, con el doctor ${doctor[0].nombre}`;
       const fecha = new Date().toString();
       

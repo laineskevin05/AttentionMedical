@@ -16,11 +16,6 @@ const MenuUsuarioDerecho = () => {
 
   const { notificaciones } = useSelector((state) => state.notificaciones);
 
-  const notificacionesOrdenadas = notificaciones.sort(
-    (a, b) => new Date(a.fecha).getTime() < new Date(b.fecha).getTime()
-  );
-  // console.log(notificacionesOrdenadas, "notificacionesOrdenadas");
-
   return (
     <div className="bg-menu w-1/5 border border-gray-800 inline-flex">
       <Menu
@@ -37,12 +32,12 @@ const MenuUsuarioDerecho = () => {
           <List
             size="large"
             bordered
-            dataSource={notificacionesOrdenadas}
+            dataSource={notificaciones}
             renderItem={(item) => (
               <List.Item>
                 {
                   <div>
-                    <b>{Date(item.fecha)}</b> : {item.mensaje}
+                    <b>{item.fecha}</b> : {item.mensaje}
                   </div>
                 }
               </List.Item>

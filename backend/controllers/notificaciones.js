@@ -7,7 +7,7 @@ const getNotificaciones = async (req, res = response) => {
     usuario: userId,
   });
   try {
-    console.log(notificacion, "notificaciones");
+    //console.log(notificacion, "notificaciones");
     res.status(201).json({
       ok: true,
       notificacion: notificacion,

@@ -7,6 +7,7 @@ import { useForm } from "../../../hook/useForm";
 
 const EditarCita = () => {
   const { id, cita } = useParams();
+  console.log(cita)
   const navigate = useNavigate();
   console.log(id);
   const dispatch = useDispatch();

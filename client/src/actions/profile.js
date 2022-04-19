@@ -7,6 +7,7 @@ export const startLoadProfile = () => {
       const { uid } = getState().auth;
       const res = await fetchConToken(`auth/perfil/${uid}`);
       const body = await res.json();
+      console.log(body);
       const perfil = body.user;
       dispatch(loadProfile(Object.values(perfil)));
     } catch (error) {}

@@ -23,7 +23,6 @@ export const types = {
   configCambioDepartamentosHospital:
     "[config] Cambio de departamentos del hospital",
 
-  citaAddNew: "[cita] Add New",
   citaLoaded: "[cita] cita Loaded",
   citaCanceled: "[cita] cita Cancelada",
   citaEdit: "[cita] cita Editada",
