@@ -139,12 +139,11 @@ const cargaDepartamentosHospital = async (req, res = response) => {
 
 const actualizarPerfil = async (req, res = response) => {
   const userId = req.params.id;
-  console.log(userId);
+
   const uid = req.uid;
 
   try {
     const user = await Usuario.findById(userId);
-    console.log(user);
 
     if (!user) {
       return res.status(404).json({

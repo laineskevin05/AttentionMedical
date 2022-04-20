@@ -155,6 +155,11 @@ const LoginPage = () => {
                   Registro centro medico
                 </Link>
               </div>
+              <div className="text-sm font-bold text-gray-700">                 
+                <Link exact={`true`} to="/admin/login">                   
+                  Sesion Admin                 
+                </Link>               
+              </div>
             </div>
           </div>
         </div>

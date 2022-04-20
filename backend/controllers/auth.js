@@ -248,7 +248,6 @@ const cargarUsuario = async (req, res = response) => {
   console.log(userId);
   try {
     let user = await Usuario.find({ _id: userId });
-    let centro = await centroMedico.find({ _id: userId });
 
     if (user) {
       res.json({
@@ -256,12 +255,7 @@ const cargarUsuario = async (req, res = response) => {
         user
       });
     }
-    if (centro) {
-      res.json({
-        ok: true,
-        centro,
-      });
-    }
+  
   } catch (error) {
     res.json({
       ok: false,
