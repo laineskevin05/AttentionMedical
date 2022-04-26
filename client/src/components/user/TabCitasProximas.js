@@ -34,13 +34,12 @@ const TabCitasProximas = () => {
       estado: "Cancelado",
     };
     dispatch(citaStartCanceled(canceled));
-    console.log(canceled);
   };
 
   const citasActivas = citas.filter((cita) => {
     return cita.estado === "Activo";
   });
-
+  console.log(citasActivas);
   return (
     <>
       {citasActivas.map((cita) => {

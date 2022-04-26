@@ -9,6 +9,7 @@ import { hospitalReducer } from "./hospitalReducer";
 import { hospitalActReducer } from "./hospitalActReducer";
 import { adminReducer } from "./adminReducer";
 import { notificacionesReducer } from "./notificacionesReducers";
+import { mensajeReducer } from "./mensajeReducer";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -20,4 +21,5 @@ export const rootReducer = combineReducers({
   hospitalAct: hospitalActReducer,
   admin: adminReducer,
   notificaciones: notificacionesReducer,
+  mensaje: mensajeReducer
 });

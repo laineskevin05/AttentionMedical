@@ -1,10 +1,18 @@
 // Componente de react para el chat
-import React from "react";
+import React, { useEffect } from "react";
 import "react-chat-elements/dist/main.css";
+import { useDispatch, useSelector } from "react-redux";
 // MessageBox component
 import { ChatItem } from "react-chat-elements";
+import { showEnviarLoad, showRecibirLoad} from "../../actions/mensaje";
 
 const ChatComponent = () => {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+   dispatch(showEnviarLoad());
+   dispatch(showRecibirLoad());
+  },[dispatch])
+  const {enviar} = useSelector((state)=>state.mensaje);
   return (
     <div className="w-full flex">
       <div className="w-1/3 h-[75vh]">
@@ -14,17 +22,6 @@ const ChatComponent = () => {
           }
           alt={"Reactjs"}
           title={"Emma"}
-          subtitle={"Puto"}
-          date={new Date()}
-          unread={0}
-        />
-        <ChatItem
-          avatar={
-            "https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083383__340.jpg"
-          }
-          alt={"Reactjs"}
-          title={"Jose"}
-          subtitle={"Hello"}
           date={new Date()}
           unread={0}
         />
@@ -53,7 +50,7 @@ const ChatComponent = () => {
                       <div className="flex items-end justify-end">
                         <div className="flex flex-col space-y-2 text-sm max-w-xs mx-2 order-1 items-end">
                           <div className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">
-                            <span>Hello</span>
+                            <span>Hello diablo</span>
                           </div>
                         </div>
                       </div>

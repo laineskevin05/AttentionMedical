@@ -48,4 +48,7 @@ export const types = {
   hospitalUnbaned: "[admin] hospital desbaneado",
 
   notifacionesLoad: "[notificacion] notifacionesLoad Loaded",
+
+  enviarLoad: "[mensaje] enviar mensaje Loaded",
+  recibirLoad: "[mensjae] recibir mensaje Loaded "
 };
