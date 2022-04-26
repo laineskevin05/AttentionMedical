@@ -26,6 +26,7 @@ import NuevoDoctor from "../components/hospital/NuevoDoctor";
 import InicioAdministrador from "../components/administrador/InicioAdministrador";
 import LoginAdmistrador from "../components/administrador/LoginAdministrador";
 import SobreNosotros from "../components/ui/SobreNosotros";
+import ChatComponent from "../components/ui/ChatComponent";
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -110,6 +111,15 @@ export const AppRouter = () => {
             <PrivateRoute uid={uid}>
               <Navbar />
               <CambioContrasenia uid />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mensajes"
+          element={
+            <PrivateRoute uid={uid}>
+              <Navbar />
+              <ChatComponent />
             </PrivateRoute>
           }
         />

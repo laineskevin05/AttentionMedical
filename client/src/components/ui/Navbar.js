@@ -306,42 +306,24 @@ const Navbar = () => {
             </li>
             {typeof uid === "string" && uid && (
               <li>
-                <p
-                  href="#"
+                <Link
+                  to="/mensajes"
                   className="block py-2 pr-4 pl-3 text-white  border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Mensajes
-                </p>
+                </Link>
               </li>
             )}
 
             <li>
-                <div className="block py-2 pr-4 pl-3 text-white  border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                  <Link exact={`true`} to="/SobreNosotros">
-                    <button> sobre nosotros </button>
-                  </Link>
-                </div>
+              <div className="block py-2 pr-4 pl-3 text-white  border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                <Link exact={`true`} to="/SobreNosotros">
+                  <button> sobre nosotros </button>
+                </Link>
+              </div>
             </li>
-
           </ul>
         </div>
-        {/* <div
-          className="hidden justify-between items-end w-full md:flex md:w-auto md:order-3"
-          id="mobile-menu-3"
-        >
-          <ul className="flex flex-col mt-4 md:flex-row md:space-x-2 md:mt-0 md:text-sm md:font-medium">
-            {typeof uid === "string" && uid && (
-              <li>
-                <p
-                  href="#"
-                  className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Mensajes
-                </p>
-              </li>
-            )}
-          </ul>
-        </div> */}
       </div>
     </nav>
   );
