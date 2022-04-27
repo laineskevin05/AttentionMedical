@@ -49,5 +49,7 @@ export const types = {
 
   notifacionesLoad: "[notificacion] notifacionesLoad Loaded",
 
-  mensajeLoad: "[mensaje] mostrar mensaje Loaded"
+  mensajeLoad: "[mensaje] mostrar mensaje Loaded",
+  mensajeRedload: "[mensaje] reload mostrar mensaje",
+  listMensajeLoad: "[mensaje] load lista de chats",
 };

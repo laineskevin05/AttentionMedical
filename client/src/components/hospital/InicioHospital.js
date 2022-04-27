@@ -10,6 +10,7 @@ import svgSimbolSum from "../../assets/images/svgSimbolSum.svg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { limpiarDoctores, starDoctorLoaded } from "../../actions/doctor";
 import { hospitalSearchStar } from "../../actions/hospital";
+import { createListMesaje } from "../../actions/mensaje";
 
 const InicioHospital = () => {
   const dispatch = useDispatch();
@@ -254,6 +255,17 @@ const InicioHospital = () => {
                     </div>
                   </div>
                   <div className="flex justify-end w-1/6">
+                    <button
+                      className="bg-white rounded-md py-1 px-3 mx-2"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        dispatch(createListMesaje(doctor.user._id));
+                        navigate("/mensajes");
+                      }}
+                    >
+                      Mensaje
+                    </button>
+
                     {auth.tipo === "usuario" ? (
                       <button className="">
                         <Link
