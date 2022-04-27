@@ -35,7 +35,7 @@ export const UserInicio = () => {
 
   return (
     <>
-      <div className="w-3/5 inline-block bg-fondo">
+      <div className="w-3/5 inline-block bg-fondo ">
         {/*bg-gray-50*/}
         {/*  */}
         <ul className="grid grid-flow-col relative shadow-neutral-400 shadow border-b border-x border-slate-900 text-center text-white bg-tab rounded-b-md border-solid p-1">
@@ -69,7 +69,7 @@ export const UserInicio = () => {
           <li></li>
           <li></li>
         </ul>
-        <div className="grid gap-8  grid-cols-2  p-2 pt-8 content-start">
+        <div className="grid gap-8  grid-cols-2  p-2 pt-8 content-start ">
           {/* Solo esta tarjeta se debe de dejar, los dos div de arriba son contenedores */}
 
           {page1 && <TabCitasProximas />}
