@@ -39,7 +39,7 @@ const MenuUsuarioIzquierdo = () => {
           key="sub1"
           // icon={<NotificationOutlined />}
           title="Eventos"
-          className="h-[80vh] overflow-y-auto overflow-x-hidden"
+          className="h-[90vh] overflow-y-auto overflow-x-hidden"
         >
           <List
             size="large"

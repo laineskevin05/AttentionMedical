@@ -15,9 +15,12 @@ const MenuUsuarioDerecho = () => {
   }, [dispatch]);
 
   const { notificaciones } = useSelector((state) => state.notificaciones);
+  const notificacionesOrdenadas = notificaciones.sort((a, b) => {
+    return new Date(a.fecha) > new Date(b.fecha);
+  });
 
   return (
-    <div className="bg-menu w-1/5 border border-gray-800 inline-flex">
+    <div className="bg-menu w-1/5 inline-flex border border-gray-800 ">
       <Menu
         className="w-full"
         defaultSelectedKeys={["1"]}
@@ -28,16 +31,18 @@ const MenuUsuarioDerecho = () => {
           key="sub1"
           icon={<NotificationOutlined />}
           title="Notificiaciones"
+          className="h-[90vh] overflow-y-auto overflow-x-hidden"
         >
           <List
             size="large"
             bordered
-            dataSource={notificaciones}
+            dataSource={notificacionesOrdenadas}
             renderItem={(item) => (
               <List.Item>
                 {
                   <div>
-                    <b>{item.fecha}</b> : {item.mensaje}
+                    <b>{moment(item.fecha, "YYYYMMDD").fromNow()}</b> :{" "}
+                    {item.mensaje}
                   </div>
                 }
               </List.Item>

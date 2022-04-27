@@ -69,7 +69,7 @@ export const UserInicio = () => {
           <li></li>
           <li></li>
         </ul>
-        <div className="grid gap-8  grid-cols-2  p-2 pt-8 content-start ">
+        <div className="grid gap-8  grid-cols-2  p-2 pt-8 content-start h-[90vh] overflow-y-auto overflow-x-hidden">
           {/* Solo esta tarjeta se debe de dejar, los dos div de arriba son contenedores */}
 
           {page1 && <TabCitasProximas />}
