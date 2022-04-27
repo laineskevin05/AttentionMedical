@@ -4,7 +4,7 @@ const Mensajeria = require("../models/Mensajes");
 const enviarMensaje = async (req, res = response) => {
   const mensaje = new Mensajeria(req.body);
   try {
-    mensaje.fecha = new Date().toString();
+    mensaje.fecha = new Date().toJSON();
     const mensajeGuardada = await mensaje.save();
 
     res.status(201).json({
@@ -20,24 +20,14 @@ const enviarMensaje = async (req, res = response) => {
   }
 };
 
-const getEnviarMensaje = async (req, res = response) => {
-    const emisorId = req.params.id;
+const getMensaje = async (req, res = response) => {
+    const usuarioId = req.params.id;
   
-    const mensajeEmisor = await Mensajeria.find({$or: [{ emisor: emisorId}, {receptor: emisorId}]}).populate("receptor emisor", "_id nombre");
+    const mensaje = await Mensajeria.find({$or: [{ "emisor": usuarioId}, {"receptor": usuarioId}]}).populate("receptor emisor", "_id nombre");
     res.status(201).json({
         ok: true,
-        Enviarmensaje: mensajeEmisor
+        Enviarmensaje: mensaje
       });
 };
 
-const getRecibirMensaje = async (req, res = response) => {
-  const receptorId = req.params.id;
-
-  const mensajeReceptor = await Mensajeria.find({ receptor: receptorId }).populate("receptor emisor", "_id nombre");
-  res.status(201).json({
-      ok: true,
-      Recibirmensaje: mensajeReceptor
-    });
-};
-
-module.exports = {enviarMensaje, getEnviarMensaje, getRecibirMensaje}
+module.exports = {enviarMensaje, getMensaje}

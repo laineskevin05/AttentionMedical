@@ -4,13 +4,12 @@ import "react-chat-elements/dist/main.css";
 import { useDispatch, useSelector } from "react-redux";
 // MessageBox component
 import { ChatItem } from "react-chat-elements";
-import { showEnviarLoad, showRecibirLoad} from "../../actions/mensaje";
+import {showMensajeLoad} from "../../actions/mensaje";
 
 const ChatComponent = () => {
   const dispatch = useDispatch();
   useEffect(()=>{
-   dispatch(showEnviarLoad());
-   dispatch(showRecibirLoad());
+   dispatch(showMensajeLoad());
   },[dispatch])
   const {enviar} = useSelector((state)=>state.mensaje);
   return (

@@ -49,6 +49,5 @@ export const types = {
 
   notifacionesLoad: "[notificacion] notifacionesLoad Loaded",
 
-  enviarLoad: "[mensaje] enviar mensaje Loaded",
-  recibirLoad: "[mensjae] recibir mensaje Loaded "
+  mensajeLoad: "[mensaje] mostrar mensaje Loaded"
 };
