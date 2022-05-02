@@ -76,8 +76,8 @@ export const UserInicio = () => {
           {/* {page1 && <TabCitasProximas />}
           {page1 && <TabCitasProximas />}
           {page1 && <TabCitasProximas />} */}
+          {page2 && <TabCitasHistorial />}
         </div>
-        {page2 && <TabCitasHistorial />}
       </div>
     </>
   );

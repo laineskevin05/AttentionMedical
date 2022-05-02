@@ -16,7 +16,7 @@ const TabCitasHistorial = () => {
   // });
 
   return (
-    <div className="flex w-full px-4 ">
+    <div className="col-span-2 w-full px-4 ">
       <table className="table w-full border-2 border-zinc-400 ">
         <thead>
           <tr className="text-left bg-blue-100 border-2 border-zinc-400 ">
